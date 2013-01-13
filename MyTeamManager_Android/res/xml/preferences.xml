@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory 
+        android:title="@string/settings_title_facebook"
+        android:key="facebook">
+        
+        <CheckBoxPreference 
+            android:key="FACEBOOK_ACTIVATION"
+            android:summary="@string/settings_facebook_activation_summary"
+            android:title="@string/settings_facebook_activation_label" 
+            android:defaultValue="false"
+        />
+        
+            
+    </PreferenceCategory>
+
+</PreferenceScreen>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	style="@style/MyTeamManagerListAdapter"
+    android:orientation="horizontal"
+    >
+
+    <TextView
+        android:id="@+id/playerTextView"
+        android:layout_width="0dip"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:layout_weight="1" 
+        android:layout_marginLeft="5dp"/>
+
+    <Spinner
+        android:id="@+id/goalSpinner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:entries="@array/goals"
+        android:layout_marginRight="5dp"
+         />
+
+</LinearLayout>

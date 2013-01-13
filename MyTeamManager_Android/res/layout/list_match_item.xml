@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	style="@style/MyTeamManagerListAdapter"
+    android:orientation="vertical" >
+    
+   <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal" >
+
+    <TextView
+        android:id="@+id/team1TextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="4dip"
+        android:textColor="#555555"
+        android:textSize="16dp"
+        android:textStyle="bold" />
+    
+        <TextView
+        android:id="@+id/separatorTextView"
+        android:layout_toRightOf="@+id/team1TextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="4dip"
+        android:textColor="#555555"
+        android:textSize="16dp"
+        android:textStyle="bold" 
+        android:text=" - "/>
+    
+    <TextView
+        android:id="@+id/team2TextView"
+        android:layout_toRightOf="@+id/separatorTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="4dip"
+        android:textColor="#555555"
+        android:textSize="16dp"
+        android:textStyle="bold" />
+    
+        <TextView
+        android:id="@+id/resultTextView"
+        android:layout_toRightOf="@+id/team2TextView"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:padding="4dip"
+        android:textColor="#555555"
+        android:textSize="16dp"
+        android:textStyle="bold" 
+        android:gravity="right"/>
+    </RelativeLayout>
+	
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal" >
+    
+        	   <TextView
+	        android:id="@+id/matchDateLabel"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:padding="4dip"
+	        android:textColor="#555555"
+	        android:textSize="14dp"
+	        
+	          />
+	    
+	    <TextView
+	        android:id="@+id/matchTimeLabel"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:padding="4dip"
+	        android:textColor="#555555"
+	        android:textSize="14dp"
+	        />
+
+    </LinearLayout>
+
+</LinearLayout>

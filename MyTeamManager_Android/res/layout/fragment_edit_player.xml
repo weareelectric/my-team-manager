@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+
+    <EditText
+        android:id="@+id/editTextPlayerLastName"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="5dp"
+        android:hint="@string/last_name"
+        android:inputType="textCapWords" />
+
+    <EditText
+        android:id="@+id/editTextPlayerName"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="5dp"
+        android:hint="@string/name"
+        android:inputType="textCapWords" />
+
+    <Spinner
+        android:id="@+id/spinnerPosition"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="5dp"
+        android:entries="@array/positions" />
+
+    <Spinner
+        android:id="@+id/spinnerShirtNumbers"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="5dp"
+         />
+
+    <EditText
+        android:id="@+id/editTextMainEmail"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/email_optional"
+        android:inputType="textEmailAddress"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="5dp"
+         >
+    </EditText>
+
+
+    <EditText
+        android:id="@+id/editTextMainPhone"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/phone_optional"
+        android:inputType="phone"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="5dp"
+        />
+    
+        <CheckBox
+        android:id="@+id/checkboxBirthDate"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="10dp"
+        android:text="@string/birth_date_label" />
+    
+    
+
+    <com.myteammanager.ui.views.DatePickerEasy
+        android:id="@+id/datePickerBirthDate"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/birth_date_label_optional"
+        android:inputType="date"
+        android:visibility="gone"
+        />    
+</LinearLayout>

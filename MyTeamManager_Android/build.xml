@@ -1,0 +1,131 @@
+<project name="MyTeamManager" default="packageDebug" xmlns:ivy="antlib:org.apache.ivy.ant">
+
+	<taskdef resource="net/sf/antcontrib/antcontrib.properties"/>
+	<taskdef name="crypter" classname="za.co.massdosage.ant.Crypter"/>
+
+	<!-- The local.properties file is created and updated by the 'android' tool.
+         It contains the path to the SDK. It should *NOT* be checked into
+         Version Control Systems. -->
+	<property file="local.properties" />
+
+	<loadproperties srcFile="project.properties" />
+	
+	
+	<import file="ant-import-library.xml"/>
+
+	<!-- quick check on sdk.dir -->
+	<fail
+            message="sdk.dir is missing. Make sure to generate local.properties using 'android update project' or to inject it through an env var"
+            unless="sdk.dir"
+    />
+
+	<import file="${sdk.dir}/tools/ant/build.xml" />
+
+
+	<target name="start.emulator">
+		<exec executable="emulator">
+			<arg value="-avd"/>
+			<arg value="${emulator.avd}"/>
+		</exec>
+	</target>
+
+
+
+	<target name="installApp"  >
+		<exec executable="adb">
+			<arg value="install"/>
+			<arg value="${apk.debug.path}"/>
+		</exec>
+	</target>
+
+	<target name="updateApp"  >
+		<exec executable="adb">
+			<arg value="install"/>
+			<arg value="-r"/>
+			<arg value="${apk.debug.path}"/>
+		</exec>
+	</target>
+
+	<target name="uninstallApp">
+		<exec executable="adb">
+			<arg value="uninstall"/>
+			<arg value="${application.package}"/>
+		</exec>
+	</target>
+
+	<target name="run" depends="updateApp">
+		<exec executable="adb">
+			<arg value="shell"/>
+			<arg value="am"/>
+			<arg value="start"/>
+			<arg value="-a"/>
+			<arg value="android.intent.action.MAIN"/>
+			<arg value="-n"/>
+			<arg value="${application.package}/${application.launchActivity}"/>
+		</exec>
+	</target>
+
+	<target name="resolve" description="--> retrieve dependencies with ivy">
+		<ivy:retrieve pattern="lib/[organisation]/[artifact]-[revision].[ext]" />
+	</target>
+
+
+	<target name="packageDebug" depends="clean, resolve, managedependecies, debug">
+	</target>
+	
+	<property name="signingPropertiesFile" value="signing/signing.properties"/>
+	<property name="keyLocation" value="signing/myteammanager.ser"/>
+	<property name="encryptSigningPropertiesFile" value="signing/encrypted_signing.properties"/>
+	
+	<target name="sign" depends="delete signed package">
+		<loadproperties srcFile="signing/signing.properties" />
+		<delete file="signing/signing.properties" />
+		
+	    <signjar
+            jar="${unsignedpackage}"
+            signedjar="${signedpackage}"
+            keystore="${key.store}"
+            storepass="${key.store.password}"
+            alias="${key.alias}"
+            keypass="${key.alias.password}"
+             />
+	    
+		
+	</target>
+	
+	<target name="delete signed package">
+		<delete file="${signedpackage}" />
+	</target>
+	
+	<target name="zipaling package" depends="sign">
+		<exec executable="zipalign">
+					<arg value="-v"/>
+					<arg value="-f"/>
+					<arg value="4"/>
+					<arg value="${signedpackage}"/>
+					<arg value="${signedAndAlignedPackage}"/>
+				</exec>
+	</target>
+
+	<target name = "sign and zipalign" depends="decrypt properties file, zipaling package" />
+	
+	<target name="updateAppSignAndAligned" depends="sign and zipalign"  >
+		<exec executable="adb">
+			<arg value="install"/>
+			<arg value="-r"/>
+			<arg value="${signedAndAlignedPackage}"/>
+		</exec>
+	</target>
+	
+	<target name="create key" >
+		<crypter keyFile="${keyLocation}" generateKey="true" keyAlgorithm="DES"/>
+	</target>
+	
+	<target name="encrypt properties file">
+		<crypter encrypt="true" keyFile="${keyLocation}" inputFile="${signingPropertiesFile}" outputFile="${encryptSigningPropertiesFile}" cipherTransformation="DES" />
+	</target>
+	
+	<target name="decrypt properties file">
+		<crypter encrypt="false" keyFile="${keyLocation}" inputFile="${encryptSigningPropertiesFile}" outputFile="${signingPropertiesFile}" cipherTransformation="DES" />
+	</target>
+</project>

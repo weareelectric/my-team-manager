@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+
+    <!-- <com.myteammanager.ui.views.SoccerPitchView android:layout_height="fill_parent" android:layout_width="fill_parent"/> -->
+
+    <ImageView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/imageField"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:src="@drawable/field"
+        />
+
+    <RelativeLayout android:layout_width="fill_parent"
+    android:layout_height="fill_parent" android:id="@+id/playersLayout" >
+        
+    </RelativeLayout>
+
+</FrameLayout>

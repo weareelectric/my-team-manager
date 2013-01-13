@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+    
+
+    <EditText
+        android:id="@+id/textFieldOpponent"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="10dp"
+        android:hint="@string/label_opponent"
+        android:inputType="textCapWords" >
+    </EditText>
+
+    <Spinner
+        android:id="@+id/spinnerHomeAway"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="10dp"
+        android:entries="@array/array_home_away" />
+
+    <EditText
+        android:id="@+id/datePickerMatchDate"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="10dp"
+        android:focusableInTouchMode="false"
+        android:hint="@string/label_date_optional" />
+
+    <EditText
+        android:id="@+id/timePickerMatchTime"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="10dp"
+        android:focusableInTouchMode="false"
+        android:hint="@string/label_time_optional" />
+
+    <EditText
+        android:id="@+id/textFieldLocation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="10dp"
+        android:hint="@string/label_location"
+        android:background="@android:drawable/btn_default"
+        android:visibility="gone" >
+    </EditText>
+
+    <EditText
+        android:id="@+id/textFieldNote"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="10dp"
+        android:gravity="top"
+        android:hint="@string/label_note_optional"
+        android:inputType="textMultiLine"
+        android:lines="4" >
+    </EditText>
+    
+    <!--
+      <CheckBox
+    android:id="@+id/checkBoxCanceled"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="5dp"
+    android:layout_marginRight="5dp"
+    android:layout_marginTop="10dp"
+    android:text="@string/label_match_canceled"/> -->
+
+</LinearLayout>

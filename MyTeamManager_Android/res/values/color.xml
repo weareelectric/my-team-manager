@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <drawable name="opaque_back">#29000000</drawable>
+
+    <color name="NiceButtonStartColor">#FFFFFF</color>
+    <color name="NiceButtonEndColor">#EDEDED</color>
+    <color name="NiceButtonDisabledStartColor">#FFFFFF</color>
+    <color name="NiceButtonDisabledEndColor">#EDFFED</color>
+    <color name="NiceButtonBorderColor">#E0DFDC</color>
+    
+    <color name="HomePageComingEvents">#EFEFEF</color>
+    <color name="HomePageLine">#D8D8D8</color>
+    
+    <color name="hintTextColor">#848284</color>
+</resources>

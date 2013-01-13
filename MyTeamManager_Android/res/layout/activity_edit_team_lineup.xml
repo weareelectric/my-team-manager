@@ -1,0 +1,41 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/root_container"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical" >
+
+        <FrameLayout
+            android:id="@+id/root_container1"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" >
+        </FrameLayout>
+
+        <FrameLayout
+            android:id="@+id/root_container2"
+            android:layout_width="fill_parent"
+            android:layout_height="0dip"
+            android:layout_weight="1.0" >
+        </FrameLayout>
+
+        <!--
+            <fragment android:name="com.myteammanager.ui.fragments.SoccerFieldFragment"
+	            android:id="@+id/fragment_field"
+			android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+			<fragment android:name="com.myteammanager.ui.fragments.PlayerListForTeamLineupFragment"
+	        android:id="@+id/listPlayer"
+	        android:layout_weight="2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+        -->
+
+    </LinearLayout>
+
+</ScrollView>

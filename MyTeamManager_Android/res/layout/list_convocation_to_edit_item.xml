@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	style="@style/MyTeamManagerListAdapter"
+    android:orientation="horizontal" >
+
+    <TextView
+        android:id="@+id/textViewSurnameAndName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="4dip"
+        android:textColor="#555555"
+        android:textSize="16dp"
+        android:text="nome e cognome"
+        android:layout_weight="1"
+        android:textStyle="bold" />
+
+    <CheckBox
+        android:id="@+id/checkboxConvocated"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+         />
+
+</LinearLayout>

@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+    
+    <EditText android:id="@+id/editTextForFocus" android:layout_width="0dip" android:layout_height="0dip" android:inputType="none" />
+
+    <EditText
+        android:id="@+id/datePickerEventDate"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="10dp"
+		android:focusable="false"
+        android:hint="@string/label_date" 
+        />
+
+    <EditText
+        android:id="@+id/timePickerEventTime"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="10dp"
+		android:focusable="false"
+        android:hint="@string/label_time_optional"
+         />
+
+ 
+
+    <Spinner
+        android:id="@+id/spinnerRepeat"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="10dp"
+        android:entries="@array/repeat_event" />
+    
+       <TextView
+        android:id="@+id/textFieldRepeat"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="10dp"
+        android:text="@string/label_end_repeat_date"
+        android:textSize="20dp" />
+
+    <EditText
+        android:id="@+id/textFieldEndRepeatDate"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="10dp"
+		android:focusableInTouchMode="false"
+        android:hint="@string/label_end_repeat_date" />
+
+    <EditText
+        android:id="@+id/textFieldEventLocation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="10dp"
+        android:hint="@string/label_location"
+        android:visibility="gone" >
+    </EditText>
+
+    <EditText
+        android:id="@+id/textFieldEventNote"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="10dp"
+        android:gravity="top"
+        android:hint="@string/label_note_optional"
+        android:lines="4" >
+    </EditText>
+
+    <!--
+         <CheckBox
+        android:id="@+id/checkBoxEventCanceled"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="10dp"
+        android:text="@string/label_event_canceled" />
+    -->
+
+</LinearLayout>

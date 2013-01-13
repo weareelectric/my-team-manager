@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/root"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+
+    <!--
+              <ListView
+	        android:id="@+id/list"
+	        android:layout_width="match_parent"
+	        android:layout_height="match_parent"
+	        android:background="#ffffffff"
+	        android:cacheColorHint="#ffffffff"
+	        android:dividerHeight="4dp"
+	        android:visibility="visible"
+	        />    -->
+
+    <Button
+        android:id="@+id/btnConfigureSubstitutes"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="3dp"
+        android:text="@string/btn_configure_substitutes" />
+
+    <LinearLayout android:layout_width="fill_parent"
+    android:layout_height="wrap_content" android:orientation="vertical">
+        
+            <TextView
+        android:id="@+id/textLabelOnTheBench"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:textSize="16dp"
+        android:textStyle="bold"
+        android:text="@string/label_on_the_bench" />
+
+        <TextView
+            android:id="@+id/textViewBenchPlayers"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="2dp"
+            android:text=""
+            android:textStyle="normal"
+            android:textSize="16dp" />
+    </LinearLayout>
+    
+     <LinearLayout android:layout_width="fill_parent"
+    android:layout_height="wrap_content" android:orientation="vertical">
+        
+            <TextView
+        android:id="@+id/textLabelNotSelected"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:textSize="16dp"
+        android:textStyle="bold"
+        android:text="@string/label_not_selected" />
+
+        <TextView
+            android:id="@+id/textViewNotSelectedPlayers"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="2dp"
+            android:text=""
+            android:textStyle="normal"
+            android:textSize="16dp" />
+    </LinearLayout>
+
+</LinearLayout>

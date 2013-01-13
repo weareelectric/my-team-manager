@@ -1,0 +1,235 @@
+<project name="ImportLibraries">
+    
+    <!-- Check if ant-eclipse.jar exists -->
+  <condition property="ant-eclipse.jar.exists">
+      <available file="buildlib}/ant-eclipse-1.0-jvm1.2.jar"/>
+  </condition>
+    
+    <!-- Download ant-eclipse.jar if does not exist -->
+  <target name="ant-eclipse-download" unless="ant-eclipse.jar.exists"
+         description="Downloads the ant-eclipse binary.">
+    <mkdir dir="buildlib" />
+    <get src="http://downloads.sourceforge.net/project/ant-eclipse/ant-eclipse/1.0/ant-eclipse-1.0.bin.tar.bz2"
+           dest="buildlib/ant-eclipse-1.0.bin.tar.bz2" usetimestamp="false"/>
+
+    <!-- Untar into lib directory and delete tar file -->
+    <untar src="buildlib/ant-eclipse-1.0.bin.tar.bz2"
+           dest="buildlib/" compression="bzip2">
+      <patternset>
+        <include name="lib/ant-eclipse-1.0-jvm1.2.jar"/>
+      </patternset>
+      <mapper type="flatten"/>
+    </untar>
+    <delete file="buildlib/ant-eclipse-1.0.bin.tar.bz2"/>
+  </target>
+
+    
+    
+    <target name="moveLibraries" description="Finds the apklib and jar libraries and call the task to corretly manage them. At the end it deletes the directory that contained the library that has been moved" >
+		<var name="directory" unset="true" />
+
+
+		<basename property="directory" file="${dir.name}" />
+		<echo message="Absolute Path : ${dir.name}" />
+		<echo message="Directory     : ${directory}" />
+
+		
+		<!-- First manage the jars. We only move them to the upper level in the lib directory -->
+		<foreach target="manage jars" param="file">
+			<fileset dir="lib/${directory}" casesensitive="yes">
+				<include name="**/*.jar" />
+			</fileset>
+		</foreach>
+		
+
+		<!-- Manage the apklibs (android library project) in order to allow to create the directory to use it in the build process -->
+		<foreach target="manage apklibs" param="file" >
+			<fileset dir="lib/${directory}" casesensitive="yes" >
+				<include name="**/*.apklib" />
+			</fileset>
+		</foreach>
+		
+		<!-- delete the directory in the lib dir of the project where the library was located -->
+		<delete dir="lib/${directory}" failonerror="false"/>
+	</target>
+	
+   <target name="eclipse project" >
+   		<taskdef name="eclipse"
+             classname="prantl.ant.eclipse.EclipseTask"
+             classpath="buildlib/ant-eclipse-1.0-jvm1.2.jar"/>
+        <echo>Directory of project: ../${projectName}</echo>
+    	<eclipse failonerror="true" destdir="../${projectName}">
+    	    <project name="${projectName}"/>
+     		<classpath>
+        		<source path="src" />
+        		<output path="bin" />
+      		</classpath>
+    	</eclipse>
+  </target>
+  
+   	<target name="create android project">
+		<exec executable="android.bat">
+			<arg value="create"/>
+			<arg value="lib-project"/>
+			<arg value="--name"/>
+			<arg value="${projectName}"/>
+			<arg value="--path"/>
+			<arg value="../${projectName}"/>
+			<arg value="--target"/>
+			<arg value="android-15" />
+			<arg value="--package"/>
+			<arg value="${package}"/>
+		</exec>
+	</target>
+  
+   <target name="move eclipse project" >
+       <move file="${projectName}" todir="../"/>
+   </target>
+	
+	<target name="managedependecies" depends="ant-eclipse-download" description="Manage the jar and apklib files placing them in the right place to allow the build process">
+		<!-- For each folder in the lib directory we wnat to check if it contains an android library or simply a jar and act differently" -->
+		<echo message="Folders in the directory are:" />
+		<foreach target="moveLibraries" param="dir.name">
+			<path>
+				<dirset dir="lib/" includes="*" />
+			</path>
+		</foreach>
+	</target>
+
+	<target name="manage jars" description="Move the jar libraries from the directory where ivy stored them to the first level of lib dir">
+		<!-- <basename property="filename" file="${file}"/> -->
+		<move file="${file}" todir="lib"/>
+		<echo message="Files in the directory are: ${file}" />
+
+		<!-- Get the name of the directory where the android library is located -->
+		<directorynameforfile fileobj="${file}" resultexpected="nameOfDir" />
+
+	</target>
+
+	<target name="manage apklibs" description="Move the apklibs libraries creating the needed directories to use them as dependencies">
+		<basename property="filename" file="${file}"/>
+		<echo message="Files in the directory are: ${file}" />
+
+		<!-- Get the name of the directory where the android library is located -->
+		<directorynameforfile fileobj="${file}" resultexpected="nameOfDir" />
+
+		<!-- Get the name of the directory where the android library will be placed -->
+		<directorynameforandroidproject directory="${nameOfDir}" resultexpected="dirForApkLib" />
+
+		<!-- Delete the existent directory -->
+		<!--  <delete dir="../lib/${dirForApkLib}" failonerror="false" />  -->
+		
+		<!-- Delete the previous version of the project -->
+		<delete dir="../${dirForApkLib}" /> 
+		<mkdir dir="../${dirForApkLib}" /> 
+		
+		<!--  <antcall target="eclipse project">
+    		<param name="projectName" value="${dirForApkLib}"/>
+  		</antcall>  -->
+  		
+  		
+		<!-- <antcall target="move eclipse project">
+    		<param name="projectName" value="${dirForApkLib}"/>
+  		</antcall>   -->
+  		
+  		<!--  <antcall target="create android project">
+    		<param name="projectName" value="${dirForApkLib}"/>
+    		<param name="package" value="${nameOfDir}"/>
+  		</antcall>  -->
+
+		<!-- create the directory for the android library project -->
+		<!--  <mkdir dir="../lib/${dirForApkLib}"/> -->
+		<move file="${file}" todir="../${dirForApkLib}"/>
+
+		<!-- unzip the apklibs file -->
+		<unzip src="../${dirForApkLib}/${filename}" dest="../${dirForApkLib}" />
+
+		<!-- delete apklib file after it has been unzipped -->
+		<delete file="../${dirForApkLib}/${filename}" />
+
+		<!-- execute update project to use android library project with ant -->
+		<exec executable="android.bat" searchpath="true">
+			<arg value="update" />
+			<arg value="lib-project" />
+			<arg value="-p" />
+			<arg value="../${dirForApkLib}" />
+			<arg value="--target" />
+			<arg value="android-15" />
+		</exec>
+		
+		<!-- Add the properties to the file of the library otherwise the build process won't work -->
+		<propertyfile file="../${dirForApkLib}/project.properties">
+	  		<entry  key="android.library" value="true"/>
+		</propertyfile>
+	</target>
+
+	
+	<scriptdef name="directorynameforfile" language="javascript" description="Returns the directory containing the jar or apk library">
+		<attribute name="fileobj" />
+		<attribute name="resultexpected" />
+		<![CDATA[
+		var fileName = attributes.get("fileobj");
+		self.log("Complete fileName: " + fileName);
+		var slashToFind = "\\";
+        var lastIndexOfSlash = fileName.lastIndexOf(slashToFind);
+		if ( lastIndexOfSlash == -1 ) {
+			slashToFind = "/";
+			lastIndexOfSlash = fileName.lastIndexOf(slashToFind);
+		}
+		self.log("Index of last backslash in the file name: " + lastIndexOfSlash);
+		var secondLastIndexOfSlash = fileName.lastIndexOf(slashToFind, lastIndexOfSlash - 1);
+		self.log("Index of second last backslash in the file name: " + secondLastIndexOfSlash);
+		var dirName =  fileName.substring(secondLastIndexOfSlash + 1, lastIndexOfSlash);
+		self.log("Name of the dir where the library is located: " + dirName);
+		project.setProperty(attributes.get("resultexpected"), dirName);
+		    ]]>
+	</scriptdef>
+
+	<scriptdef name="directorynameforandroidproject" language="javascript" description="Replace the . in the dir name with _">
+		<attribute name="directory" />
+		<attribute name="resultexpected" />
+		<![CDATA[
+				var dirName =  attributes.get("directory");
+				self.log("Name of the dir before replacing dots: " + dirName);
+				var dirNameReplacedDotWithUnderscore = dirName.replace('.','_');
+				self.log("Name of the directory that will be crated for the Android lib: " + dirNameReplacedDotWithUnderscore);
+				project.setProperty(attributes.get("resultexpected"), dirNameReplacedDotWithUnderscore);
+		]]>
+	</scriptdef>
+	
+	   <!--    <property file="ant.properties" />
+     
+     <target name="check library">
+	  <echo>../${libname}/build.xml</echo>
+	  <condition property="buildfileexist">
+	    <available file="../${libname}/build.xml" type="file"/>
+	  </condition>
+	</target>
+	
+	<target name="import library" depends="check library" unless="buildfileexist">
+		<mkdir dir="../${libname}"/>
+		<get src="${httpsrc}/${libversion}" dest="../${libname}/${libname}.zip"/>
+		<copy todir="../${libname}" preservelastmodified="true">
+		    <zipfileset src="../${libname}/${libname}.zip">
+		    	<patternset>
+		     	     <include name="**/library/"/>
+		     	</patternset>
+		    </zipfileset>
+		    <cutdirsmapper dirs="2"/>
+		</copy>
+		<delete>
+		   	<fileset dir="../${libname}" includes="**/*.zip"/>
+		</delete>
+		<exec executable="android.bat" dir="../${libname}" searchpath="true">
+			<arg value="update" />
+		    <arg value="project" />
+		    <arg value="-p" />
+		    <arg value="." />
+		</exec>
+		<propertyfile file="${user.home}/androidDependenciesLibraries.property">
+	  		<entry  key="${libname}" value="${libversion}"/>
+		</propertyfile>
+	</target>
+	
+	-->
+</project>
