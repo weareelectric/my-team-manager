@@ -32,7 +32,7 @@ import com.myteammanager.beans.MatchBean;
 import com.myteammanager.beans.PlayerBean;
 import com.myteammanager.beans.comparators.RosterComparator;
 import com.myteammanager.storage.DBManager;
-import com.myteammanager.ui.PlayerCheckboxListener;
+import com.myteammanager.ui.CheckboxListener;
 import com.myteammanager.ui.phone.EditPlayerInfoActivity;
 import com.myteammanager.util.KeyConstants;
 

@@ -41,7 +41,7 @@ import com.myteammanager.beans.SeparatorBean;
 import com.myteammanager.beans.comparators.RosterComparator;
 import com.myteammanager.events.ScorersChangeEvent;
 import com.myteammanager.storage.DBManager;
-import com.myteammanager.ui.PlayerCheckboxListener;
+import com.myteammanager.ui.CheckboxListener;
 import com.myteammanager.ui.phone.AddEventInfoActivity;
 import com.myteammanager.ui.phone.EditPlayerInfoActivity;
 import com.myteammanager.util.KeyConstants;

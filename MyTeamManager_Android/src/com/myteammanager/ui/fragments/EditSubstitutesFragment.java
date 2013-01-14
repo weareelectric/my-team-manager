@@ -31,7 +31,7 @@ import com.myteammanager.beans.LineupBean;
 import com.myteammanager.beans.MatchBean;
 import com.myteammanager.beans.PlayerBean;
 import com.myteammanager.storage.DBManager;
-import com.myteammanager.ui.PlayerCheckboxListener;
+import com.myteammanager.ui.CheckboxListener;
 import com.myteammanager.util.KeyConstants;
 
 public class EditSubstitutesFragment extends EditConvocationFragment {
@@ -61,7 +61,7 @@ public class EditSubstitutesFragment extends EditConvocationFragment {
 	@Override
 	protected ArrayAdapter<? extends BaseBean> initAdapter() {
 		m_itemsList.clear();
-		return new SubstitutesAdapter(getActivity(), R.layout.list_convocation_to_edit_item, m_itemsList, this);
+		return new SubstitutesAdapter(getActivity(), R.layout.list_with_checkbox, m_itemsList, this);
 	}
 
 	@Override

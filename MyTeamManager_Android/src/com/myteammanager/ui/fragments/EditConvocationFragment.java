@@ -36,14 +36,14 @@ import com.myteammanager.data.FacebookManager;
 import com.myteammanager.specializedStorage.MyTeamManagerDBManager;
 import com.myteammanager.storage.DBManager;
 import com.myteammanager.storage.SettingsManager;
-import com.myteammanager.ui.PlayerCheckboxListener;
+import com.myteammanager.ui.CheckboxListener;
 import com.myteammanager.ui.phone.EditPlayerInfoActivity;
 import com.myteammanager.util.DateTimeUtil;
 import com.myteammanager.util.KeyConstants;
 import com.myteammanager.util.PlayerAndroidUtil;
 import com.myteammanager.util.StringUtil;
 
-public class EditConvocationFragment extends RosterFragment implements TabListener, PlayerCheckboxListener {
+public class EditConvocationFragment extends RosterFragment implements TabListener, CheckboxListener {
 
 	private static final int MSG_UPDATETITLE = 1;
 
@@ -125,7 +125,7 @@ public class EditConvocationFragment extends RosterFragment implements TabListen
 	@Override
 	protected ArrayAdapter<? extends BaseBean> initAdapter() {
 		m_itemsList.clear();
-		return new ConvocationAdapter(getActivity(), R.layout.list_convocation_to_edit_item, m_itemsList, this);
+		return new ConvocationAdapter(getActivity(), R.layout.list_with_checkbox, m_itemsList, this);
 	}
 	
 	@Override

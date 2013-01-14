@@ -6,12 +6,12 @@ import android.content.Context;
 
 import com.myteammanager.beans.BaseBean;
 import com.myteammanager.beans.PlayerBean;
-import com.myteammanager.ui.PlayerCheckboxListener;
+import com.myteammanager.ui.CheckboxListener;
 
 public class ConvocationAdapter extends PlayerListAdapterWithCheckbox {
 
 	public ConvocationAdapter(Context context, int layoutResourceId, ArrayList<BaseBean> objects,
-			PlayerCheckboxListener playerCheckboxListeenr) {
+			CheckboxListener playerCheckboxListeenr) {
 		super(context, layoutResourceId, objects, playerCheckboxListeenr);
 	}
 

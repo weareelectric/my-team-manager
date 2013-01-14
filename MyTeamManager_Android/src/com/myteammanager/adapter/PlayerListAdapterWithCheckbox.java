@@ -6,24 +6,24 @@ import android.content.Context;
 import android.util.Log;
 
 import com.myteammanager.adapter.holders.BaseHolder;
-import com.myteammanager.adapter.holders.PlayerWithCheckboxItemRowHolder;
+import com.myteammanager.adapter.holders.PlayerNameWithCheckboxRowHolder;
+import com.myteammanager.adapter.holders.TextWithCheckboxItemRowHolder;
 import com.myteammanager.adapter.holders.RosterItemRowHolder;
 import com.myteammanager.beans.BaseBean;
 import com.myteammanager.beans.PlayerBean;
 import com.myteammanager.beans.SeparatorBean;
-import com.myteammanager.ui.PlayerCheckboxListener;
+import com.myteammanager.ui.CheckboxListener;
 import com.myteammanager.util.PlayerAndroidUtil;
 
-public abstract class PlayerListAdapterWithCheckbox extends BaseAdapterWithSectionHeaders {
+public abstract class PlayerListAdapterWithCheckbox extends BaseAdapterWithCheckbox {
 
 	private String LOG_TAG = PlayerListAdapterWithCheckbox.class.getName();
 
-	private PlayerCheckboxListener m_playerCheckboxListener;
+	private CheckboxListener m_checkboxListener;
 
 	public PlayerListAdapterWithCheckbox(Context context, int layoutResourceId, ArrayList<BaseBean> objects,
-			PlayerCheckboxListener playerCheckboxListeenr) {
-		super(context, layoutResourceId, objects);
-		m_playerCheckboxListener = playerCheckboxListeenr;
+			CheckboxListener checkboxListener) {
+		super(context, layoutResourceId, objects, checkboxListener);
 	}
 	
 	@Override
@@ -33,24 +33,23 @@ public abstract class PlayerListAdapterWithCheckbox extends BaseAdapterWithSecti
 
 	@Override
 	protected void populateHolder(BaseHolder holder, BaseBean baseBean) {
-		PlayerWithCheckboxItemRowHolder realHolder = (PlayerWithCheckboxItemRowHolder) holder;
-		realHolder.setConvocationListener(m_playerCheckboxListener);
-		PlayerBean player = (PlayerBean) baseBean;
+		super.populateHolder(holder, baseBean);
+		PlayerBean player = (PlayerBean)baseBean;
+		PlayerNameWithCheckboxRowHolder realHolder = (PlayerNameWithCheckboxRowHolder)holder;
 		realHolder.setPlayer(player);
-		realHolder.getSurnameAndNameTextView().setText(player.getSurnameAndName(false));
-
-		if (flagTheCheckbox(player)) {
-			realHolder.getCheckboxConvocated().setChecked(true);
-		} else {
-			realHolder.getCheckboxConvocated().setChecked(false);
-		}
+	}
+	
+	@Override
+	protected String getText(BaseBean bean) {
+		PlayerBean player = (PlayerBean) bean;
+		return player.getSurnameAndName(false);
 	}
 
 	protected abstract boolean flagTheCheckbox(BaseBean bean);
 
 	@Override
 	protected BaseHolder getHolder() {
-		return new PlayerWithCheckboxItemRowHolder();
+		return new PlayerNameWithCheckboxRowHolder();
 	}
 
 	@Override

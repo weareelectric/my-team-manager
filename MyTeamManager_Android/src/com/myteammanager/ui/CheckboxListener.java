@@ -1,6 +1,6 @@
 package com.myteammanager.ui;
 
-public interface PlayerCheckboxListener {
+public interface CheckboxListener {
 
 	public void convocationChanged();
 }
