@@ -7,7 +7,6 @@ import android.content.Context;
 import com.myteammanager.adapter.holders.BaseHolder;
 import com.myteammanager.adapter.holders.TextWithCheckboxItemRowHolder;
 import com.myteammanager.beans.BaseBean;
-import com.myteammanager.beans.PlayerBean;
 import com.myteammanager.ui.CheckboxListener;
 
 public abstract class BaseAdapterWithCheckbox extends BaseAdapterWithSectionHeaders {
@@ -24,7 +23,6 @@ public abstract class BaseAdapterWithCheckbox extends BaseAdapterWithSectionHead
 	public boolean isEnabled(int position) {
 		return false;
 	}
-	
 
 	@Override
 	protected void populateHolder(BaseHolder holder, BaseBean baseBean) {
@@ -43,14 +41,5 @@ public abstract class BaseAdapterWithCheckbox extends BaseAdapterWithSectionHead
 	protected abstract String getText(BaseBean bean);
 	
 	protected abstract boolean flagTheCheckbox(BaseBean bean);
-
-	@Override
-	protected abstract BaseHolder getHolder();
-
-	@Override
-	protected BaseBean getBean(int i) {
-		return getItem(i);
-	}
-
 
 }

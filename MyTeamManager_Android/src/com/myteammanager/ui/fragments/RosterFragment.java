@@ -65,7 +65,6 @@ public class RosterFragment extends BaseListFragmentWithSectionHeaders {
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
 
-		requestData();
 	}
 
 	@Override

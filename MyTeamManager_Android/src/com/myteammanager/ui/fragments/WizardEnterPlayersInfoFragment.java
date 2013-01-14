@@ -1,5 +1,6 @@
 package com.myteammanager.ui.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +13,8 @@ import com.myteammanager.MyTeamManagerActivity;
 import com.myteammanager.R;
 import com.myteammanager.contacts.PhonebookManager;
 import com.myteammanager.exceptions.NoDataException;
+import com.myteammanager.ui.phone.ChoosePlayerFromContactsActivity;
+import com.myteammanager.ui.phone.WizardEnterPlayersInfoActivity;
 
 public class WizardEnterPlayersInfoFragment extends SherlockFragment {
 	
@@ -27,11 +30,8 @@ public class WizardEnterPlayersInfoFragment extends SherlockFragment {
 			
 			@Override
 			public void onClick(View arg0) {
-				try {
-					PhonebookManager.getContacts(getSherlockActivity());
-				} catch (NoDataException e) {
-					e.printStackTrace();
-				}
+				Intent intent = new Intent(getSherlockActivity(), ChoosePlayerFromContactsActivity.class);
+				startActivity(intent);
 				
 			}
 		});

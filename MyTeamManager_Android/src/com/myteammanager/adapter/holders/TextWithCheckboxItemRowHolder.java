@@ -8,7 +8,6 @@ import android.widget.TextView;
 
 import com.myteammanager.R;
 import com.myteammanager.beans.BaseBean;
-import com.myteammanager.beans.PlayerBean;
 import com.myteammanager.ui.CheckboxListener;
 
 public abstract class TextWithCheckboxItemRowHolder extends BaseHolder implements OnCheckedChangeListener {

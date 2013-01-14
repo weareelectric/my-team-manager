@@ -60,7 +60,6 @@ public class MatchesListFragment extends BaseListFragmentWithSectionHeaders {
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
-		requestData();
 
 		registerBroadcasrReceiverForBeanEvents();
 	}

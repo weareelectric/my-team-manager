@@ -11,7 +11,7 @@ import android.provider.ContactsContract.CommonDataKinds.Phone;
 import android.provider.ContactsContract.Data;
 import android.util.Log;
 
-import com.myteammanager.beans.AddressBookBean;
+import com.myteammanager.beans.ContactBean;
 import com.myteammanager.exceptions.NoDataException;
 import com.myteammanager.ui.fragments.MatchDetailFragment;
 
@@ -19,7 +19,7 @@ public class PhonebookManager {
 	
 	private static final String LOG_TAG = MatchDetailFragment.class.getName();
 
-	public static ArrayList<AddressBookBean> getContacts(Activity activity)
+	public static ArrayList<ContactBean> getContacts(Activity activity)
 			throws NoDataException {
 		// get all mail addresses from address book
 
@@ -40,13 +40,13 @@ public class PhonebookManager {
 		}
 			
 
-		ArrayList<AddressBookBean> addressBook = new ArrayList<AddressBookBean>();
+		ArrayList<ContactBean> addressBook = new ArrayList<ContactBean>();
 
 		if (cursor.moveToFirst()) {
 
 			do {
 				
-				AddressBookBean addressBookBean = new AddressBookBean();
+				ContactBean addressBookBean = new ContactBean();
 				addressBookBean.setDisplayName(cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME)));
 				addressBookBean.setId(cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts._ID)));
 				readAllDataFor(addressBookBean, activity);
@@ -68,13 +68,13 @@ public class PhonebookManager {
 	 * - phones
 	 * @param abBean
 	 */
-	public static void readAllDataFor(AddressBookBean abBean, Activity activity) {
+	public static void readAllDataFor(ContactBean abBean, Activity activity) {
 		getAllEmails(abBean, activity);
 		getAllPhones(abBean, activity);
 		getLastAndFirstName(abBean, activity);
 	}
 
-	private static void getAllEmails(AddressBookBean abBean, Activity activity) {
+	private static void getAllEmails(ContactBean abBean, Activity activity) {
 		final String[] projection = new String[] {
 				Email.DATA,			
 		};
@@ -100,7 +100,7 @@ public class PhonebookManager {
 		email.close();
 	}
 	
-	private static void getAllPhones(AddressBookBean abBean, Activity activity) {
+	private static void getAllPhones(ContactBean abBean, Activity activity) {
 		final String[] projection = new String[] {
 				Phone.NUMBER,
 		};
@@ -127,7 +127,7 @@ public class PhonebookManager {
 	}
 	
 	
-	private static void getLastAndFirstName(AddressBookBean abBean, Activity activity) {
+	private static void getLastAndFirstName(ContactBean abBean, Activity activity) {
 		String whereName = ContactsContract.Data.MIMETYPE + " = ? AND " + ContactsContract.CommonDataKinds.StructuredName.CONTACT_ID + " = ?";
 		String[] whereNameParams = new String[] { ContactsContract.CommonDataKinds.StructuredName.CONTENT_ITEM_TYPE, abBean.getId() };
 		Cursor nameCur =  activity.managedQuery(ContactsContract.Data.CONTENT_URI, null, whereName, whereNameParams, ContactsContract.CommonDataKinds.StructuredName.GIVEN_NAME);

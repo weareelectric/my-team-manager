@@ -3,7 +3,12 @@ package com.myteammanager.beans;
 import java.util.ArrayList;
 import java.util.Comparator;
 
-public class AddressBookBean {
+/**
+ * A model to describe a contact load from the address book of the phone
+ * @author Emanuele
+ *
+ */
+public class ContactBean extends BaseBean {
 
 	private String m_id;
 	private String m_displayName;
@@ -11,6 +16,7 @@ public class AddressBookBean {
 	private String m_firstName;
 	private ArrayList<String> m_emails;
 	private ArrayList<String> m_phones;
+	private boolean m_isChosen = false;
 	
 	public String getId() {
 		return m_id;
@@ -67,6 +73,14 @@ public class AddressBookBean {
 		
 		m_phones.add(phone);
 	}
+	
+	public boolean isChosen() {
+		return m_isChosen;
+	}
+
+	public void setChosen(boolean isChosen) {
+		m_isChosen = isChosen;
+	}
 
 	@Override
 	public String toString() {
@@ -79,6 +93,26 @@ public class AddressBookBean {
 		sb.append("\n");
 		sb.append("Firstname: " + getFirstName());
 		return sb.toString();
+	}
+
+	@Override
+	public String getDatabaseTableName() {
+		return null;
+	}
+
+	@Override
+	public BaseBean getEmptyNewInstance() {
+		return new ContactBean();
+	}
+
+	@Override
+	public String orderByRule() {
+		return null;
+	}
+
+	@Override
+	public Comparator getComparator() {
+		return null;
 	}
 	
 	

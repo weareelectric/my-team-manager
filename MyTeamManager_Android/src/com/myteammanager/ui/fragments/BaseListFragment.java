@@ -123,6 +123,8 @@ public abstract class BaseListFragment extends SherlockFragment implements OnIte
 
 		m_listView.setAdapter(m_adapter);
 		m_listView.setOnItemClickListener(this);
+		
+		requestData();
 	}
 
 	protected void showProgressDialog(final String text) {
@@ -145,6 +147,9 @@ public abstract class BaseListFragment extends SherlockFragment implements OnIte
 
 	}
 
+	/**
+	 * This method can be called to refresh the data shown in the list
+	 */
 	public void requestData() {
 
 		new AsyncTask<Void, Void, String[]>() {
