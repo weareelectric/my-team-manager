@@ -12,6 +12,7 @@ import android.util.Log;
 
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.flurry.android.FlurryAgent;
+import com.myteammanager.util.CapptainFragmentActivity;
 
 public abstract class BaseActivity extends SherlockFragmentActivity {
 

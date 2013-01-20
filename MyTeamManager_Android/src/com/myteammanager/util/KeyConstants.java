@@ -16,12 +16,19 @@ public class KeyConstants {
 	public static final String KEY_NOT_CHOSEN_PLAYERS = "notChosenPlayer";
 	public static final String KEY_PLAYERS_ALREADY_IN_THE_LINEUP = "playersLineUp";
 	public static final String KEY_MATCH_DETAIL_TO_POST = "matchDetailToPost";
+	public static final String KEY_CHOSEN_CONTACTS = "chosenContacts";
+	
 
 	public static final int CODE_BEAN_CHANGE = 1;
 	public static final int CODE_PLAYER_DETAILS_EDITED = 2;
 	public static final int CODE_PLAYER_FOR_LINEUP_CHOSEN = 3;
 	public static final int CODE_PLAYERS_FOR_BENCH_CHOSEN = 4;
 	public static final int CODE_SETTINGS_ACTIVIY = 5;
+	public static final int CODE_CONTACTS_CHOSEN = 6;
+	public static final int WIZARD_TEAM_NAME_CODE = 7;
+	public static final int WIZARD_ENTER_PLAYERS_INFO_CODE = 8;
+	public static final int WIZARD_ENTER_PLAYERS_PROCESS_COMPLETED_CODE = 9;
+	public static final int WIZARD_START_CHOOSE_CONTACTS = 10;
 
 	public static final int RESULT_BEAN_ADDED = 1;
 	public static final int RESULT_BEAN_EDITED = 2;
@@ -29,5 +36,7 @@ public class KeyConstants {
 	public static final int RESULT_PLAYER_FOR_LINEUP_CHOSEN = 400;
 	public static final int RESULT_PLAYERS_ONTHEBENCH_CHOSEN = 401;
 	public static final int RESULT_PLAYER_DETAILS_EDITED = 8658;
+	public static final int RESULT_CONTACTS_CHOSEN = 8659;
+	public static final int RESULT_START_CONTACTS_SELECTION = 8659;
 
 }

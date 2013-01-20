@@ -422,7 +422,7 @@ public class EditConvocationFragment extends RosterFragment implements TabListen
 	}
 
 	@Override
-	public void convocationChanged() {
+	public void checkboxChanged() {
 		Log.d(EDIT_CONVOCATION_TAG, "convocationChanged");
 
 		int size = m_itemsList.size();

@@ -1,5 +1,7 @@
 package com.myteammanager.ui.fragments;
 
+import java.util.ArrayList;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
@@ -17,6 +19,7 @@ import android.widget.Spinner;
 import com.actionbarsherlock.view.MenuItem;
 import com.myteammanager.MyTeamManagerActivity;
 import com.myteammanager.R;
+import com.myteammanager.beans.ContactBean;
 import com.myteammanager.beans.PlayerBean;
 import com.myteammanager.storage.DBManager;
 import com.myteammanager.util.CheckboxWithViewGroupHelper;
@@ -37,8 +40,13 @@ public class AddPlayerInfoFragment extends BaseTwoButtonActionsFormFragment impl
 	protected EditText m_phoneEditText;
 	protected Spinner m_shirtNumberSpinner;
 	protected DatePicker m_birthDateDatePicker;
-
 	protected CheckboxWithViewGroupHelper m_birthDateCompositeField;
+	
+	private int m_indexOfLastAddedPlayer = 0;
+	private ArrayList<ContactBean> m_contacts;
+	private boolean m_addFromContacts = false;
+
+
 
 	public AddPlayerInfoFragment() {
 		super(R.layout.fragment_edit_player);
@@ -47,6 +55,17 @@ public class AddPlayerInfoFragment extends BaseTwoButtonActionsFormFragment impl
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
 		super.onCreateView(inflater, container, savedInstanceState);
+		
+		Intent intent = getSherlockActivity().getIntent();
+		
+		if ( intent != null ) {
+			Bundle bundle = intent.getExtras();
+			if ( bundle != null ) {
+				m_contacts = (ArrayList<ContactBean>) bundle.get(KeyConstants.KEY_CHOSEN_CONTACTS);
+				m_addFromContacts = true;
+				Log.d(LOG_TAG, "Found contacts to add from address book");
+			}
+		}
 
 		m_playerName = (EditText) m_root.findViewById(R.id.editTextPlayerName);
 		m_playerLastName = (EditText) m_root.findViewById(R.id.editTextPlayerLastName);
@@ -63,7 +82,32 @@ public class AddPlayerInfoFragment extends BaseTwoButtonActionsFormFragment impl
 		m_birthDateDatePicker = (DatePicker) m_root.findViewById(R.id.datePickerBirthDate);
 
 		m_birthDateCompositeField = new CheckboxWithViewGroupHelper(m_birthDateCheckBox, m_birthDateDatePicker);
+		
+		if ( m_addFromContacts ) {
+			populateFormWithDataFromContact(0);
+		}
+		
 		return m_root;
+	}
+	
+	private void populateFormWithDataFromContact(int i) {
+		ContactBean contact = m_contacts.get(i);
+		if ( m_addFromContacts ) {
+			m_playerName.setText(contact.getFirstName());
+			m_playerLastName.setText(contact.getLastName());
+			if ( contact.getEmails() != null ) {
+				if ( contact.getEmails().size() == 1 ) {
+					m_emailEditText.setText(contact.getEmails().get(0));
+				}
+			}
+			
+			if ( contact.getPhones() != null ) {
+				if ( contact.getPhones().size() == 1 ) {
+					m_phoneEditText.setText(contact.getPhones().get(0));
+				}
+			}
+
+		}
 	}
 
 	@Override
@@ -174,6 +218,16 @@ public class AddPlayerInfoFragment extends BaseTwoButtonActionsFormFragment impl
 		savePlayer();
 
 		resetObjectAndInterface();
+		
+		if ( m_addFromContacts ) {
+			m_indexOfLastAddedPlayer++;
+			if ( m_indexOfLastAddedPlayer < m_contacts.size() ) {
+				populateFormWithDataFromContact(m_indexOfLastAddedPlayer);
+			}
+			else {
+				m_addFromContacts = false;
+			}
+		}
 	}
 
 	@Override

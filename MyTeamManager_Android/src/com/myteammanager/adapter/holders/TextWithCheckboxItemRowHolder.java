@@ -46,7 +46,7 @@ public abstract class TextWithCheckboxItemRowHolder extends BaseHolder implement
 	@Override
 	public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 		actionOnCheckboxChange(isChecked);
-		m_checkboxListener.convocationChanged();
+		m_checkboxListener.checkboxChanged();
 	}
 	
 	protected abstract void actionOnCheckboxChange(boolean isChecked);
