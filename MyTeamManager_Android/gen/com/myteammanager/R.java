@@ -944,8 +944,8 @@ containing a value of this type.
         public static final int editTextForFocus=0x7f06007d;
         public static final int editTextGoalAway=0x7f06006e;
         public static final int editTextGoalHome=0x7f06006d;
-        public static final int editTextMainEmail=0x7f060038;
-        public static final int editTextMainPhone=0x7f06003a;
+        public static final int editTextMainEmail=0x7f06003a;
+        public static final int editTextMainPhone=0x7f060038;
         public static final int editTextMatchInfo=0x7f060076;
         public static final int editTextPlayerLastName=0x7f060034;
         public static final int editTextPlayerName=0x7f060035;
@@ -1011,8 +1011,8 @@ containing a value of this type.
         public static final int showTitle=0x7f060007;
         public static final int siteListMoreImage=0x7f060095;
         public static final int spinnerHomeAway=0x7f060086;
-        public static final int spinnerMultipleEmails=0x7f060039;
-        public static final int spinnerMultiplePhones=0x7f06003b;
+        public static final int spinnerMultipleEmails=0x7f06003b;
+        public static final int spinnerMultiplePhones=0x7f060039;
         public static final int spinnerPosition=0x7f060036;
         public static final int spinnerRepeat=0x7f060080;
         public static final int spinnerShirtNumbers=0x7f060037;

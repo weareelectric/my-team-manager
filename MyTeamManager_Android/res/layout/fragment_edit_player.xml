@@ -42,6 +42,26 @@
         android:layout_marginTop="5dp" />
 
     <EditText
+        android:id="@+id/editTextMainPhone"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="5dp"
+        android:hint="@string/phone_optional"
+        android:inputType="phone" />
+
+    <Spinner
+        android:id="@+id/spinnerMultiplePhones"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="5dp"
+        android:prompt="@string/phone_optional"
+        android:visibility="gone" />
+
+    <EditText
         android:id="@+id/editTextMainEmail"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
@@ -54,26 +74,6 @@
 
     <Spinner
         android:id="@+id/spinnerMultipleEmails"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
-        android:layout_marginTop="5dp"
-        android:prompt="@string/email_optional"
-        android:visibility="gone" />
-
-    <EditText
-        android:id="@+id/editTextMainPhone"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
-        android:layout_marginTop="5dp"
-        android:hint="@string/phone_optional"
-        android:inputType="phone" />
-
-    <Spinner
-        android:id="@+id/spinnerMultiplePhones"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="5dp"
