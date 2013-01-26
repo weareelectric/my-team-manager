@@ -133,9 +133,15 @@
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait" >
         </activity>
-        <activity android:name=".ui.phone.MatchSubstitutionsActivity" >
+        <activity
+            android:name=".ui.phone.MatchSubstitutionsActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait" >
         </activity>
-        <activity android:name=".ui.phone.ChoosePlayerFromContactsActivity" >
+        <activity
+            android:name=".ui.phone.ChoosePlayerFromContactsActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait" >
         </activity>
 
         <meta-data
@@ -161,6 +167,9 @@
                 android:name="capptain:api:id"
                 android:value="b6a5b1113175bf391e442a8653876b84" />
         </service>
+
+        <activity android:name=".ui.phone.ChooseSinglePlayerFromContactsActivity" >
+        </activity>
     </application>
 
 </manifest>

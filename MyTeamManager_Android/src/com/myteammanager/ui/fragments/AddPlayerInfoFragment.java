@@ -16,6 +16,8 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 import com.myteammanager.MyTeamManagerActivity;
 import com.myteammanager.R;
@@ -68,8 +70,11 @@ public class AddPlayerInfoFragment extends BaseTwoButtonActionsFormFragment impl
 			Bundle bundle = intent.getExtras();
 			if ( bundle != null ) {
 				m_contacts = (ArrayList<ContactBean>) bundle.get(KeyConstants.KEY_CHOSEN_CONTACTS);
-				m_addFromContacts = true;
-				Log.d(LOG_TAG, "Found contacts to add from address book");
+				if ( m_contacts != null && m_contacts.size() > 0 ) {
+					m_addFromContacts = true;
+					Log.d(LOG_TAG, "Found contacts to add from address book");
+				}
+
 			}
 		}
 
@@ -105,50 +110,52 @@ public class AddPlayerInfoFragment extends BaseTwoButtonActionsFormFragment impl
 	private void populateFormWithDataFromContact(int i) {
 		ContactBean contact = m_contacts.get(i);
 		if ( m_addFromContacts ) {
-			m_playerName.setText(contact.getFirstName());
-			m_playerLastName.setText(contact.getLastName());
-			if ( contact.getEmails() != null ) {
-				if ( contact.getEmails().size() == 1 ) {
-					m_emailEditText.setText(contact.getEmails().get(0));
-				}
-				else if ( contact.getEmails().size() > 1 ) {
-					m_spinnerMultipleEmails.setVisibility(Spinner.VISIBLE);
-					m_emailEditText.setVisibility(Spinner.GONE);
-					
-					int emailNumber = contact.getEmails().size();
-					m_multipleEmails = new String[emailNumber+1];
-					m_multipleEmails[0] = getResources().getString(R.string.email_optional);
-					for ( int k = 0; k < emailNumber; k++ ) {
-						m_multipleEmails[k+1] = contact.getEmails().get(k);
-					}
-					
-					ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(getSherlockActivity(),android.R.layout.simple_spinner_item, m_multipleEmails);
-					spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item); // The drop down vieww
-					m_spinnerMultipleEmails.setAdapter(spinnerArrayAdapter);
-				}
-			}
-			
-			if ( contact.getPhones() != null ) {
-				if ( contact.getPhones().size() == 1 ) {
-					m_phoneEditText.setText(contact.getPhones().get(0));
-				}
-				else if ( contact.getPhones().size() > 1 ) {
-					m_spinnerMultiplePhones.setVisibility(Spinner.VISIBLE);
-					m_phoneEditText.setVisibility(Spinner.GONE);
-					
-					int phoneNumber = contact.getPhones().size();
-					m_multiplePhones = new String[phoneNumber+1];
-					m_multiplePhones[0] = getResources().getString(R.string.phone_optional);
-					for ( int k = 0; k < phoneNumber; k++ ) {
-						m_multiplePhones[k+1] = contact.getPhones().get(k);
-					}
-					
-					ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(getSherlockActivity(),android.R.layout.simple_spinner_item, m_multiplePhones);
-					spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item); // The drop down vieww
-					m_spinnerMultiplePhones.setAdapter(spinnerArrayAdapter);
-				}
-			}
+			writeContactDataInTheForm(contact);
 
+		}
+	}
+
+	protected void writeContactDataInTheForm(ContactBean contact) {
+		m_playerName.setText(contact.getFirstName());
+		m_playerLastName.setText(contact.getLastName());
+		if ( contact.getEmails() != null ) {
+			if ( contact.getEmails().size() == 1 ) {
+				m_emailEditText.setText(contact.getEmails().get(0));
+			}
+			else if ( contact.getEmails().size() > 1 ) {
+				m_spinnerMultipleEmails.setVisibility(Spinner.VISIBLE);
+				m_emailEditText.setVisibility(Spinner.GONE);
+				
+				int emailNumber = contact.getEmails().size();
+				m_multipleEmails = new String[emailNumber];
+				for ( int k = 0; k < emailNumber; k++ ) {
+					m_multipleEmails[k] = contact.getEmails().get(k);
+				}
+				
+				ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(getSherlockActivity(),android.R.layout.simple_spinner_item, m_multipleEmails);
+				spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item); // The drop down vieww
+				m_spinnerMultipleEmails.setAdapter(spinnerArrayAdapter);
+			}
+		}
+		
+		if ( contact.getPhones() != null ) {
+			if ( contact.getPhones().size() == 1 ) {
+				m_phoneEditText.setText(contact.getPhones().get(0));
+			}
+			else if ( contact.getPhones().size() > 1 ) {
+				m_spinnerMultiplePhones.setVisibility(Spinner.VISIBLE);
+				m_phoneEditText.setVisibility(Spinner.GONE);
+				
+				int phoneNumber = contact.getPhones().size();
+				m_multiplePhones = new String[phoneNumber];
+				for ( int k = 0; k < phoneNumber; k++ ) {
+					m_multiplePhones[k] = contact.getPhones().get(k);
+				}
+				
+				ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(getSherlockActivity(),android.R.layout.simple_spinner_item, m_multiplePhones);
+				spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item); // The drop down vieww
+				m_spinnerMultiplePhones.setAdapter(spinnerArrayAdapter);
+			}
 		}
 	}
 
@@ -280,7 +287,7 @@ public class AddPlayerInfoFragment extends BaseTwoButtonActionsFormFragment impl
 		//		}
 		return super.onOptionsItemSelected(item);
 	}
-
+	
 	@Override
 	protected void clickOnMenuItem1() {
 		savePlayer();
