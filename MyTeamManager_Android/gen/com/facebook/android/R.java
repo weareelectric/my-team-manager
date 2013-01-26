@@ -8,7 +8,7 @@ package com.facebook.android;
 
 public final class R {
 	public static final class drawable {
-		public static final int facebook_icon = 0x7f020066;
-		public static final int close = 0x7f020064;
+		public static final int facebook_icon = 0x7f020078;
+		public static final int close = 0x7f020076;
 	}
 }

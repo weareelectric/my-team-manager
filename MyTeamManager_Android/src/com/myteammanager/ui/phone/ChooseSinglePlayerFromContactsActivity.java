@@ -6,19 +6,20 @@ import android.support.v4.app.Fragment;
 import com.myteammanager.R;
 import com.myteammanager.beans.ConvocationBean;
 import com.myteammanager.ui.fragments.ChoosePlayerFromContactsFragment;
+import com.myteammanager.ui.fragments.ChooseSinglePlayerFromContactsFragment;
 import com.myteammanager.ui.fragments.EditConvocationFragment;
 import com.myteammanager.ui.fragments.RosterFragment;
 
-public class ChoosePlayerFromContactsActivity extends BaseSinglePaneActivity {
+public class ChooseSinglePlayerFromContactsActivity extends BaseSinglePaneActivity {
 
-	private final static String LOG_TAG = ChoosePlayerFromContactsActivity.class.getName();
+	private final static String LOG_TAG = ChooseSinglePlayerFromContactsActivity.class.getName();
 
-	private ChoosePlayerFromContactsFragment m_choosePlayersFromContact;
+	private ChooseSinglePlayerFromContactsFragment m_choosePlayersFromContact;
 
 	@Override
 	protected Fragment onCreatePane() {
 		setTitle(R.string.title_import_from_contacts);
-		m_choosePlayersFromContact = new ChoosePlayerFromContactsFragment();
+		m_choosePlayersFromContact = new ChooseSinglePlayerFromContactsFragment();
 		return m_choosePlayersFromContact;
 	}
 

@@ -186,6 +186,7 @@
     <string name="label_substitutions_out">Out</string>
     <string name="title_substitutions">Match substitutions</string>
     <string name="label_replace">&lt; &gt;</string>
-    
+      <string name="label_from_contacts">Contacts</string>
+     <string name="title_import_from_contacts">Import from contacts</string> 
 
 </resources>

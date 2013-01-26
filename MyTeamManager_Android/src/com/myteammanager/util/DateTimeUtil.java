@@ -53,6 +53,7 @@ public class DateTimeUtil {
 		ArrayList<Date> dates = new ArrayList<Date>();
 
 		Date date = addDays(new Date(startDate), dayInterval);
+		dates.add(date);
 		while (date.getTime() <= endDate) {
 			date = addDays(date, dayInterval);
 			dates.add(date);
