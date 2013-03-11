@@ -1,5 +1,8 @@
 package com.myteammanager.adapter.holders;
 
+import android.view.View;
+
+import com.myteammanager.beans.BaseBean;
 import com.myteammanager.beans.PlayerBean;
 
 public class PlayerNameWithCheckboxRowHolder extends
@@ -13,6 +16,14 @@ public class PlayerNameWithCheckboxRowHolder extends
 
 	public void setPlayer(PlayerBean m_player) {
 		this.m_player = m_player;
+	}
+	
+	
+
+	@Override
+	public void configureViews(View convertView, BaseBean bean) {
+		m_player = (PlayerBean)bean;
+		super.configureViews(convertView, bean);
 	}
 
 	@Override

@@ -334,7 +334,6 @@ public class AddEventInfoFragment extends BaseTwoButtonActionsFormFragment imple
 	}
 
 	protected void performActionsAndExit() {
-
 		if (m_menuItem1.isEnabled()) {
 			// If the button save is enabled user entered some valid info. Save player 
 			saveEvent();
@@ -345,7 +344,6 @@ public class AddEventInfoFragment extends BaseTwoButtonActionsFormFragment imple
 	}
 
 	private void notifyForResult() {
-
 		Intent intent = new Intent();
 		int resultCode = 0;
 
@@ -418,7 +416,7 @@ public class AddEventInfoFragment extends BaseTwoButtonActionsFormFragment imple
 			}
 
 			if (m_repeatedEvents != null) {
-				// the activity will be closed after the list of events is stored
+				// the activity will be closed after the list of events is stored and the notify result is called in doActionAfetrInsertBeans
 				storeEventsList(m_repeatedEvents);
 			} else {
 				Intent intent = new Intent();
@@ -431,6 +429,8 @@ public class AddEventInfoFragment extends BaseTwoButtonActionsFormFragment imple
 				}
 
 				getSherlockActivity().setResult(resultCode, intent);
+				
+				notifyForResult();
 
 				MyTeamManagerActivity.getBus().post(new EventOrMatchChanged());
 				getSherlockActivity().finish();
@@ -454,6 +454,8 @@ public class AddEventInfoFragment extends BaseTwoButtonActionsFormFragment imple
 
 			Intent intent = new Intent();
 			intent.putExtra(KeyConstants.KEY_BEANDATA, m_match);
+			
+			notifyForResult();
 
 			getSherlockActivity().setResult(resultCode, intent);
 
@@ -611,7 +613,7 @@ public class AddEventInfoFragment extends BaseTwoButtonActionsFormFragment imple
 
 		saveEvent();
 
-		notifyForResult();
+		
 	}
 
 	@Override
