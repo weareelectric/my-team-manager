@@ -242,6 +242,7 @@ public abstract class BaseListFragment extends SherlockFragment implements OnIte
 	}
 
 	public void addBeanToTheListAndRefresh(BaseBean mainBean, ArrayList<BaseBean> beans) {
+		Log.d(LOG_TAG, "Add beans list and refresh");
 		m_itemsList.add(mainBean);
 		if (beans != null)
 			m_itemsList.addAll(beans);
