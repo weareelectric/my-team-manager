@@ -394,7 +394,7 @@ public class AddEventInfoFragment extends BaseTwoButtonActionsFormFragment imple
 			} else if (m_eventRepeatSpinner.getSelectedItemPosition() == SPINNER_REPEAT_WEEKLY_POSITION) {
 				dayRepeatInterval = 7;
 			}
-			if (dayRepeatInterval != -1) {
+			if (!m_isUpdate && dayRepeatInterval != -1) {
 				ArrayList<Date> datesForRepeatedEvents = DateTimeUtil.getDatesStartingFromToWithInterval(
 						m_event.getTimestamp(), m_event.getRepeatEndDate().getTime(), dayRepeatInterval);
 				for (Date date : datesForRepeatedEvents) {
