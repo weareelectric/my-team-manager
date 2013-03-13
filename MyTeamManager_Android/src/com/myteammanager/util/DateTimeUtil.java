@@ -52,10 +52,10 @@ public class DateTimeUtil {
 	public static ArrayList<Date> getDatesStartingFromToWithInterval(long startDate, long endDate, int dayInterval) {
 		ArrayList<Date> dates = new ArrayList<Date>();
 
-		Date date = addDays(new Date(startDate), dayInterval);
-		dates.add(date);
-		while (date.getTime() <= endDate) {
-			date = addDays(date, dayInterval);
+		Date date = new Date(startDate);
+
+		
+		while ((date = addDays(date, dayInterval)).getTime() <= endDate) {
 			dates.add(date);
 		}
 

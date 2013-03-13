@@ -102,6 +102,9 @@ public abstract class BaseAdapterWithSectionHeaders extends ArrayAdapter<BaseBea
 					holder.configureViews(convertView, bean);
 					convertView.setTag(OTHER_TAG_INDEX, holder);
 				}
+				else {
+					holder.configureViews(convertView, bean);
+				}
 			}
 
 		}
