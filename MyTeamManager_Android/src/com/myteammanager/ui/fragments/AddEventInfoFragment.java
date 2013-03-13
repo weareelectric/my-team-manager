@@ -282,10 +282,14 @@ public class AddEventInfoFragment extends BaseTwoButtonActionsFormFragment imple
 	}
 
 	public void refreshtMatchDateAndTime() {
-		m_matchDateEditText.setText(DateUtils.formatDateTime(m_context, m_match.getTimestamp(),
-				DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_SHOW_YEAR));
-		m_matchTimeEditText.setText(DateUtils.formatDateTime(m_context, m_match.getTimestamp(),
-				DateUtils.FORMAT_SHOW_TIME));
+		long timestamp = m_match.getTimestamp();
+		if ( timestamp > 0 ) {
+			m_matchDateEditText.setText(DateUtils.formatDateTime(m_context, timestamp,
+					DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_SHOW_YEAR));
+			m_matchTimeEditText.setText(DateUtils.formatDateTime(m_context, timestamp,
+					DateUtils.FORMAT_SHOW_TIME));
+		}
+		
 	}
 
 	private void populateEventForm() {
