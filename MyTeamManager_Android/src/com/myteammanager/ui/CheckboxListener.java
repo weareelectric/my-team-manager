@@ -2,5 +2,5 @@ package com.myteammanager.ui;
 
 public interface CheckboxListener {
 
-	public void checkboxChanged();
+	public void checkboxChanged(boolean isSelectAll);
 }

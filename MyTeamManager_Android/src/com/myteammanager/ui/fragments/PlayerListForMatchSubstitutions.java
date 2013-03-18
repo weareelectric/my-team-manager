@@ -28,7 +28,7 @@ import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 import com.myteammanager.MyTeamManagerActivity;
 import com.myteammanager.R;
-import com.myteammanager.adapter.PlayerListAdapterWithCheckbox;
+import com.myteammanager.adapter.ConvocatedPlayerListAdapterWithCheckbox;
 import com.myteammanager.adapter.RosterListAdapter;
 import com.myteammanager.adapter.ScorersListAdapter;
 import com.myteammanager.adapter.SubstitutionsListAdapter;

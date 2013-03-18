@@ -7,7 +7,7 @@ import android.util.Log;
 
 import com.myteammanager.adapter.holders.BaseHolder;
 import com.myteammanager.adapter.holders.ConvocatedPlayerWithCheckboxRowHolder;
-import com.myteammanager.adapter.holders.PlayerNameWithCheckboxRowHolder;
+import com.myteammanager.adapter.holders.RecipientWithCheckboxRowHolder;
 import com.myteammanager.adapter.holders.TextWithCheckboxItemRowHolder;
 import com.myteammanager.adapter.holders.RosterItemRowHolder;
 import com.myteammanager.beans.BaseBean;
@@ -16,13 +16,21 @@ import com.myteammanager.beans.SeparatorBean;
 import com.myteammanager.ui.CheckboxListener;
 import com.myteammanager.util.PlayerAndroidUtil;
 
-public abstract class PlayerListAdapterWithCheckbox extends BaseAdapterWithCheckbox {
+public class RecipientListAdapterWithCheckbox extends BaseAdapterWithCheckbox {
 
-	private String LOG_TAG = PlayerListAdapterWithCheckbox.class.getName();
+	private String LOG_TAG = RecipientListAdapterWithCheckbox.class.getName();
 
-	public PlayerListAdapterWithCheckbox(Context context, int layoutResourceId, ArrayList<BaseBean> objects,
+	public RecipientListAdapterWithCheckbox(Context context, int layoutResourceId, ArrayList<BaseBean> objects,
 			CheckboxListener checkboxListener) {
 		super(context, layoutResourceId, objects, checkboxListener);
+	}
+	
+	@Override
+	protected void populateHolder(BaseHolder holder, BaseBean baseBean) {
+		super.populateHolder(holder, baseBean);
+		RecipientWithCheckboxRowHolder realHolder = (RecipientWithCheckboxRowHolder)holder;
+		PlayerBean player = (PlayerBean)baseBean;
+		realHolder.setPlayer(player);
 	}
 	
 	@Override
@@ -31,11 +39,20 @@ public abstract class PlayerListAdapterWithCheckbox extends BaseAdapterWithCheck
 		return player.getSurnameAndName(false);
 	}
 
-
 	@Override
 	protected BaseHolder getHolder() {
-		return new PlayerNameWithCheckboxRowHolder();
+		return new RecipientWithCheckboxRowHolder();
 	}
-	
+
+	@Override
+	protected boolean flagTheCheckbox(BaseBean bean) {
+		if ( bean instanceof PlayerBean ) {
+			PlayerBean player = (PlayerBean)bean;
+			return player.isRecipient();
+		}
+		
+		return false;
+	}
+
 
 }
