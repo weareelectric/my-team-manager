@@ -8,14 +8,16 @@ import com.myteammanager.beans.PlayerBean;
 public class PlayerNameWithCheckboxRowHolder extends
 		TextWithCheckboxItemRowHolder {
 
-	private PlayerBean m_player;
+	protected PlayerBean m_player;
 	
 	public PlayerBean getPlayer() {
 		return m_player;
 	}
 
-	public void setPlayer(PlayerBean m_player) {
-		this.m_player = m_player;
+	public void setPlayer(PlayerBean player) {
+		this.m_player = player;
+		
+		m_isSelectAll = this.m_player.isFakeSelectAll();
 	}
 	
 	

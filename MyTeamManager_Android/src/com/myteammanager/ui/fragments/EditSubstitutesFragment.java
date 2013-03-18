@@ -23,7 +23,7 @@ import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 import com.myteammanager.R;
-import com.myteammanager.adapter.PlayerListAdapterWithCheckbox;
+import com.myteammanager.adapter.ConvocatedPlayerListAdapterWithCheckbox;
 import com.myteammanager.adapter.SubstitutesAdapter;
 import com.myteammanager.beans.BaseBean;
 import com.myteammanager.beans.ConvocationBean;

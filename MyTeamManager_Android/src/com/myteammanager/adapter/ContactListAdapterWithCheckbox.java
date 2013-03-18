@@ -7,7 +7,7 @@ import android.util.Log;
 
 import com.myteammanager.adapter.holders.BaseHolder;
 import com.myteammanager.adapter.holders.ContactListWithCheckboxRowHolder;
-import com.myteammanager.adapter.holders.PlayerNameWithCheckboxRowHolder;
+import com.myteammanager.adapter.holders.ConvocatedPlayerWithCheckboxRowHolder;
 import com.myteammanager.adapter.holders.TextWithCheckboxItemRowHolder;
 import com.myteammanager.adapter.holders.RosterItemRowHolder;
 import com.myteammanager.beans.BaseBean;

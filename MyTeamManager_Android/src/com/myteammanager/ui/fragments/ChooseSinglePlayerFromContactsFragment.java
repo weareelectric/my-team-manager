@@ -78,7 +78,7 @@ public class ChooseSinglePlayerFromContactsFragment extends BaseListFragment imp
 	}
 
 	@Override
-	public void checkboxChanged() {
+	public void checkboxChanged(boolean isSelectAll) {
 		
 	}
 

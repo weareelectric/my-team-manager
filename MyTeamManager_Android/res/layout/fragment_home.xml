@@ -8,10 +8,10 @@
         android:id="@+id/topButtons"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="5dp"
+        android:layout_marginBottom="0dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="2dp"
         android:orientation="horizontal" >
 
         <Button
@@ -47,19 +47,67 @@
             android:textSize="14dp" />
     </LinearLayout>
 
+    <LinearLayout
+        android:id="@+id/topButtons"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="0dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="2dp"
+        android:orientation="horizontal" >
+
+        <Button
+            android:id="@+id/buttonMessage"
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="1dp"
+            android:layout_weight="1.0"
+            android:drawableTop="@drawable/btn_send_msg"
+            android:text="@string/label_send_msg"
+            android:textColor="#555555"
+            android:textSize="14dp" />
+
+        <Button
+            android:id="@+id/buttonFacebook"
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="1dp"
+            android:layout_weight="1.0"
+            android:drawableTop="@drawable/facebook_home"
+            android:text="@string/label_facebook"
+            android:textColor="#555555"
+            android:textSize="14dp" />
+
+        <Button
+            android:id="@+id/buttonHelp"
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.0"
+            android:drawableTop="@drawable/help"
+            android:text="@string/label_help"
+            android:textColor="#555555"
+            android:textSize="14dp" />
+    </LinearLayout>
+
     <!--
     <View
     android:layout_width="fill_parent"
     android:layout_height="1dip"
-    android:background="@color/HomePageLine" />
+    android:background="@color/HomePageLine" />
     -->
+    
+        <View
+        android:layout_width="fill_parent"
+        android:layout_height="0dip"
+        android:layout_weight="1" />
 
     <RelativeLayout
         android:id="@+id/statsBox"
         android:layout_width="match_parent"
-        android:layout_height="90dp"
+        android:layout_height="80dp"
         android:layout_below="@+id/topButtons"
-        android:layout_marginBottom="14dp"
+        android:layout_marginBottom="4dp"
         android:layout_marginLeft="7dp"
         android:layout_marginRight="7dp"
         android:layout_marginTop="4dp"
@@ -70,7 +118,6 @@
             android:id="@+id/textViewStats"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="3dp"
             android:gravity="center_horizontal"
             android:text="@string/label_stats"
             android:textColor="#555555"
@@ -83,10 +130,8 @@
             android:layout_below="@+id/textViewStats"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
-            android:layout_marginBottom="5dp"
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"
-            android:layout_marginTop="5dp"
             android:background="#FFFFFF"
             android:stretchColumns="*" >
 
@@ -256,9 +301,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/HomePageComingEvents"
-        android:minHeight="80dp"
-        android:orientation="vertical"
-         >
+        android:minHeight="70dp"
+        android:orientation="vertical" >
 
         <!--
             <ImageView
@@ -267,7 +311,8 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_marginLeft="5dp"
-            android:src="@drawable/balloon" /> -->
+            android:src="@drawable/balloon" />
+        -->
 
         <Button
             android:id="@+id/textViewMatch"
@@ -275,11 +320,11 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/textViewNextMatch"
             android:layout_centerVertical="true"
-            android:minHeight="80dp"
+            android:background="@drawable/homepage_button"
             android:gravity="center|center_vertical"
+            android:minHeight="80dp"
             android:textColor="#555555"
             android:textSize="18dp"
-            android:background="@drawable/homepage_button"
             android:visibility="gone" />
 
         <Button
@@ -302,7 +347,7 @@
     <View
     android:layout_width="fill_parent"
     android:layout_height="1dip"
-    android:background="@color/HomePageLine" />
+    android:background="@color/HomePageLine" />
     -->
 
     <TextView
@@ -319,9 +364,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/HomePageComingEvents"
-        android:minHeight="80dp"
-        android:orientation="vertical"
-         >
+        android:minHeight="70dp"
+        android:orientation="vertical" >
 
         <!--
              <ImageView
@@ -331,17 +375,18 @@
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
             android:layout_marginLeft="5dp"
-            android:src="@drawable/training" />        -->
+            android:src="@drawable/training" />
+        -->
 
         <Button
             android:id="@+id/textViewTrainingDate"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:minHeight="80dp"
             android:layout_below="@+id/textViewNextTraining"
-            android:gravity="center|center_vertical"
-            android:text="@string/msg_no_next_training_available"
             android:background="@drawable/homepage_button"
+            android:gravity="center|center_vertical"
+            android:minHeight="80dp"
+            android:text="@string/msg_no_next_training_available"
             android:textColor="#555555"
             android:textSize="18dp"
             android:visibility="gone" />

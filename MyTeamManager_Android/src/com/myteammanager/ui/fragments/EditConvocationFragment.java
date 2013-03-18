@@ -1,10 +1,10 @@
 package com.myteammanager.ui.fragments;
 
 import java.util.ArrayList;
-import java.util.logging.Logger;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.res.Resources;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -15,11 +15,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.TextView;
+import android.widget.Toast;
 
 import com.actionbarsherlock.app.ActionBar.Tab;
 import com.actionbarsherlock.app.ActionBar.TabListener;
@@ -37,10 +36,9 @@ import com.myteammanager.specializedStorage.MyTeamManagerDBManager;
 import com.myteammanager.storage.DBManager;
 import com.myteammanager.storage.SettingsManager;
 import com.myteammanager.ui.CheckboxListener;
-import com.myteammanager.ui.phone.EditPlayerInfoActivity;
+import com.myteammanager.ui.phone.SendMessageActivity;
 import com.myteammanager.util.DateTimeUtil;
 import com.myteammanager.util.KeyConstants;
-import com.myteammanager.util.PlayerAndroidUtil;
 import com.myteammanager.util.StringUtil;
 
 public class EditConvocationFragment extends RosterFragment implements TabListener, CheckboxListener {
@@ -49,6 +47,9 @@ public class EditConvocationFragment extends RosterFragment implements TabListen
 
 	private static final String EDIT_CONVOCATION_TAG = "edit_convocation";
 	private static final String CONVOCATED_TAG = "convocated";
+	
+	private static final int INDEX_TO_ALL_PLAYERS = 0;
+	private static final int INDEX_TO_CONVOCATED_PLAYERS = 1;
 
 	private MatchBean m_match;
 	private ArrayList<PlayerBean> m_convocatedPlayers;
@@ -186,54 +187,103 @@ public class EditConvocationFragment extends RosterFragment implements TabListen
 		switch (item.getItemId()) {
 
 		case R.id.menu_save_convocations:
-			m_finalConvocations = new ArrayList<ConvocationBean>();
-			PlayerBean player = null;
-			ConvocationBean convocation = null;
-			Object obj = null;
-			int size = m_itemsList.size();
-			int convocatedPlayer = 0;
-
-			for (int i = 0; i < size; i++) {
-				obj = m_itemsList.get(i);
-				if (obj instanceof PlayerBean) {
-					player = (PlayerBean) obj;
-
-					if (player.isConvocated()) {
-						convocation = new ConvocationBean();
-						Log.d(LOG_TAG, "Id of match: " + m_match.getId());
-						convocation.setMatch(m_match);
-						convocation.setPlayer(player);
-						m_finalConvocations.add(convocation);
-						convocatedPlayer++;
-					}
-				}
-
-			}
-
-			m_match.setNumberOfPlayerConvocated(convocatedPlayer);
-
-			m_match.setAppointmentPlaceAndTime(m_hangoutPlaceAndTimeEditText.getText().toString());
-
-			if (convocatedPlayer > 0) {
-				m_convocations = true;
-			} else {
-				m_convocations = false;
-			}
-
-			if (SettingsManager.getInstance(getSherlockActivity()).isFacebookActivated()) {
-				Resources resources = getResources();
-				showTwoButtonDialog(null, resources.getString(R.string.dialog_facebook_post_convocation), R.string.label_yes,
-						R.string.label_no);
-			} else {
-				saveData();
-			}
+			updateMatchObjectAndSaveConvocations(true);
 
 			break;
+			
+		case R.id.menu_send_convocations:
+			updateMatchObjectAndSaveConvocations(false);
+			
+			AlertDialog.Builder builder = new AlertDialog.Builder(
+					getSherlockActivity());
+
+			String[] items = {getResources().getString(R.string.label_to_all_players), getResources().getString(R.string.label_to_only_convocated)};
+			
+			
+			builder.setItems(items, new DialogInterface.OnClickListener() {
+	             
+	            @Override
+	            public void onClick(
+	                    DialogInterface dialog, 
+	                    int which) {
+	                switch ( which ) {
+	                case INDEX_TO_ALL_PLAYERS:
+	                	ArrayList<BaseBean> playersWithPhoneOrEmail = (ArrayList<BaseBean>) MyTeamManagerDBManager
+						.getInstance()
+						.getListOfBeansWhere(
+								new PlayerBean(),
+								"(phone is not null and phone <> '') or (email is not null and email <> '')",
+								true);
+	                	
+	                	openMessageScreen(playersWithPhoneOrEmail);
+	                	break;
+	                	
+	                case INDEX_TO_CONVOCATED_PLAYERS:
+	                	PlayerBean player = null;
+	                	ArrayList<BaseBean> selectedRecipients = new ArrayList<BaseBean>();
+	                	for ( ConvocationBean convocation : m_finalConvocations ) {
+	                		player = convocation.getPlayer();
+	                		if ( StringUtil.isNotEmpty(player.getPhone()) || StringUtil.isNotEmpty(player.getEmail()) ) {
+	                			selectedRecipients.add(player);
+	                		}
+	                	}
+	                	
+	                	openMessageScreen(selectedRecipients);
+	                	break;
+	                }
+	            }
+	        });
+			AlertDialog alert = builder.create();
+			alert.setTitle(getResources().getString(R.string.title_send_convocations));
+			alert.show();
+			break;
+			
 		}
 		return true;
 	}
 
-	protected void saveData() {
+	protected void updateMatchObjectAndSaveConvocations(boolean exitActivity) {
+		int convocatedPlayer = prepareDataToStore();
+		m_match.setNumberOfPlayerConvocated(convocatedPlayer);
+		m_match.setAppointmentPlaceAndTime(m_hangoutPlaceAndTimeEditText.getText().toString());
+		saveConvocations(exitActivity);
+	}
+
+	protected int prepareDataToStore() {
+		m_finalConvocations = new ArrayList<ConvocationBean>();
+		PlayerBean player = null;
+		ConvocationBean convocation = null;
+		Object obj = null;
+		int size = m_itemsList.size();
+		int convocatedPlayer = 0;
+
+		for (int i = 0; i < size; i++) {
+			obj = m_itemsList.get(i);
+			if (obj instanceof PlayerBean) {
+				player = (PlayerBean) obj;
+
+				if (player.isConvocated()) {
+					convocation = new ConvocationBean();
+					Log.d(LOG_TAG, "Id of match: " + m_match.getId());
+					convocation.setMatch(m_match);
+					convocation.setPlayer(player);
+					m_finalConvocations.add(convocation);
+					convocatedPlayer++;
+				}
+			}
+
+		}
+		
+		if (convocatedPlayer > 0) {
+			m_convocations = true;
+		} else {
+			m_convocations = false;
+		}
+		
+		return convocatedPlayer;
+	}
+
+	protected void saveConvocations(boolean exitActivity) {
 		// First, delete the previous entries in the db
 		DBManager.getInstance().deleteBeanWithWhere(new ConvocationBean(), "match=" + m_match.getId());
 
@@ -246,12 +296,22 @@ public class EditConvocationFragment extends RosterFragment implements TabListen
 		
 		DBManager.getInstance().updateBean(m_match);
 		
-		insertBeans(m_finalConvocations, false, true);
+		insertBeans(m_finalConvocations, false, exitActivity);
 
 	}
 
 
 	public void postOnFacebook(ArrayList<ConvocationBean> convocations) {
+		String message = getTextForConvocationMessage(convocations);
+		if (SettingsManager.getInstance(getSherlockActivity()).isFacebookActivated()) {
+			FacebookManager.getInstance().postMessage(message,
+					SettingsManager.getInstance(getSherlockActivity()).getFacebookPageId(), getSherlockActivity(), null);
+		}
+
+	}
+
+	protected String getTextForConvocationMessage(
+			ArrayList<ConvocationBean> convocations) {
 		StringBuffer sb = new StringBuffer();
 		sb.append(m_match.getMatchString(getSherlockActivity()));
 
@@ -288,11 +348,8 @@ public class EditConvocationFragment extends RosterFragment implements TabListen
 			sb.append(convocations.get(k).getPlayer().getSurnameAndName(false));
 		}
 
-		if (SettingsManager.getInstance(getSherlockActivity()).isFacebookActivated()) {
-			FacebookManager.getInstance().postMessage(sb.toString(),
-					SettingsManager.getInstance(getSherlockActivity()).getFacebookPageId(), getSherlockActivity(), null);
-		}
-
+		String message = sb.toString();
+		return message;
 	}
 
 	@Override
@@ -300,7 +357,7 @@ public class EditConvocationFragment extends RosterFragment implements TabListen
 		// Ok. Post on Facebook
 		Log.d(LOG_TAG, "button1Pressed");
 		postOnFacebook(m_finalConvocations);
-		saveData();
+		saveConvocations(true);
 	}
 
 	@Override
@@ -311,7 +368,7 @@ public class EditConvocationFragment extends RosterFragment implements TabListen
 	@Override
 	public void button3Pressed(int alertId) {
 		Log.d(LOG_TAG, "button3Pressed");
-		saveData();
+		saveConvocations(true);
 	}
 
 	@Override
@@ -422,7 +479,7 @@ public class EditConvocationFragment extends RosterFragment implements TabListen
 	}
 
 	@Override
-	public void checkboxChanged() {
+	public void checkboxChanged(boolean isSelectAll) {
 		Log.d(EDIT_CONVOCATION_TAG, "convocationChanged");
 
 		int size = m_itemsList.size();
@@ -446,6 +503,15 @@ public class EditConvocationFragment extends RosterFragment implements TabListen
 		}
 
 		updateCountersForConvocations();
+	}
+
+	protected void openMessageScreen(ArrayList<BaseBean> playersWithPhoneOrEmail) {
+		Intent intent = new Intent(getSherlockActivity(),
+				SendMessageActivity.class);
+		intent.putExtra(KeyConstants.KEY_SELECTED_RECIPIENT,
+				playersWithPhoneOrEmail);
+		intent.putExtra(KeyConstants.KEY_MSG_TEXT, getTextForConvocationMessage(m_finalConvocations));
+		startActivity(intent);
 	}
 
 }

@@ -40,6 +40,8 @@ public class PlayerBean extends BaseBean implements Parcelable {
 	private boolean _onTheBench = false;
 	private PlayerBean _replacedPlayer;
 	private int _goalScoredInTheMatch = 0;
+	private boolean _isRecipient = false;
+	private boolean _isFakeSelectAll = false;
 
 	public PlayerBean() {
 		super();
@@ -61,6 +63,8 @@ public class PlayerBean extends BaseBean implements Parcelable {
 		_onTheBench = in.readInt() == 1;
 		_replacedPlayer = in.readParcelable(PlayerBean.class.getClassLoader());
 		_goalScoredInTheMatch = in.readInt();
+		_isRecipient = in.readInt() == 1;
+		_isFakeSelectAll = in.readInt() == 1;
 	}
 
 	@Override
@@ -79,6 +83,8 @@ public class PlayerBean extends BaseBean implements Parcelable {
 		dest.writeInt(_onTheBench ? 1 : 0);
 		dest.writeParcelable(_replacedPlayer, flags);
 		dest.writeInt(_goalScoredInTheMatch);
+		dest.writeInt(_isRecipient ? 1 : 0);
+		dest.writeInt(_isFakeSelectAll ? 1 : 0);
 	}
 
 	public int getId() {
@@ -206,6 +212,22 @@ public class PlayerBean extends BaseBean implements Parcelable {
 	public void setGoalScoredInTheMatch(int _goalScoredInTheMatch) {
 		this._goalScoredInTheMatch = _goalScoredInTheMatch;
 	}
+	
+	public boolean isRecipient() {
+		return _isRecipient;
+	}
+
+	public void setIsRecipient(boolean _isRecipient) {
+		this._isRecipient = _isRecipient;
+	}
+	
+	public boolean isFakeSelectAll() {
+		return _isFakeSelectAll;
+	}
+
+	public void setIsFakeSelectAll(boolean _isFakeSelectAll) {
+		this._isFakeSelectAll = _isFakeSelectAll;
+	}
 
 	public void reset() {
 		this.m_key_id = -1;
@@ -222,6 +244,8 @@ public class PlayerBean extends BaseBean implements Parcelable {
 		this._onTheBench = false;
 		this._replacedPlayer = null;
 		this._goalScoredInTheMatch = 0;
+		this._isRecipient = false;
+		this._isFakeSelectAll = false;
 	}
 
 	public String getSurnameAndName(boolean nameCut) {

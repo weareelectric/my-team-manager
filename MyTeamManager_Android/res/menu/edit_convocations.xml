@@ -6,4 +6,11 @@
         android:showAsAction="always"
         android:title="@string/save"/>
             
+                        <item
+        android:id="@+id/menu_send_convocations"
+        android:icon="@drawable/ic_action_send_msg"
+        android:orderInCategory="1"
+        android:showAsAction="always"
+        android:title="@string/send"/>
+            
  </menu>

@@ -8,7 +8,7 @@ import com.myteammanager.beans.BaseBean;
 import com.myteammanager.beans.PlayerBean;
 import com.myteammanager.ui.CheckboxListener;
 
-public class SubstitutesAdapter extends PlayerListAdapterWithCheckbox {
+public class SubstitutesAdapter extends ConvocatedPlayerListAdapterWithCheckbox {
 
 	public SubstitutesAdapter(Context context, int layoutResourceId, ArrayList<BaseBean> objects,
 			CheckboxListener playerCheckboxListeenr) {

@@ -15,6 +15,8 @@ public abstract class TextWithCheckboxItemRowHolder extends BaseHolder implement
 	private TextView m_textView;
 	private CheckBox m_checkbox;
 	private CheckboxListener m_checkboxListener;
+	
+	protected boolean m_isSelectAll = false;
 
 	
 	public TextView getTextView() {
@@ -32,6 +34,14 @@ public abstract class TextWithCheckboxItemRowHolder extends BaseHolder implement
 	public void setCheckbox(CheckBox checkbox) {
 		this.m_checkbox = checkbox;
 	}
+	
+	public boolean isSelectAll() {
+		return m_isSelectAll;
+	}
+
+	public void setSelectAll(boolean isSelectAll) {
+		m_isSelectAll = isSelectAll;
+	}
 
 	@Override
 	public void configureViews(View convertView, BaseBean bean) {
@@ -46,7 +56,7 @@ public abstract class TextWithCheckboxItemRowHolder extends BaseHolder implement
 	@Override
 	public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 		actionOnCheckboxChange(isChecked);
-		m_checkboxListener.checkboxChanged();
+		m_checkboxListener.checkboxChanged(m_isSelectAll);
 	}
 	
 	protected abstract void actionOnCheckboxChange(boolean isChecked);
