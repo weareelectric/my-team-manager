@@ -78,7 +78,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
-            android:inputType="textShortMessage"
+            android:inputType="textShortMessage|textMultiLine"
             android:minLines="3"
             android:maxLines="5"
             android:hint="@string/label_write_message"

@@ -90,17 +90,12 @@
             android:textSize="14dp" />
     </LinearLayout>
 
-    <!--
-    <View
-    android:layout_width="fill_parent"
-    android:layout_height="1dip"
-    android:background="@color/HomePageLine" />
-    -->
+
     
         <View
         android:layout_width="fill_parent"
-        android:layout_height="0dip"
-        android:layout_weight="1" />
+        android:layout_height="5dip"
+        />
 
     <RelativeLayout
         android:id="@+id/statsBox"
@@ -121,7 +116,7 @@
             android:gravity="center_horizontal"
             android:text="@string/label_stats"
             android:textColor="#555555"
-            android:textSize="18dp"
+            android:textSize="16dp"
             android:textStyle="bold" />
 
         <TableLayout
@@ -149,7 +144,7 @@
                     android:layout_height="wrap_content"
                     android:background="@color/HomePageComingEvents"
                     android:text="@string/label_points_short"
-                    android:textSize="16dp"
+                    android:textSize="14dp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -158,7 +153,7 @@
                     android:layout_marginLeft="1dp"
                     android:background="@color/HomePageComingEvents"
                     android:text="@string/label_played_short"
-                    android:textSize="16dp"
+                    android:textSize="14dp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -167,7 +162,7 @@
                     android:layout_marginLeft="1dp"
                     android:background="@color/HomePageComingEvents"
                     android:text="@string/label_won_short"
-                    android:textSize="16dp"
+                    android:textSize="14dp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -176,7 +171,7 @@
                     android:layout_marginLeft="1dp"
                     android:background="@color/HomePageComingEvents"
                     android:text="@string/label_draw_short"
-                    android:textSize="16dp"
+                    android:textSize="14dp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -185,7 +180,7 @@
                     android:layout_marginLeft="1dp"
                     android:background="@color/HomePageComingEvents"
                     android:text="@string/label_lost_short"
-                    android:textSize="16dp"
+                    android:textSize="14dp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -194,7 +189,7 @@
                     android:layout_marginLeft="1dp"
                     android:background="@color/HomePageComingEvents"
                     android:text="@string/label_goal_scored_short"
-                    android:textSize="16dp"
+                    android:textSize="14dp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -203,7 +198,7 @@
                     android:layout_marginLeft="1dp"
                     android:background="@color/HomePageComingEvents"
                     android:text="@string/label_goal_against_short"
-                    android:textSize="16dp"
+                    android:textSize="14dp"
                     android:textStyle="bold" />
             </TableRow>
 
@@ -221,7 +216,7 @@
                     android:layout_marginTop="1dp"
                     android:background="@color/HomePageComingEvents"
                     android:text="20"
-                    android:textSize="16dp" />
+                    android:textSize="14dp" />
 
                 <TextView
                     android:id="@+id/playedValueTextView"
@@ -230,7 +225,7 @@
                     android:layout_marginTop="1dp"
                     android:background="@color/HomePageComingEvents"
                     android:text="10"
-                    android:textSize="16dp" />
+                    android:textSize="14dp" />
 
                 <TextView
                     android:id="@+id/wonValueTextView"
@@ -239,7 +234,7 @@
                     android:layout_marginTop="1dp"
                     android:background="@color/HomePageComingEvents"
                     android:text="5"
-                    android:textSize="16dp" />
+                    android:textSize="14dp" />
 
                 <TextView
                     android:id="@+id/drawValueTextView"
@@ -248,7 +243,7 @@
                     android:layout_marginTop="1dp"
                     android:background="@color/HomePageComingEvents"
                     android:text="5"
-                    android:textSize="16dp" />
+                    android:textSize="14dp" />
 
                 <TextView
                     android:id="@+id/lostValueTextView"
@@ -257,7 +252,7 @@
                     android:layout_marginTop="1dp"
                     android:background="@color/HomePageComingEvents"
                     android:text="0"
-                    android:textSize="16dp" />
+                    android:textSize="14dp" />
 
                 <TextView
                     android:id="@+id/scoredValueTextView"
@@ -266,7 +261,7 @@
                     android:layout_marginTop="1dp"
                     android:background="@color/HomePageComingEvents"
                     android:text="15"
-                    android:textSize="16dp" />
+                    android:textSize="14dp" />
 
                 <TextView
                     android:id="@+id/againstValueTextView"
@@ -275,7 +270,7 @@
                     android:layout_marginTop="1dp"
                     android:background="@color/HomePageComingEvents"
                     android:text="5"
-                    android:textSize="16dp" />
+                    android:textSize="14dp" />
             </TableRow>
         </TableLayout>
     </RelativeLayout>
@@ -293,7 +288,7 @@
         android:background="@drawable/homepage_header_gradient"
         android:text="@string/label_next_match"
         android:textColor="#FFFFFF"
-        android:textSize="16dp"
+        android:textSize="14dp"
         android:textStyle="bold" />
 
     <RelativeLayout
@@ -301,7 +296,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/HomePageComingEvents"
-        android:minHeight="70dp"
+        android:minHeight="65dp"
         android:orientation="vertical" >
 
         <!--
@@ -322,9 +317,9 @@
             android:layout_centerVertical="true"
             android:background="@drawable/homepage_button"
             android:gravity="center|center_vertical"
-            android:minHeight="80dp"
+            android:minHeight="65dp"
             android:textColor="#555555"
-            android:textSize="18dp"
+            android:textSize="16dp"
             android:visibility="gone" />
 
         <Button
@@ -339,7 +334,7 @@
             android:drawableRight="@drawable/ic_list_more"
             android:text="@string/btn_add_match"
             android:textColor="#555555"
-            android:textSize="16dp"
+            android:textSize="14dp"
             android:visibility="gone" />
     </RelativeLayout>
 
@@ -357,14 +352,14 @@
         android:background="@drawable/homepage_header_gradient"
         android:text="@string/label_next_training"
         android:textColor="#FFFFFF"
-        android:textSize="16dp"
+        android:textSize="14dp"
         android:textStyle="bold" />
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/HomePageComingEvents"
-        android:minHeight="70dp"
+        android:minHeight="65dp"
         android:orientation="vertical" >
 
         <!--
@@ -385,10 +380,10 @@
             android:layout_below="@+id/textViewNextTraining"
             android:background="@drawable/homepage_button"
             android:gravity="center|center_vertical"
-            android:minHeight="80dp"
+            android:minHeight="65dp"
             android:text="@string/msg_no_next_training_available"
             android:textColor="#555555"
-            android:textSize="18dp"
+            android:textSize="16dp"
             android:visibility="gone" />
 
         <Button
@@ -403,7 +398,7 @@
             android:drawableRight="@drawable/ic_list_more"
             android:text="@string/btn_add_event"
             android:textColor="#555555"
-            android:textSize="16dp"
+            android:textSize="14dp"
             android:visibility="gone" />
     </RelativeLayout>
 

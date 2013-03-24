@@ -2,13 +2,13 @@
 
     <item
         android:id="@+id/menu_add_event"
-        android:icon="@android:drawable/ic_menu_add"
+        android:icon="@drawable/ic_action_add"
         android:orderInCategory="0"
         android:showAsAction="always"
         android:title="@string/add"/>
     <item
         android:id="@+id/menu_delete_all_events"
-        android:icon="@android:drawable/ic_menu_delete"
+        android:icon="@drawable/ic_action_delete"
         android:orderInCategory="1"
         android:showAsAction="always"
         android:title="@string/delete_all" android:menuCategory="container" android:titleCondensed="@string/delete_all"/>
