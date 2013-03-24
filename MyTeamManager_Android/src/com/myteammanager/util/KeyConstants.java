@@ -19,6 +19,7 @@ public class KeyConstants {
 	public static final String KEY_CHOSEN_CONTACTS = "chosenContacts";
 	public static final String KEY_CHOSEN_CONTACT = "chosenContact";
 	public static final String KEY_SELECTED_RECIPIENT = "selectedRecipients";
+	public static final String KEY_MSG_TEXT = "msgText";
 	
 
 	public static final int CODE_BEAN_CHANGE = 1;

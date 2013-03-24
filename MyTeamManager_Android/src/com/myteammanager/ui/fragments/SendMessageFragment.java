@@ -20,6 +20,7 @@ import com.myteammanager.adapter.RecipientListAdapterWithCheckbox;
 import com.myteammanager.beans.BaseBean;
 import com.myteammanager.beans.PlayerBean;
 import com.myteammanager.specializedStorage.MyTeamManagerDBManager;
+import com.myteammanager.storage.SettingsManager;
 import com.myteammanager.util.KeyConstants;
 import com.myteammanager.util.StringUtil;
 
@@ -27,13 +28,14 @@ public class SendMessageFragment extends BaseFragment {
 	
 	private String LOG_TAG = SendMessageFragment.class.getName();
 	
-	private ArrayList<String> m_playersWithEmail = new ArrayList<String>();
-	private ArrayList<String> m_playersWithPhone = new ArrayList<String>();
-	private ArrayList<PlayerBean> m_playersWithNoAddress = new ArrayList<PlayerBean>();
-	private ArrayList<PlayerBean> m_chosenRecipients = new ArrayList<PlayerBean>();
-	private Button m_buttonRecipientsNoAddress;
+	protected ArrayList<String> m_playersWithEmail = new ArrayList<String>();
+	protected ArrayList<String> m_playersWithPhone = new ArrayList<String>();
+	protected ArrayList<PlayerBean> m_playersWithNoAddress = new ArrayList<PlayerBean>();
+	protected ArrayList<PlayerBean> m_chosenRecipients = new ArrayList<PlayerBean>();
+	protected Button m_buttonRecipientsNoAddress;
+	protected String m_msgText;
 	
-	private View m_root;
+	protected View m_root;
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -82,11 +84,15 @@ public class SendMessageFragment extends BaseFragment {
 
 				builder.setItems(playersNoAdress, null);
 				AlertDialog alert = builder.create();
+				alert.setTitle(getResources().getString(R.string.title_players_no_address));
 				alert.show();
 			}
 		});
 		
 		final EditText editTextMessage = (EditText)m_root.findViewById(R.id.editTextMessage);
+		if (StringUtil.isNotEmpty(m_msgText)) {
+			editTextMessage.setText(m_msgText);
+		}
 		
 		Button sendSMSButton = (Button)m_root.findViewById(R.id.buttonSMS);
 		sendSMSButton.setOnClickListener(new OnClickListener() {
@@ -113,6 +119,28 @@ public class SendMessageFragment extends BaseFragment {
 			}
 		});
 		
+		Button sendEmailButton = (Button)m_root.findViewById(R.id.buttonEmail);
+		sendEmailButton.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View arg0) {
+				int size = m_playersWithEmail.size();
+				String[] emails = new String[size];
+				int k = 0;
+				for ( String email : m_playersWithEmail ) {
+					emails[k] = email;
+					k++;
+				}
+				Intent intent = new Intent(Intent.ACTION_SEND);
+				intent.setType("plain/text");
+				intent.putExtra(Intent.EXTRA_EMAIL, emails);
+				intent.putExtra(Intent.EXTRA_SUBJECT, getResources().getString(R.string.title_subject_free_text_email, SettingsManager.getInstance(getSherlockActivity()).getTeamName()));
+				intent.putExtra(Intent.EXTRA_TEXT, editTextMessage.getText().toString());
+				startActivity(Intent.createChooser(intent, ""));
+				
+			}
+		});
+		
 		
 		return m_root;
 	}
@@ -124,8 +152,8 @@ public class SendMessageFragment extends BaseFragment {
 		
 		Bundle extra = getSherlockActivity().getIntent().getExtras();
 		m_chosenRecipients = (ArrayList<PlayerBean>)extra.get(KeyConstants.KEY_SELECTED_RECIPIENT);
-		
 		m_playersWithNoAddress= (ArrayList<PlayerBean>) MyTeamManagerDBManager.getInstance().getListOfBeansWhere(new PlayerBean(), "(email is null or email = '') and (phone is null or phone = '')", true);
+		m_msgText = (String)extra.get(KeyConstants.KEY_MSG_TEXT);
 		
 		for ( PlayerBean player : m_chosenRecipients ) {
 			if ( StringUtil.isNotEmpty(player.getEmail())) {

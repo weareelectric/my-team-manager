@@ -1,7 +1,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
                         <item
         android:id="@+id/menu_edit_delete_event_match"
-        android:icon="@android:drawable/ic_menu_delete"
+        android:icon="@drawable/ic_action_delete"
         android:orderInCategory="2"
         android:showAsAction="always"
         android:title="@string/delete"/>

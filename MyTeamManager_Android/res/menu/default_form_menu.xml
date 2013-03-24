@@ -17,7 +17,7 @@
 
     <item
         android:id="@+id/menu_item1"
-        android:icon="@android:drawable/ic_menu_save"
+        android:icon="@drawable/ic_action_save"
         android:orderInCategory="0"
         android:showAsAction="always"
         android:enabled="false"
@@ -25,7 +25,7 @@
     
         <item
         android:id="@+id/menu_item2"
-        android:icon="@android:drawable/ic_menu_close_clear_cancel"
+        android:icon="@drawable/ic_action_close"
         android:orderInCategory="1"
         android:showAsAction="always"
         android:title="@string/done"

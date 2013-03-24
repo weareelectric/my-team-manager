@@ -127,21 +127,31 @@ public class NewHomeFragment extends BaseFragment implements CheckboxListener,
 								new PlayerBean(),
 								"(phone is not null and phone <> '') or (email is not null and email <> '')",
 								true);
-				PlayerBean selectAllPlayer = new PlayerBean();
-				selectAllPlayer.setIsFakeSelectAll(true);
-				selectAllPlayer
-						.setLastName(getString(R.string.label_select_all));
-				m_playersWithPhoneOrEmail.add(0, selectAllPlayer);
+				
+				if ( m_playersWithPhoneOrEmail.size() > 0 ) {
+					PlayerBean selectAllPlayer = new PlayerBean();
+					selectAllPlayer.setIsFakeSelectAll(true);
+					selectAllPlayer
+							.setLastName(getString(R.string.label_select_all));
+					m_playersWithPhoneOrEmail.add(0, selectAllPlayer);
 
-				m_recipientListAdapter = new RecipientListAdapterWithCheckbox(
-						getSherlockActivity(), R.layout.list_with_checkbox,
-						m_playersWithPhoneOrEmail, NewHomeFragment.this);
+					m_recipientListAdapter = new RecipientListAdapterWithCheckbox(
+							getSherlockActivity(), R.layout.list_with_checkbox,
+							m_playersWithPhoneOrEmail, NewHomeFragment.this);
 
-				builder.setAdapter(m_recipientListAdapter, null);
-				AlertDialog alert = builder.create();
-				alert.setButton(AlertDialog.BUTTON_POSITIVE,
-						getString(R.string.label_ok), NewHomeFragment.this);
-				alert.show();
+					builder.setAdapter(m_recipientListAdapter, null);
+					AlertDialog alert = builder.create();
+					alert.setButton(AlertDialog.BUTTON_POSITIVE,
+							getString(R.string.label_ok), NewHomeFragment.this);
+					alert.show();
+				}
+				else {
+					AlertDialog alert = builder.create();
+					alert.setMessage(getResources().getString(R.string.msg_no_players_with_address));
+					alert.show();
+				}
+
+
 			}
 		});
 

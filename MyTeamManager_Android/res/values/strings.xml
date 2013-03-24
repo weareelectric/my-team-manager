@@ -201,6 +201,14 @@
      <string name="message_recipient_with_no_address_singular">You haven\'t entered email and phone for %d player</string>
      <string name="message_recipient_with_no_address_plural">You haven\'t entered email and phone for %d player</string>
      <string name="title_send_message">Send message</string>
-     <string name="label_select_all">Select all</string> 
+     <string name="label_select_all">Select all</string>
+     <string name="title_players_no_address">Players with no address</string>
+     <string name="title_subject_free_text_email">Message from %s</string>
+     <string name="msg_no_players_with_address">To send a message you must enter the email or the phone number in your players\' info</string>
+     <string name="label_to_all_players">To all players</string>
+     <string name="label_to_only_convocated">To convocated</string>
+     <string name="title_send_convocations">Send convocations to</string>
+     <string name="label_send_to_all_players">To all players</string>
+     <string name="label_send_to_convocated">To convocated</string> 
 
 </resources>
