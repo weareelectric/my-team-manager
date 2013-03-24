@@ -151,6 +151,7 @@ public class NewHomeFragment extends BaseFragment implements CheckboxListener,
 					alert.show();
 				}
 
+
 			}
 		});
 
