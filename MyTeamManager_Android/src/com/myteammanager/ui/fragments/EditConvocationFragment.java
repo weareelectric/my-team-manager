@@ -31,12 +31,12 @@ import com.myteammanager.beans.BaseBean;
 import com.myteammanager.beans.ConvocationBean;
 import com.myteammanager.beans.MatchBean;
 import com.myteammanager.beans.PlayerBean;
-import com.myteammanager.data.FacebookManager;
 import com.myteammanager.specializedStorage.MyTeamManagerDBManager;
 import com.myteammanager.storage.DBManager;
 import com.myteammanager.storage.SettingsManager;
 import com.myteammanager.ui.CheckboxListener;
 import com.myteammanager.ui.phone.SendMessageActivity;
+import com.myteammanager.ui.phone.SendMessageFacebookActivity;
 import com.myteammanager.util.DateTimeUtil;
 import com.myteammanager.util.KeyConstants;
 import com.myteammanager.util.StringUtil;
@@ -238,6 +238,13 @@ public class EditConvocationFragment extends RosterFragment implements TabListen
 			alert.show();
 			break;
 			
+		case R.id.menu_share_convocations:
+			updateMatchObjectAndSaveConvocations(false);
+			Intent intent = new Intent(getSherlockActivity(), SendMessageFacebookActivity.class);
+			intent.putExtra(KeyConstants.KEY_MSG_TEXT, getTextForConvocationMessage(m_finalConvocations));
+			startActivity(intent);
+			break;
+			
 		}
 		return true;
 	}
@@ -301,15 +308,6 @@ public class EditConvocationFragment extends RosterFragment implements TabListen
 	}
 
 
-	public void postOnFacebook(ArrayList<ConvocationBean> convocations) {
-		String message = getTextForConvocationMessage(convocations);
-		if (SettingsManager.getInstance(getSherlockActivity()).isFacebookActivated()) {
-			FacebookManager.getInstance().postMessage(message,
-					SettingsManager.getInstance(getSherlockActivity()).getFacebookPageId(), getSherlockActivity(), null);
-		}
-
-	}
-
 	protected String getTextForConvocationMessage(
 			ArrayList<ConvocationBean> convocations) {
 		StringBuffer sb = new StringBuffer();
@@ -354,10 +352,6 @@ public class EditConvocationFragment extends RosterFragment implements TabListen
 
 	@Override
 	public void button1Pressed(int alertId) {
-		// Ok. Post on Facebook
-		Log.d(LOG_TAG, "button1Pressed");
-		postOnFacebook(m_finalConvocations);
-		saveConvocations(true);
 	}
 
 	@Override
@@ -367,8 +361,6 @@ public class EditConvocationFragment extends RosterFragment implements TabListen
 
 	@Override
 	public void button3Pressed(int alertId) {
-		Log.d(LOG_TAG, "button3Pressed");
-		saveConvocations(true);
 	}
 
 	@Override

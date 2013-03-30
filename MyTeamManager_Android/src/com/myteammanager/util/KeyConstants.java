@@ -15,7 +15,6 @@ public class KeyConstants {
 	public static final String KEY_PLAYERS_LIST = "players";
 	public static final String KEY_NOT_CHOSEN_PLAYERS = "notChosenPlayer";
 	public static final String KEY_PLAYERS_ALREADY_IN_THE_LINEUP = "playersLineUp";
-	public static final String KEY_MATCH_DETAIL_TO_POST = "matchDetailToPost";
 	public static final String KEY_CHOSEN_CONTACTS = "chosenContacts";
 	public static final String KEY_CHOSEN_CONTACT = "chosenContact";
 	public static final String KEY_SELECTED_RECIPIENT = "selectedRecipients";

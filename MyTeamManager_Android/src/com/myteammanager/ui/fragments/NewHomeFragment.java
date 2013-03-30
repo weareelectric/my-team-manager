@@ -42,6 +42,7 @@ import com.myteammanager.ui.phone.MatchDetailActivity;
 import com.myteammanager.ui.phone.MatchesListActivity;
 import com.myteammanager.ui.phone.RosterActivity;
 import com.myteammanager.ui.phone.SendMessageActivity;
+import com.myteammanager.ui.phone.SendMessageFacebookActivity;
 import com.myteammanager.util.DateTimeUtil;
 import com.myteammanager.util.KeyConstants;
 import com.squareup.otto.Subscribe;
@@ -57,6 +58,7 @@ public class NewHomeFragment extends BaseFragment implements CheckboxListener,
 	private Button m_buttonNextMatchEntered;
 	private Button m_buttonNextTrainingEntered;
 	private Button m_messageButton;
+	private Button m_facebookButton;
 
 	private TextView m_pointsTextView;
 	private TextView m_playedTextView;
@@ -152,6 +154,17 @@ public class NewHomeFragment extends BaseFragment implements CheckboxListener,
 				}
 
 
+			}
+		});
+		
+		m_facebookButton = (Button) m_root.findViewById(R.id.buttonFacebook);
+		m_facebookButton.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View arg0) {
+				Intent intent = new Intent(getSherlockActivity(),
+						SendMessageFacebookActivity.class);
+				startActivity(intent);
 			}
 		});
 

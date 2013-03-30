@@ -1,16 +1,23 @@
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
-            <item
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <item
         android:id="@+id/menu_save_convocations"
         android:icon="@drawable/ic_action_save"
         android:orderInCategory="0"
         android:showAsAction="always"
         android:title="@string/save"/>
-            
-                        <item
+    <item
         android:id="@+id/menu_send_convocations"
         android:icon="@drawable/ic_action_send_msg"
         android:orderInCategory="1"
         android:showAsAction="always"
         android:title="@string/send"/>
-            
- </menu>
+    <item
+        android:id="@+id/menu_share_convocations"
+        android:icon="@drawable/ic_action_share"
+        android:orderInCategory="1"
+        android:showAsAction="always"
+        android:title="@string/share">
+    </item>
+
+</menu>

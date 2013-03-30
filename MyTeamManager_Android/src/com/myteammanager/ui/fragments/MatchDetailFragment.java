@@ -310,7 +310,7 @@ public class MatchDetailFragment extends BaseFragment implements TextWatcher {
 				sb.append(getScorersString(m_scorers));
 			}
 
-			intent.putExtra(KeyConstants.KEY_MATCH_DETAIL_TO_POST, sb.toString());
+			intent.putExtra(KeyConstants.KEY_MSG_TEXT, sb.toString());
 
 			startActivity(intent);
 			break;
