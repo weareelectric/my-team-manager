@@ -3,15 +3,36 @@
     android:id="@+id/root"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent" >
-    
-    
-    <TextView
-        android:id="@+id/textViewMessageNoData"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:visibility="gone" />
+
+    <LinearLayout
+         android:id="@+id/layoutNoData"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="gone" >
+
+        <TextView
+            android:id="@+id/textViewMessageNoData"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+       		android:layout_marginRight="8dp"
+       		android:layout_marginBottom="4dp"
+       		android:text="@string/msg_no_players_in_roster"
+             />
+        <Button
+            android:id="@+id/buttonAddItem"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/homepage_button"
+            android:text="@string/msg_no_next_training_available"
+            android:textColor="#555555"
+            android:paddingLeft="4dp"
+            android:paddingRight="4dp"
+            android:textSize="16dp"
+             />
+    </LinearLayout>
 
     <ListView
         android:id="@+id/list"

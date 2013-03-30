@@ -34,6 +34,7 @@ public class RosterFragment extends BaseListFragmentWithSectionHeaders {
 	@Override
 	protected void init() {
 		m_isFastScrolledEnabled = false;
+		m_showNoDataMessage = true;
 
 		m_quickAction = new QuickAction(getSherlockActivity());
 		ActionItem deletePlayer = new ActionItem(ID_DELETE_PLAYER, getResources().getString(R.string.delete),
@@ -104,11 +105,15 @@ public class RosterFragment extends BaseListFragmentWithSectionHeaders {
 		switch (item.getItemId()) {
 
 		case R.id.menu_add_player:
-			Intent intent = new Intent(getSherlockActivity(), AddPlayerInfoFromRosterActivity.class);
-			startActivityForResult(intent, KeyConstants.CODE_BEAN_CHANGE);
+			addPlayer();
 			break;
 		}
 		return super.onOptionsItemSelected(item);
+	}
+
+	protected void addPlayer() {
+		Intent intent = new Intent(getSherlockActivity(), AddPlayerInfoFromRosterActivity.class);
+		startActivityForResult(intent, KeyConstants.CODE_BEAN_CHANGE);
 	}
 
 	@Override
@@ -157,5 +162,22 @@ public class RosterFragment extends BaseListFragmentWithSectionHeaders {
 		// TODO Auto-generated method stub
 
 	}
+
+	@Override
+	protected void noDataButtonAction() {
+		addPlayer();
+	}
+
+	@Override
+	protected String getMessageForNoData() {
+		return getString(R.string.msg_no_players_in_roster);
+	}
+
+	@Override
+	protected String getMessageForNoDataButton() {
+		return getString(R.string.btn_add_player);
+	}
+	
+	
 
 }

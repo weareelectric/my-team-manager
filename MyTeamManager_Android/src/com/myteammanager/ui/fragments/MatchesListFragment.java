@@ -35,6 +35,7 @@ public class MatchesListFragment extends BaseListFragmentWithSectionHeaders {
 
 	@Override
 	protected void init() {
+		m_showNoDataMessage = true;
 		m_quickAction = new QuickAction(getSherlockActivity());
 		ActionItem deleteEvent = new ActionItem(ID_DELETE_MATCH, getResources().getString(R.string.delete), getResources()
 				.getDrawable(android.R.drawable.ic_menu_delete));
@@ -105,12 +106,16 @@ public class MatchesListFragment extends BaseListFragmentWithSectionHeaders {
 		switch (item.getItemId()) {
 
 		case R.id.menu_add_match:
-			Intent intent = new Intent(getSherlockActivity(), AddEventInfoActivity.class);
-			intent.putExtra(KeyConstants.KEY_EVENT_OR_MATCH, false);
-			startActivity(intent);
+			addMatch();
 			break;
 		}
 		return super.onOptionsItemSelected(item);
+	}
+
+	protected void addMatch() {
+		Intent intent = new Intent(getSherlockActivity(), AddEventInfoActivity.class);
+		intent.putExtra(KeyConstants.KEY_EVENT_OR_MATCH, false);
+		startActivity(intent);
 	}
 
 	@Override
@@ -174,6 +179,22 @@ public class MatchesListFragment extends BaseListFragmentWithSectionHeaders {
 	@Subscribe
 	public void resultChanged(ResultEnteredEvent event) {
 		super.editBeanInTheList(event.getMatch());
+	}
+	
+
+	@Override
+	protected void noDataButtonAction() {
+		addMatch();
+	}
+
+	@Override
+	protected String getMessageForNoData() {
+		return getString(R.string.msg_no_match_in_list);
+	}
+
+	@Override
+	protected String getMessageForNoDataButton() {
+		return getString(R.string.btn_add_match);
 	}
 
 }

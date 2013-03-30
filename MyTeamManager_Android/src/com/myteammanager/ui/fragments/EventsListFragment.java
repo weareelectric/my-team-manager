@@ -43,6 +43,7 @@ public class EventsListFragment extends BaseListFragmentWithSectionHeaders {
 
 	@Override
 	protected void init() {
+		m_showNoDataMessage = true;
 		m_quickAction = new QuickAction(getSherlockActivity());
 		ActionItem deleteEvent = new ActionItem(ID_DELETE_EVENT, getResources().getString(R.string.delete), getResources()
 				.getDrawable(android.R.drawable.ic_menu_delete));
@@ -122,9 +123,7 @@ public class EventsListFragment extends BaseListFragmentWithSectionHeaders {
 		switch (item.getItemId()) {
 
 		case R.id.menu_add_event:
-			Intent intent = new Intent(getSherlockActivity(), AddEventInfoActivity.class);
-			intent.putExtra(KeyConstants.KEY_EVENT_OR_MATCH, true);
-			startActivity(intent);
+			addEvent();
 			break;
 
 		case R.id.menu_delete_all_events:
@@ -135,6 +134,12 @@ public class EventsListFragment extends BaseListFragmentWithSectionHeaders {
 		return super.onOptionsItemSelected(item);
 	}
 
+	protected void addEvent() {
+		Intent intent = new Intent(getSherlockActivity(), AddEventInfoActivity.class);
+		intent.putExtra(KeyConstants.KEY_EVENT_OR_MATCH, true);
+		startActivity(intent);
+	}
+
 	@Override
 	public void button1Pressed(int alertId) {
 		switch (alertId) {
@@ -142,6 +147,7 @@ public class EventsListFragment extends BaseListFragmentWithSectionHeaders {
 			DBManager.getInstance().deleteAllBeansFor(new EventBean());
 			m_itemsList.clear();
 			m_adapter.notifyDataSetChanged();
+			manageViewDependingOnNbOfItems();
 			MyTeamManagerActivity.getBus().post(new EventsListChanged());
 			break;
 
@@ -219,6 +225,22 @@ public class EventsListFragment extends BaseListFragmentWithSectionHeaders {
 	public void deleteBeanInTheList(BaseBean mainBean, ArrayList<BaseBean> beans) {
 		super.deleteBeanInTheList(mainBean, beans);
 		MyTeamManagerActivity.getBus().post(new EventsListChanged());
+	}
+	
+
+	@Override
+	protected void noDataButtonAction() {
+		addEvent();
+	}
+
+	@Override
+	protected String getMessageForNoData() {
+		return getString(R.string.msg_no_events_in_list);
+	}
+
+	@Override
+	protected String getMessageForNoDataButton() {
+		return getString(R.string.btn_add_event);
 	}
 
 }
