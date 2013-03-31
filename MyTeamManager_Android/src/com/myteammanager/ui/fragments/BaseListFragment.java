@@ -10,7 +10,6 @@ import android.content.IntentFilter;
 import android.content.res.Resources;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Looper;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
@@ -22,7 +21,10 @@ import android.widget.AbsListView.OnScrollListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.actionbarsherlock.app.SherlockFragment;
 import com.myteammanager.BeanChangeBroadcastReceiver;
@@ -44,11 +46,15 @@ public abstract class BaseListFragment extends SherlockFragment implements OnIte
 	protected ArrayList<BaseBean> m_separatorBean;
 	protected ListView m_listView;
 	protected boolean m_isGettingData = false;
+	protected boolean m_showNoDataMessage = false;
 
 	protected boolean m_isFastScrolledEnabled = false;
 	protected QuickAction m_quickAction;
 	protected int m_itemSelectedForContextMenu = -1;
-
+	protected LinearLayout m_layoutNoData;
+	protected TextView m_textViewNoData;
+	protected Button m_buttonNoData;
+	protected ProgressDialog pd;
 	protected BeanChangeBroadcastReceiver m_beanChangeReceiver;
 
 	protected abstract void init();
@@ -56,8 +62,6 @@ public abstract class BaseListFragment extends SherlockFragment implements OnIte
 	protected abstract ArrayAdapter<? extends BaseBean> initAdapter();
 
 	protected abstract ArrayList<? extends BaseBean> getData();
-
-	protected ProgressDialog pd;
 
 	public abstract void button1Pressed(int alertId);
 
@@ -108,8 +112,34 @@ public abstract class BaseListFragment extends SherlockFragment implements OnIte
 		m_listView = (ListView) root.findViewById(R.id.list);
 		registerForContextMenu(m_listView);
 		setHasOptionsMenu(true);
+		
+		m_layoutNoData = (LinearLayout)root.findViewById(R.id.layoutNoData);
+		m_textViewNoData = (TextView)root.findViewById(R.id.textViewMessageNoData);
+		m_textViewNoData.setText(getMessageForNoData());
+		m_buttonNoData = (Button)root.findViewById(R.id.buttonAddItem);
+		m_buttonNoData.setText(getMessageForNoDataButton());
+		m_buttonNoData.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				noDataButtonAction();
+			}
+		});
+		
 		return root;
 
+	}
+	
+	protected void noDataButtonAction() {
+		
+	}
+	
+	protected String getMessageForNoData() {
+		return "";
+	}
+	
+	protected String getMessageForNoDataButton() {
+		return "";
 	}
 
 	@Override
@@ -166,11 +196,12 @@ public abstract class BaseListFragment extends SherlockFragment implements OnIte
 
 			@Override
 			protected void onPostExecute(String[] result) {
+				manageViewDependingOnNbOfItems();
 				m_adapter.notifyDataSetChanged();
 				m_listView.setFastScrollEnabled(m_isFastScrolledEnabled);
 				m_isGettingData = false;
 				cancelProgressDialog();
-
+				
 			}
 
 		}.execute();
@@ -251,6 +282,7 @@ public abstract class BaseListFragment extends SherlockFragment implements OnIte
 			sortList(mainBean.getComparator());
 		}
 
+		manageViewDependingOnNbOfItems();
 		m_adapter.notifyDataSetChanged();
 	}
 
@@ -282,6 +314,7 @@ public abstract class BaseListFragment extends SherlockFragment implements OnIte
 
 		sortList(mainBean.getComparator());
 
+		manageViewDependingOnNbOfItems();
 		m_adapter.notifyDataSetChanged();
 	}
 
@@ -300,6 +333,7 @@ public abstract class BaseListFragment extends SherlockFragment implements OnIte
 
 		sortList(mainBean.getComparator());
 
+		manageViewDependingOnNbOfItems();
 		m_adapter.notifyDataSetChanged();
 	}
 
@@ -361,6 +395,20 @@ public abstract class BaseListFragment extends SherlockFragment implements OnIte
 			}
 
 		}.execute();
+
+	}
+
+	protected void manageViewDependingOnNbOfItems() {
+		if ( m_showNoDataMessage ) {
+			if ( m_itemsList.size() == 0 ) {
+				m_layoutNoData.setVisibility(View.VISIBLE);
+				m_listView.setVisibility(View.GONE);
+			}
+			else {
+				m_layoutNoData.setVisibility(View.GONE);
+				m_listView.setVisibility(View.VISIBLE);
+			}
+		}
 
 	}
 

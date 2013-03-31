@@ -29,7 +29,7 @@ import com.myteammanager.util.KeyConstants;
 import com.myteammanager.util.PlayerAndroidUtil;
 import com.myteammanager.util.StringUtil;
 
-public class AddPlayerInfoFragment extends BaseTwoButtonActionsFormFragment implements TextWatcher {
+public class AddPlayerInfoFragment extends BaseTwoButtonActionsFormFragment  {
 
 	private static final String LOG_TAG = AddPlayerInfoFragment.class.getName();
 
@@ -80,7 +80,7 @@ public class AddPlayerInfoFragment extends BaseTwoButtonActionsFormFragment impl
 
 		m_playerName = (EditText) m_root.findViewById(R.id.editTextPlayerName);
 		m_playerLastName = (EditText) m_root.findViewById(R.id.editTextPlayerLastName);
-		m_playerLastName.addTextChangedListener(this);
+		
 		m_positionSpinner = (Spinner) m_root.findViewById(R.id.spinnerPosition);
 		m_emailEditText = (EditText) m_root.findViewById(R.id.editTextMainEmail);
 		m_phoneEditText = (EditText) m_root.findViewById(R.id.editTextMainPhone);
@@ -100,6 +100,8 @@ public class AddPlayerInfoFragment extends BaseTwoButtonActionsFormFragment impl
 			populateFormWithDataFromContact(0);
 		}
 		
+		m_menuItem1.setEnabled(true);
+		
 		return m_root;
 	}
 	
@@ -112,6 +114,10 @@ public class AddPlayerInfoFragment extends BaseTwoButtonActionsFormFragment impl
 		if ( m_addFromContacts ) {
 			writeContactDataInTheForm(contact);
 
+		}
+		
+		if( !StringUtil.isNotEmpty(m_playerLastName.getText().toString()) ) {
+			m_playerLastName.setError(getString(R.string.msg_player_lastname_is_mandatory));
 		}
 	}
 
@@ -159,39 +165,20 @@ public class AddPlayerInfoFragment extends BaseTwoButtonActionsFormFragment impl
 		}
 	}
 
-	@Override
-	public void onTextChanged(CharSequence string, int arg1, int arg2, int arg3) {
-		Log.d(LOG_TAG, "String changed: " + string);
-		if (StringUtil.isNotEmpty(string)) {
-			if (!m_menuItem1.isEnabled()) {
-				m_menuItem1.setEnabled(true);
-			}
-		} else {
-			if (m_menuItem1.isEnabled()) {
-				m_menuItem1.setEnabled(false);
-			}
-		}
-
-	}
-
-	@Override
-	public void beforeTextChanged(CharSequence string, int arg1, int arg2, int arg3) {
-
-	}
-
-	@Override
-	public void afterTextChanged(Editable arg0) {
-
-	}
 
 	protected void performActionsAndExit() {
 		Log.d(LOG_TAG, "Entered players done");
-		if (m_menuItem1.isEnabled()) {
-			// If the button save is enabled user entered some valid info. Save player 
-			savePlayer();
+		// If the button save is enabled user entered some valid info. Save
+		// player
+		if (!StringUtil.isNotEmpty(m_playerLastName.getText().toString())) {
+			m_playerLastName
+					.setError(getString(R.string.msg_player_lastname_is_mandatory));
+			return;
 		}
+		savePlayer();
 
-		getActivity().setResult(MyTeamManagerActivity.RESULT_ENTER_PLAYERS_LIST_DONE);
+		getActivity().setResult(
+				MyTeamManagerActivity.RESULT_ENTER_PLAYERS_LIST_DONE);
 		getActivity().finish();
 	}
 
@@ -219,7 +206,7 @@ public class AddPlayerInfoFragment extends BaseTwoButtonActionsFormFragment impl
 		m_playerLastName.setText("");
 		m_playerLastName.requestFocus();
 		m_positionSpinner.setSelection(PlayerBean.ROLE_GK);
-		m_menuItem1.setEnabled(false);
+		m_menuItem1.setEnabled(true);
 
 		m_shirtNumberSpinner.setSelection(0);
 		m_emailEditText.setText(null);
@@ -290,6 +277,11 @@ public class AddPlayerInfoFragment extends BaseTwoButtonActionsFormFragment impl
 	
 	@Override
 	protected void clickOnMenuItem1() {
+		if( !StringUtil.isNotEmpty(m_playerLastName.getText().toString()) ) {
+			m_playerLastName.setError(getString(R.string.msg_player_lastname_is_mandatory));
+			return;
+		}
+		
 		savePlayer();
 
 		resetObjectAndInterface();

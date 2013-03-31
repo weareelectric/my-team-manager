@@ -212,4 +212,13 @@
      <string name="label_send_to_convocated">To convocated</string> 
 <string name="title_send_free_text_facebook">Send on Facebook</string>
 <string name="msg_post_message_on_facebook">Share your message on Facebook:</string>
+<string name="msg_no_players_in_roster">No player in your roster. Start compose your list clicking on the button</string>
+<string name="msg_no_match_in_list">No match in your calendar. Start to add them clicking on the button.</string>
+<string name="msg_no_events_in_list">No training session in your calendar. Start to add them clicking on the button.</string>
+<string name="btn_add_player">Add player</string>
+<string name="btn_add_match">Add match</string>
+<string name="btn_add_events">Add practice</string>
+<string name="msg_team_name_is_mandatory">You need to enter a valid name for your team</string>
+<string name="msg_player_lastname_is_mandatory">You need to enter the lastname</string>
+<string name="msg_date_needed_for_event">You need to specify the date of the event</string>
 </resources>
