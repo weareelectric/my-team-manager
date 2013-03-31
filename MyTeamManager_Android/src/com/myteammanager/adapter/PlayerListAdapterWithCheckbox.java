@@ -28,7 +28,7 @@ public abstract class PlayerListAdapterWithCheckbox extends BaseAdapterWithCheck
 	@Override
 	protected String getText(BaseBean bean) {
 		PlayerBean player = (PlayerBean) bean;
-		return player.getSurnameAndName(false);
+		return player.getSurnameAndName(false, m_context);
 	}
 
 

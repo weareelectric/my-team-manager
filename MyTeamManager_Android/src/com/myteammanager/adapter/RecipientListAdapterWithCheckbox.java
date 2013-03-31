@@ -36,7 +36,7 @@ public class RecipientListAdapterWithCheckbox extends BaseAdapterWithCheckbox {
 	@Override
 	protected String getText(BaseBean bean) {
 		PlayerBean player = (PlayerBean) bean;
-		return player.getSurnameAndName(false);
+		return player.getSurnameAndName(false, m_context);
 	}
 
 	@Override

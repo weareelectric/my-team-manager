@@ -81,7 +81,9 @@ public class EditPlayerInfoFragment extends AddPlayerInfoFromRosterFragment {
 
 	@Override
 	public void button1Pressed(int alertId) {
-		DBManager.getInstance().deleteBean(m_player);
+		m_player.setIsDeleted(1);
+		// DBManager.getInstance().deleteBean(m_player);
+		DBManager.getInstance().updateBean(m_player);
 		Intent intent = new Intent();
 		intent.putExtra(KeyConstants.KEY_BEANDATA, m_player);
 		getActivity().setResult(KeyConstants.RESULT_BEAN_DELETED, intent);

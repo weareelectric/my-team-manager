@@ -19,6 +19,9 @@ import com.myteammanager.util.StringUtil;
 public class PlayerBean extends BaseBean implements Parcelable {
 
 	public static final String TABLE = "players";
+	
+	public static final int NOT_DELETED = 0;
+	public static final int DELETED = 1;
 
 	public static final int ROLE_GK = 0;
 	public static final int ROLE_DEF = 1;
@@ -35,6 +38,7 @@ public class PlayerBean extends BaseBean implements Parcelable {
 	private int m_shirtNumber = -1;
 	private int m_gamePlayed = 0;
 	private int m_goalScored = 0;
+	private int m_isDeleted = 0;
 
 	private boolean _convocated = false;
 	private boolean _onTheBench = false;
@@ -58,6 +62,7 @@ public class PlayerBean extends BaseBean implements Parcelable {
 		m_shirtNumber = in.readInt();
 		m_gamePlayed = in.readInt();
 		m_goalScored = in.readInt();
+		m_isDeleted = in.readInt();
 
 		_convocated = in.readInt() == 1;
 		_onTheBench = in.readInt() == 1;
@@ -79,6 +84,7 @@ public class PlayerBean extends BaseBean implements Parcelable {
 		dest.writeInt(m_shirtNumber);
 		dest.writeInt(m_gamePlayed);
 		dest.writeInt(m_goalScored);
+		dest.writeInt(m_isDeleted);
 		dest.writeInt(_convocated ? 1 : 0);
 		dest.writeInt(_onTheBench ? 1 : 0);
 		dest.writeParcelable(_replacedPlayer, flags);
@@ -196,7 +202,14 @@ public class PlayerBean extends BaseBean implements Parcelable {
 		this.m_goalScored = m_goalScored;
 	}
 
-	
+	public int getIsDeleted() {
+		return m_isDeleted;
+	}
+
+	public void setIsDeleted(int isDeleted) {
+		m_isDeleted = isDeleted;
+	}
+
 	public PlayerBean getReplacedPlayer() {
 		return _replacedPlayer;
 	}
@@ -240,6 +253,7 @@ public class PlayerBean extends BaseBean implements Parcelable {
 		this.m_shirtNumber = -1;
 		this.m_gamePlayed = 0;
 		this.m_goalScored = 0;
+		this.m_isDeleted = 0;
 		this._convocated = false;
 		this._onTheBench = false;
 		this._replacedPlayer = null;
@@ -248,7 +262,10 @@ public class PlayerBean extends BaseBean implements Parcelable {
 		this._isFakeSelectAll = false;
 	}
 
-	public String getSurnameAndName(boolean nameCut) {
+	public String getSurnameAndName(boolean nameCut, Context context) {
+		if ( m_isDeleted == DELETED ) {
+			return context.getResources().getString(R.string.label_deleted_player);
+		}
 		StringBuffer surnameAndName = new StringBuffer();
 		surnameAndName.append(this.m_lastName);
 		if (StringUtil.isNotEmpty(this.m_name)) {

@@ -30,7 +30,7 @@ public class PlayerUtil {
 			if (sb.length() > 0) {
 				sb.append(", ");
 			}
-			sb.append(player.getSurnameAndName(true));
+			sb.append(player.getSurnameAndName(true, context));
 			if (withShortrole) {
 				sb.append(" (");
 				sb.append(player.getAbbreviatedRole(context));

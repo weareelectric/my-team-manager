@@ -199,7 +199,7 @@ public class SoccerFieldFragment extends SherlockFragment implements OnClickList
 
 		View playerView = getSherlockActivity().findViewById(m_idOfPLayerIconBeingEdited);
 		TextView lastNameTextView = (TextView) playerView.findViewById(R.id.playerLastName);
-		lastNameTextView.setText(player.getSurnameAndName(true));
+		lastNameTextView.setText(player.getSurnameAndName(true, getSherlockActivity()));
 
 		TextView roleAbbrTextView = (TextView) playerView.findViewById(R.id.roleAbbreviation);
 		roleAbbrTextView.setText(player.getAbbreviatedRole(getSherlockActivity()));
@@ -351,6 +351,8 @@ public class SoccerFieldFragment extends SherlockFragment implements OnClickList
 	}
 
 	public void loadPreviousChoicesIfPresent() {
+		
+		ArrayList<LineupBean> alreadyStoredLineupPlayers = (ArrayList<LineupBean>) DBManager.getInstance().getListOfBeansWhere(new LineupBean(), "match = " + m_match.getId(), false);
 
 		if (m_match.getNumberOfPlayerConvocated() > 0) {
 			ArrayList<ConvocationBean> convocations = (ArrayList<ConvocationBean>) DBManager.getInstance().getListOfBeansWhere(new ConvocationBean(), "match = " + m_match.getId(), false);
@@ -371,12 +373,17 @@ public class SoccerFieldFragment extends SherlockFragment implements OnClickList
 
 			}
 		} else {
-			m_playersConvocatedOrInTheRoster = (ArrayList<PlayerBean>)MyTeamManagerDBManager.getInstance().getListOfBeans(new PlayerBean(), true);
+			if (alreadyStoredLineupPlayers != null && (alreadyStoredLineupPlayers.size()) > 0) {
+				m_playersConvocatedOrInTheRoster = (ArrayList<PlayerBean>)MyTeamManagerDBManager.getInstance().getListOfBeans(new PlayerBean(), true);
+			}
+			else {
+				m_playersConvocatedOrInTheRoster = (ArrayList<PlayerBean>)MyTeamManagerDBManager.getInstance().getListOfBeansWhere(new PlayerBean(), "isDeleted=0", true);
+			}
 			Collections.sort(m_playersConvocatedOrInTheRoster, new PlayerBean().getComparator());
 
 		}
 
-		ArrayList<LineupBean> alreadyStoredLineupPlayers = (ArrayList<LineupBean>) DBManager.getInstance().getListOfBeansWhere(new LineupBean(), "match = " + m_match.getId(), false);
+		
 		int size = 0;
 		if (alreadyStoredLineupPlayers != null && (size = alreadyStoredLineupPlayers.size()) > 0) {
 			LineupBean lineupPlayer = null;
@@ -385,7 +392,7 @@ public class SoccerFieldFragment extends SherlockFragment implements OnClickList
 				lineupPlayer = alreadyStoredLineupPlayers.get(k);
 				m_idOfPLayerIconBeingEdited = lineupPlayer.getIdOfCorrespondentView();
 
-				Log.d(LOG_TAG, "Lineup player: " + lineupPlayer.getPlayer().getSurnameAndName(true));
+				Log.d(LOG_TAG, "Lineup player: " + lineupPlayer.getPlayer().getSurnameAndName(true, getSherlockActivity()));
 				
 				if (lineupPlayer.getOnTheBench() == LineupBean.ON_THE_BENCH) {
 					lineupPlayer.getPlayer().setOnTheBench(true);

@@ -78,7 +78,7 @@ public class SendMessageFragment extends BaseFragment {
 				
 				int k = 0;
 				for ( PlayerBean player : m_playersWithNoAddress ) {
-					playersNoAdress[k] = player.getSurnameAndName(false);
+					playersNoAdress[k] = player.getSurnameAndName(false, getSherlockActivity());
 					k++;
 				}
 

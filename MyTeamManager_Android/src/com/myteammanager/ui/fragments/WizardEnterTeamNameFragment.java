@@ -28,6 +28,7 @@ public class WizardEnterTeamNameFragment extends SherlockFragment implements OnC
 		
 		m_nextButton = (Button)root.findViewById(R.id.buttonNext);
 		m_teamName = (EditText)root.findViewById(R.id.teamName);
+
 		
 		m_nextButton.setOnClickListener(new OnClickListener() {
 			
@@ -38,34 +39,6 @@ public class WizardEnterTeamNameFragment extends SherlockFragment implements OnC
 			}
 		});
 		
-		m_teamName.addTextChangedListener(new TextWatcher() {
-			
-			@Override
-			public void onTextChanged(CharSequence string, int arg1, int arg2, int arg3) {
-				if ( StringUtil.isNotEmpty(string) ) {
-					if ( !m_nextButton.isEnabled() ) {
-						m_nextButton.setEnabled(true);
-					}
-				}
-				else {
-					if ( m_nextButton.isEnabled() ) {
-						m_nextButton.setEnabled(false);
-					}
-				}
-				
-			}
-			
-			@Override
-			public void beforeTextChanged(CharSequence string, int arg1, int arg2,
-					int arg3) {
-				
-			}
-			
-			@Override
-			public void afterTextChanged(Editable arg0) {
-				
-			}
-		});
 
 
 		return root;
@@ -79,6 +52,10 @@ public class WizardEnterTeamNameFragment extends SherlockFragment implements OnC
 	}
 
 	private void storeTeamAndDone() {
+		if( !StringUtil.isNotEmpty(m_teamName.getText().toString()) ) {
+			m_teamName.setError( getString(R.string.msg_team_name_is_mandatory) );
+			return;
+		}
 		SettingsManager.getInstance(getSherlockActivity()).setTeamName(m_teamName.getText().toString());
 		getSherlockActivity().setResult(MyTeamManagerActivity.RESULT_WIZARD_TEAM_NAME_ENTERED);
 		getSherlockActivity().finish();

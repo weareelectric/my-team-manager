@@ -83,7 +83,7 @@ public class PlayerListForMatchSubstitutions extends RosterFragment {
 				Log.d(LOG_TAG, "Size of chosen player: " + size);
 				for (int k = 0; k < size; k++) {
 					lineupPlayer = alreadyStoredLineupPlayers.get(k);
-					Log.d(LOG_TAG, "Player in first eleven: " + lineupPlayer.getPlayer().getSurnameAndName(false));
+					Log.d(LOG_TAG, "Player in first eleven: " + lineupPlayer.getPlayer().getSurnameAndName(false, getSherlockActivity()));
 					m_titularPlayers.add(lineupPlayer.getPlayer());
 				}
 
@@ -104,6 +104,8 @@ public class PlayerListForMatchSubstitutions extends RosterFragment {
 	@Override
 	protected ArrayList<? extends BaseBean> getData() {
 		
+		ArrayList<SubstitutionBean> substitutions = (ArrayList<SubstitutionBean>) DBManager.getInstance().getListOfBeansWhere(new SubstitutionBean(), "match = " + m_match.getId(), false);
+		
 		// First: load all convocated players or all the player in the roster
 		int size = 0;
 		ArrayList<PlayerBean> playerNotInLineup = new ArrayList<PlayerBean>();
@@ -119,8 +121,15 @@ public class PlayerListForMatchSubstitutions extends RosterFragment {
 				playerNotInLineup.add(convocation.getPlayer());
 			}
 		} else {
-			playerNotInLineup = (ArrayList<PlayerBean>) DBManager.getInstance().getListOfBeans(
-					new PlayerBean(), false);
+			if ( substitutions != null && substitutions.size() > 0  ){
+				playerNotInLineup = (ArrayList<PlayerBean>) DBManager.getInstance().getListOfBeans(
+						new PlayerBean(), false);
+			}
+			else {
+				playerNotInLineup = (ArrayList<PlayerBean>) DBManager.getInstance().getListOfBeansWhere(
+						new PlayerBean(), "isDeleted=0", false);
+			}
+
 		}
 		Log.d(LOG_TAG, "Player not in lineup: " + playerNotInLineup.size());
 		
@@ -131,8 +140,7 @@ public class PlayerListForMatchSubstitutions extends RosterFragment {
 			playerNotInLineup.remove(titular);
 		}
 		
-		// Load the existent substitutions and set the values
-		ArrayList<SubstitutionBean> substitutions = (ArrayList<SubstitutionBean>) DBManager.getInstance().getListOfBeansWhere(new SubstitutionBean(), "match = " + m_match.getId(), false);
+		// Set the values for the already existant sostitution
 		for ( SubstitutionBean sub : substitutions ) {
 			PlayerBean player = sub.getPlayerIn();
 			PlayerBean playerOut = sub.getPlayerOut();

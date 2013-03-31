@@ -19,7 +19,6 @@ public class MyTeamManagerDBManager extends DBManager {
 		super();
 		
 		m_otherSQLCommandsToExecuteOnCreate.add(SQL_CREATE_VIEW_COMPLETE_PLAYER);
-		m_otherSQLCommandsToExecuteOnUpdate.add(SQL_CREATE_VIEW_COMPLETE_PLAYER);
 	}
 	
 	

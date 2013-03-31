@@ -17,6 +17,7 @@ import com.actionbarsherlock.view.MenuItem;
 import com.myteammanager.R;
 import com.myteammanager.ui.phone.AddEventInfoActivity;
 import com.myteammanager.util.KeyConstants;
+import com.myteammanager.util.StringUtil;
 
 public abstract class BaseTwoButtonActionsFormFragment extends BaseFragment  {
 

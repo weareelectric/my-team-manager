@@ -230,7 +230,7 @@ public class MatchDetailFragment extends BaseFragment implements TextWatcher {
 					}
 					PlayerBean player = scorer.getPlayer();
 					if (player != null) {
-						stringForScorer.append(player.getSurnameAndName(true));
+						stringForScorer.append(player.getSurnameAndName(true, getSherlockActivity()));
 					} else {
 						stringForScorer.append(getResources().getString(R.string.label_unknown_player));
 					}

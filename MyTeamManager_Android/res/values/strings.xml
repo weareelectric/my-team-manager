@@ -218,4 +218,8 @@
 <string name="btn_add_player">Add player</string>
 <string name="btn_add_match">Add match</string>
 <string name="btn_add_events">Add practice</string>
+<string name="msg_team_name_is_mandatory">You need to enter a valid name for your team</string>
+<string name="msg_player_lastname_is_mandatory">You need to enter the lastname</string>
+<string name="msg_date_needed_for_event">You need to specify the date of the event</string>
+<string name="label_deleted_player">Deleted player</string>
 </resources>

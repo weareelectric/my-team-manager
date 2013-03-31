@@ -3,6 +3,7 @@ package com.myteammanager.storage;
 import java.lang.reflect.Field;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Hashtable;
 import java.util.Vector;
 
 import android.content.ContentValues;
@@ -45,7 +46,7 @@ public class DBManager {
 	private static int m_dbVersion;
 	
 	protected static String m_dbName;
-	protected static ArrayList<String> m_otherSQLCommandsToExecuteOnUpdate = new ArrayList<String>();
+	protected static Hashtable<Integer, ArrayList<String>> m_otherSQLCommandsToExecuteOnUpdate = new Hashtable<Integer, ArrayList<String>>();
 	protected static ArrayList<String> m_otherSQLCommandsToExecuteOnCreate = new ArrayList<String>();
 	
 
@@ -500,9 +501,13 @@ public class DBManager {
 		public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
 			Log.d(LOG_TAG, "Upgrading database from version " + oldVersion + " to " + newVersion);
-			for ( String sqlCommand : m_otherSQLCommandsToExecuteOnUpdate ) {
-				db.execSQL(sqlCommand);
+			for ( int k = oldVersion + 1; k <= newVersion; k++ ) {
+				ArrayList<String> sqlCommands = m_otherSQLCommandsToExecuteOnUpdate.get(k);
+				for ( String sqlCommand : sqlCommands ) {
+					db.execSQL(sqlCommand);
+				}
 			}
+			
 		}
 
 	}

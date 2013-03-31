@@ -32,7 +32,7 @@ public class ScorersListAdapter extends BaseAdapterWithSectionHeaders {
 		ScorerItemRowHolder realHolder = (ScorerItemRowHolder) holder;
 		m_player = (PlayerBean) baseBean;
 		Log.d(LOG_TAG, "holder: " + holder);
-		realHolder.getSurnameAndNameTextView().setText(m_player.getSurnameAndName(false));
+		realHolder.getSurnameAndNameTextView().setText(m_player.getSurnameAndName(false, m_context));
 		realHolder.getGoalSpinner().setSelection(m_player.getGoalScoredInTheMatch());
 		// realHolder.getRoleLabelTextView().setText(PlayerAndroidUtil.getRoleString(getContext(), player.getRole()));
 

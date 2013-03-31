@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.logging.Logger;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
@@ -48,7 +49,7 @@ import com.myteammanager.util.KeyConstants;
 import com.myteammanager.util.StringUtil;
 import com.squareup.otto.Subscribe;
 
-public class AddEventInfoFragment extends BaseTwoButtonActionsFormFragment implements TextWatcher {
+public class AddEventInfoFragment extends BaseTwoButtonActionsFormFragment {
 
 	private static final String LOG_TAG = AddEventInfoFragment.class.getName();
 
@@ -146,7 +147,6 @@ public class AddEventInfoFragment extends BaseTwoButtonActionsFormFragment imple
 
 		// Match
 		m_opponentEditText = (EditText) m_root.findViewById(R.id.textFieldOpponent);
-		m_opponentEditText.addTextChangedListener(this);
 		m_matchDateEditText = (EditText) m_root.findViewById(R.id.datePickerMatchDate);
 		m_matchTimeEditText = (EditText) m_root.findViewById(R.id.timePickerMatchTime);
 		m_locationEditText = (EditText) m_root.findViewById(R.id.textFieldLocation);
@@ -247,14 +247,7 @@ public class AddEventInfoFragment extends BaseTwoButtonActionsFormFragment imple
 
 		}
 
-		//		ActionBar actionBar = getSherlockActivity().getSupportActionBar();
-		//		
-		//		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
-		//		Tab tab = actionBar.newTab().setTag(TAG_TAB_MATCH).setText(res.getString(R.string.label_match)).setTabListener(this);
-		//		actionBar.addTab(tab);
-		//		
-		//		Tab tab2 = actionBar.newTab().setTag(TAG_TAB_EVENT).setText(res.getString(R.string.label_event)).setTabListener(this);
-		//		actionBar.addTab(tab2);
+		m_menuItem1.setEnabled(true);
 
 		setEventOrMatchView();
 
@@ -311,37 +304,11 @@ public class AddEventInfoFragment extends BaseTwoButtonActionsFormFragment imple
 				m_event.getRepeatEndDateLong(), DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_SHOW_YEAR));
 	}
 
-	@Override
-	public void onTextChanged(CharSequence string, int arg1, int arg2, int arg3) {
-
-		Log.d(LOG_TAG, "String changed: " + string);
-		if (StringUtil.isNotEmpty(string)) {
-			if (!m_menuItem1.isEnabled()) {
-				m_menuItem1.setEnabled(true);
-			}
-		} else {
-			if (m_menuItem1.isEnabled()) {
-				m_menuItem1.setEnabled(false);
-			}
-		}
-
-	}
-
-	@Override
-	public void beforeTextChanged(CharSequence string, int arg1, int arg2, int arg3) {
-
-	}
-
-	@Override
-	public void afterTextChanged(Editable arg0) {
-
-	}
 
 	protected void performActionsAndExit() {
-		if (m_menuItem1.isEnabled()) {
-			// If the button save is enabled user entered some valid info. Save player 
-			saveEvent();
-		}
+		
+		// If the button save is enabled user entered some valid info. Save player 
+		saveEvent();
 
 		notifyForResult();
 
@@ -490,9 +457,6 @@ public class AddEventInfoFragment extends BaseTwoButtonActionsFormFragment imple
 
 		ActionBar actionBar = getSherlockActivity().getSupportActionBar();
 
-		if (!m_isEvent) {
-			m_menuItem1.setEnabled(false);
-		}
 
 		// m_matchCancledCheckBox.setChecked(false);
 		m_event = null;
@@ -614,15 +578,42 @@ public class AddEventInfoFragment extends BaseTwoButtonActionsFormFragment imple
 
 	@Override
 	protected void clickOnMenuItem1() {
+		boolean canSave = validateData();
 
-		saveEvent();
+		if ( canSave ) {
+			saveEvent();
+		}
+		
 
 		
 	}
 
+	protected boolean validateData() {
+		boolean canSave = true;
+		if ( !m_isEvent ) {
+			if (!StringUtil.isNotEmpty(m_opponentEditText.getText().toString())) {
+				m_opponentEditText
+						.setError(getString(R.string.msg_player_lastname_is_mandatory));
+				canSave = false;
+			}
+		}
+		else {
+			if (!StringUtil.isNotEmpty(m_eventDateEditText.getText().toString())) {
+				AlertDialog.Builder builder = new AlertDialog.Builder(getSherlockActivity()).setMessage(getString(R.string.msg_date_needed_for_event));
+				builder.show();
+				canSave = false;
+			}
+		}
+		return canSave;
+	}
+
 	@Override
 	protected void clickOnMenuItem2() {
-		performActionsAndExit();
+		boolean canSave = validateData();
+		
+		if ( canSave ) {
+			performActionsAndExit();
+		}
 	}
 
 	@Override
@@ -651,16 +642,10 @@ public class AddEventInfoFragment extends BaseTwoButtonActionsFormFragment imple
 			m_addMatchLayout.setVisibility(View.GONE);
 			m_addEventLayout.setVisibility(View.VISIBLE);
 
-			m_menuItem1.setEnabled(true);
 		} else {
 			m_addEventLayout.setVisibility(View.GONE);
 			m_addMatchLayout.setVisibility(View.VISIBLE);
 
-			if (StringUtil.isNotEmpty(m_opponentEditText.getText().toString())) {
-				m_menuItem1.setEnabled(true);
-			} else {
-				m_menuItem1.setEnabled(false);
-			}
 			
 			m_opponentEditText.requestFocus();
 			getSherlockActivity().getWindow().setSoftInputMode(LayoutParams.SOFT_INPUT_STATE_VISIBLE);

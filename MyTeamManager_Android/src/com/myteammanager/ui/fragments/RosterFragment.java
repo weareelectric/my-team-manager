@@ -70,7 +70,8 @@ public class RosterFragment extends BaseListFragmentWithSectionHeaders {
 
 	@Override
 	protected ArrayList<? extends BaseBean> getData() {
-		return MyTeamManagerDBManager.getInstance().getListOfBeans(new PlayerBean(), true);
+		return MyTeamManagerDBManager.getInstance().getListOfBeansWhere(new PlayerBean(), "isDeleted=0", true);
+		// return MyTeamManagerDBManager.getInstance().getListOfBeans(new PlayerBean(), true);
 	}
 
 	@Override
@@ -146,7 +147,9 @@ public class RosterFragment extends BaseListFragmentWithSectionHeaders {
 	public void button1Pressed(int alertId) {
 		Log.d(LOG_TAG, "actionId: " + m_itemSelectedForContextMenu);
 		PlayerBean player = (PlayerBean) m_itemsList.get(m_itemSelectedForContextMenu);
-		DBManager.getInstance().deleteBean(player);
+		// DBManager.getInstance().deleteBean(player);
+		player.setIsDeleted(1);
+		DBManager.getInstance().updateBean(player);
 		deleteBeanInTheList(player);
 		m_itemSelectedForContextMenu = -1;
 	}

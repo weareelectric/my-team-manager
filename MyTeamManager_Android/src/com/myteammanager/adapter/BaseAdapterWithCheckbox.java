@@ -17,6 +17,7 @@ public abstract class BaseAdapterWithCheckbox extends BaseAdapterWithSectionHead
 			CheckboxListener playerCheckboxListeenr) {
 		super(context, layoutResourceId, objects);
 		m_checkboxListener = playerCheckboxListeenr;
+		m_context = context;
 	}
 	
 	@Override

@@ -343,7 +343,7 @@ public class EditConvocationFragment extends RosterFragment implements TabListen
 
 		for (int k = 0; k < convocations.size(); k++) {
 			sb.append("\n");
-			sb.append(convocations.get(k).getPlayer().getSurnameAndName(false));
+			sb.append(convocations.get(k).getPlayer().getSurnameAndName(false, getSherlockActivity()));
 		}
 
 		String message = sb.toString();
@@ -387,7 +387,15 @@ public class EditConvocationFragment extends RosterFragment implements TabListen
 
 		}
 
-		return MyTeamManagerDBManager.getInstance().getListOfBeans(new PlayerBean(), true);
+		
+		if ( m_convocatedPlayers != null && m_convocatedPlayers.size() > 0 ) {
+			// If convocations has been already configured we need to load deleted players also
+			return MyTeamManagerDBManager.getInstance().getListOfBeans(new PlayerBean(), true);
+		}
+		else {
+			return MyTeamManagerDBManager.getInstance().getListOfBeansWhere(new PlayerBean(), "isDeleted=0", true);
+		}
+		
 	}
 
 	private void updateTotalNumberAndNumberOfConvocatedForRole() {

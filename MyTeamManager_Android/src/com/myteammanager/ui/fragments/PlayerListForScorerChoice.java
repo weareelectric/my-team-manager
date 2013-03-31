@@ -70,6 +70,10 @@ public class PlayerListForScorerChoice extends RosterFragment {
 
 	@Override
 	protected ArrayList<? extends BaseBean> getData() {
+		
+		ArrayList<ScorerBean> scorers = (ArrayList<ScorerBean>) DBManager.getInstance()
+				.getListOfBeansWhere(new ScorerBean(), "match = " + m_match.getId(), true);
+		m_isUpdate = scorers.size() > 0;
 
 		// The scorer needs to be chosen in the selected player lists or in the convocated players list
 
@@ -85,7 +89,7 @@ public class PlayerListForScorerChoice extends RosterFragment {
 
 				if ( !listOfPlayers.contains(lineupPlayer.getPlayer())) {
 					listOfPlayers.add(lineupPlayer.getPlayer());
-					Log.d(LOG_TAG, "lineupPlayer.getPlayer(): " + lineupPlayer.getPlayer().getSurnameAndName(false));
+					Log.d(LOG_TAG, "lineupPlayer.getPlayer(): " + lineupPlayer.getPlayer().getSurnameAndName(false, getSherlockActivity()));
 				}
 				
 
@@ -106,13 +110,17 @@ public class PlayerListForScorerChoice extends RosterFragment {
 				}
 			}
 		} else {
-			listOfPlayers = (ArrayList<PlayerBean>) DBManager.getInstance().getListOfBeans(
-					new PlayerBean(), false);
+			if ( m_isUpdate ) {
+				listOfPlayers = (ArrayList<PlayerBean>) DBManager.getInstance().getListOfBeans(
+						new PlayerBean(), false);
+			}
+			else {
+				listOfPlayers = (ArrayList<PlayerBean>) DBManager.getInstance().getListOfBeansWhere(
+						new PlayerBean(), "isDeleted=0", false);
+			}
 		}
 
-		ArrayList<ScorerBean> scorers = (ArrayList<ScorerBean>) DBManager.getInstance()
-				.getListOfBeansWhere(new ScorerBean(), "match = " + m_match.getId(), true);
-		m_isUpdate = scorers.size() > 0;
+
 
 		for (ScorerBean scorer : scorers) {
 			PlayerBean player = scorer.getPlayer();
@@ -166,7 +174,7 @@ public class PlayerListForScorerChoice extends RosterFragment {
 			int size = m_itemsList.size();
 			for (int k = 0; k < size; k++) {
 				PlayerBean player = (PlayerBean) m_itemsList.get(k);
-				Log.d(LOG_TAG, "Scored by " + player.getSurnameAndName(true) + ": " + player.getGoalScoredInTheMatch());
+				Log.d(LOG_TAG, "Scored by " + player.getSurnameAndName(true, getSherlockActivity()) + ": " + player.getGoalScoredInTheMatch());
 				if (player.getGoalScoredInTheMatch() > 0) {
 					ScorerBean scorer = new ScorerBean();
 					scorer.setMatch(m_match);

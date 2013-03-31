@@ -127,7 +127,7 @@ public class NewHomeFragment extends BaseFragment implements CheckboxListener,
 						.getInstance()
 						.getListOfBeansWhere(
 								new PlayerBean(),
-								"(phone is not null and phone <> '') or (email is not null and email <> '')",
+								"((phone is not null and phone <> '') or (email is not null and email <> '')) and isDeleted=0",
 								true);
 				
 				if ( m_playersWithPhoneOrEmail.size() > 0 ) {

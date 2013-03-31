@@ -31,7 +31,7 @@ public class RosterListAdapter extends BaseAdapterWithSectionHeaders  {
 		PlayerBean player = (PlayerBean)baseBean;
 		Log.d(LOG_TAG, "holder: " + holder);
 		Log.d(LOG_TAG, "baseBean: " + baseBean);
-		realHolder.getSurnameAndNameTextView().setText(player.getSurnameAndName(false));
+		realHolder.getSurnameAndNameTextView().setText(player.getSurnameAndName(false, m_context));
 		realHolder.getSecondLineTextView().setText(m_context.getString(R.string.label_played_game) + " " + player.getGamePlayed() + " " + m_context.getString(R.string.label_scored_goals) + " " + player.getGoalScored()  );
 		// realHolder.getRoleLabelTextView().setText(PlayerAndroidUtil.getRoleString(getContext(), player.getRole()));
 		

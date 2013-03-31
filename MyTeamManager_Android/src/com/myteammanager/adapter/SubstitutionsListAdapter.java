@@ -35,7 +35,7 @@ public class SubstitutionsListAdapter extends BaseAdapterWithSectionHeaders {
 		MatchSubstitutionsRowHolder realHolder = (MatchSubstitutionsRowHolder) holder;
 		
 		if ( replacerPlayerBean != null ) {
-			realHolder.getSubstituteName().setText(replacerPlayerBean.getSurnameAndName(true));
+			realHolder.getSubstituteName().setText(replacerPlayerBean.getSurnameAndName(true, m_context));
 		}
 		
 		if (  m_titulars != null) {
@@ -43,7 +43,7 @@ public class SubstitutionsListAdapter extends BaseAdapterWithSectionHeaders {
 			String[] titularsName = new String[size];
 			int i = 0;
 			for ( PlayerBean player : m_titulars ) {
-				titularsName[i] = player.getSurnameAndName(true);
+				titularsName[i] = player.getSurnameAndName(true, m_context);
 				i++;
 			}
 			
