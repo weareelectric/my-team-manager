@@ -2,16 +2,10 @@ package com.myteammanager;
 
 import java.util.ArrayList;
 
-import android.app.Activity;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 
-import com.facebook.android.DialogError;
-import com.facebook.android.Facebook;
-import com.facebook.android.Facebook.DialogListener;
-import com.facebook.android.FacebookError;
 import com.myteammanager.beans.BaseBean;
 import com.myteammanager.beans.ContactBean;
 import com.myteammanager.beans.ConvocationBean;

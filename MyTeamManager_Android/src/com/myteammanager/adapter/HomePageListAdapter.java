@@ -4,11 +4,11 @@ import java.util.ArrayList;
 
 import android.content.Context;
 import android.util.Log;
-import android.view.LayoutInflater;
+import org.holoeverywhere.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.TextView;
+import org.holoeverywhere.widget.TextView;
 
 import com.myteammanager.R;
 import com.myteammanager.beans.BaseBean;

@@ -6,7 +6,9 @@ import android.content.Intent;
 import android.util.Log;
 import android.view.View;
 import android.widget.AbsListView;
-import android.widget.AdapterView;
+import org.holoeverywhere.widget.AdapterView;
+import org.holoeverywhere.widget.ListView;
+
 import android.widget.ArrayAdapter;
 
 import com.myteammanager.R;
@@ -41,7 +43,7 @@ public class HomePageFragment extends BaseListFragment {
 
     @Override
 	protected ArrayList<? extends BaseBean> getData() {
-    	String[] homePageList = getSherlockActivity().getResources().getStringArray(R.array.home_page_list);
+    	String[] homePageList = getActivity().getResources().getStringArray(R.array.home_page_list);
 		MenuBean menu1 = new MenuBean(homePageList[HOME_PAGE_ROSTER_INDEX]);
 		MenuBean menu2 = new MenuBean(homePageList[HOME_PAGE_FIXTURES_INDEX]);
 		MenuBean menu3 = new MenuBean(homePageList[HOME_PAGE_EVENTS_INDEX]);
@@ -52,34 +54,33 @@ public class HomePageFragment extends BaseListFragment {
 		return homepageList;
 	}
 
-	@Override
-	public void onItemClick(AdapterView<?> parent, View view, int position,
-			long id) {
+    @Override
+	public void onListItemClick(ListView l, View v, int position, long id) {
 		Log.d(LOG_TAG, "Clicked item position: " + position);
 		switch (position) {
 		case HOME_PAGE_ROSTER_INDEX:
-			Intent intent = new Intent(getSherlockActivity(),
+			Intent intent = new Intent(getActivity(),
 					RosterActivity.class);
 			startActivity(intent);
 			break;
 
 		case HOME_PAGE_FIXTURES_INDEX:
-//			intent = new Intent(getSherlockActivity(),
+//			intent = new Intent(getActivity(),
 //					AddMatchInfoActivity.class);
 //			startActivity(intent);
 			
-			intent = new Intent(getSherlockActivity(),
+			intent = new Intent(getActivity(),
 					MatchesListActivity.class);
 			startActivity(intent);
 
 			break;
 			
 		case HOME_PAGE_EVENTS_INDEX:
-//			intent = new Intent(getSherlockActivity(),
+//			intent = new Intent(getActivity(),
 //					AddMatchInfoActivity.class);
 //			startActivity(intent);
 			
-			intent = new Intent(getSherlockActivity(),
+			intent = new Intent(getActivity(),
 					EventsListActivity.class);
 			startActivity(intent);
 			break;			

@@ -3,20 +3,20 @@ package com.myteammanager.ui.fragments;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.view.LayoutInflater;
+import org.holoeverywhere.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.EditText;
+import org.holoeverywhere.widget.Button;
+import org.holoeverywhere.widget.EditText;
 
-import com.actionbarsherlock.app.SherlockFragment;
+import org.holoeverywhere.app.Fragment;
 import com.myteammanager.MyTeamManagerActivity;
 import com.myteammanager.R;
 import com.myteammanager.storage.SettingsManager;
 import com.myteammanager.util.StringUtil;
 
-public class WizardEnterTeamNameFragment extends SherlockFragment implements OnClickListener {
+public class WizardEnterTeamNameFragment extends Fragment implements OnClickListener {
 	
 	private Button m_nextButton;
 	private EditText m_teamName;
@@ -43,6 +43,9 @@ public class WizardEnterTeamNameFragment extends SherlockFragment implements OnC
 
 		return root;
 	}
+	
+	
+
 
 	@Override
 	public void onClick(View v) {
@@ -56,9 +59,9 @@ public class WizardEnterTeamNameFragment extends SherlockFragment implements OnC
 			m_teamName.setError( getString(R.string.msg_team_name_is_mandatory) );
 			return;
 		}
-		SettingsManager.getInstance(getSherlockActivity()).setTeamName(m_teamName.getText().toString());
-		getSherlockActivity().setResult(MyTeamManagerActivity.RESULT_WIZARD_TEAM_NAME_ENTERED);
-		getSherlockActivity().finish();
+		SettingsManager.getInstance(getActivity()).setTeamName(m_teamName.getText().toString());
+		getActivity().setResult(MyTeamManagerActivity.RESULT_WIZARD_TEAM_NAME_ENTERED);
+		getActivity().finish();
 	}
 	
 

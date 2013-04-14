@@ -5,7 +5,7 @@ import java.util.Date;
 
 import android.content.Context;
 import android.util.AttributeSet;
-import android.widget.DatePicker;
+import org.holoeverywhere.widget.DatePicker;
 
 public class DatePickerEasy extends DatePicker {
 

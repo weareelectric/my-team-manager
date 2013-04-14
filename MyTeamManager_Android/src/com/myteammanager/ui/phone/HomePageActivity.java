@@ -13,9 +13,9 @@ import android.content.SharedPreferences;
 import android.content.res.Resources.NotFoundException;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.support.v4.app.Fragment;
+import org.holoeverywhere.app.Fragment;
 import android.util.Log;
-import android.widget.Toast;
+import org.holoeverywhere.widget.Toast;
 
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;

@@ -1,8 +1,8 @@
 package com.myteammanager.ui.phone;
 
-import android.app.ProgressDialog;
+import org.holoeverywhere.app.ProgressDialog;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
+import org.holoeverywhere.app.Fragment;
 
 import com.myteammanager.BaseActivity;
 import com.myteammanager.R;

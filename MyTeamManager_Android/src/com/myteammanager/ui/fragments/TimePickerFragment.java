@@ -3,16 +3,21 @@ package com.myteammanager.ui.fragments;
 import java.util.Calendar;
 
 import com.myteammanager.MyTeamManagerActivity;
+import com.myteammanager.R;
 import com.myteammanager.events.TimePickerValuesEvent;
 
 import android.animation.TimeInterpolator;
-import android.app.Dialog;
-import android.app.TimePickerDialog;
+import android.content.DialogInterface;
+
+import org.holoeverywhere.app.Dialog;
+import org.holoeverywhere.app.TimePickerDialog;
 import android.os.Bundle;
-import android.support.v4.app.DialogFragment;
+import org.holoeverywhere.app.DialogFragment;
 import android.text.format.DateFormat;
 import android.util.Log;
-import android.widget.TimePicker;
+import android.view.View;
+
+import org.holoeverywhere.widget.TimePicker;
 
 public class TimePickerFragment extends DialogFragment implements TimePickerDialog.OnTimeSetListener {
 
@@ -36,15 +41,31 @@ public class TimePickerFragment extends DialogFragment implements TimePickerDial
 		int hour = m_calendar.get(Calendar.HOUR_OF_DAY);
 		int minute = m_calendar.get(Calendar.MINUTE);
 
-		// Create a new instance of TimePickerDialog and return it
-		return new TimePickerDialog(getActivity(), this, hour, minute, DateFormat.is24HourFormat(getActivity()));
+		// Create a new instance of TimePickerDialog and return it. Need a fix for Holoeverywhere that doesn' take in count click on cancel
+		TimePickerDialog timePickerDialog = new TimePickerDialog(getActivity(), this, hour, minute, DateFormat.is24HourFormat(getActivity()));
+
+		timePickerDialog.setButton(DialogInterface.BUTTON_NEGATIVE, getText(R.string.cancel), new DialogInterface.OnClickListener() {
+
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				dismiss();
+			}
+			
+		});
+		return timePickerDialog ;
 	}
 
 	public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+		Log.d("TimePickerDialog", "Maremma maiala");
 		m_calendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
 		m_calendar.set(Calendar.MINUTE, minute);
 
 		MyTeamManagerActivity.getBus().post(new TimePickerValuesEvent(m_id, m_calendar.getTimeInMillis()));
+		
+		dismiss();
+		
 	}
+	
+	
 
 }

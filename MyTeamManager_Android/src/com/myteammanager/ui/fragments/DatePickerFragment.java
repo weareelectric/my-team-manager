@@ -4,14 +4,15 @@ import java.util.Calendar;
 
 import com.myteammanager.MyTeamManagerActivity;
 import com.myteammanager.events.DatePickerValuesEvent;
-import com.myteammanager.events.TimePickerValuesEvent;
 
-import android.app.DatePickerDialog;
-import android.app.DatePickerDialog.OnDateSetListener;
-import android.app.Dialog;
+import org.holoeverywhere.app.DatePickerDialog;
+import org.holoeverywhere.app.DatePickerDialog.OnDateSetListener;
+import org.holoeverywhere.app.Dialog;
+
+import android.content.DialogInterface;
 import android.os.Bundle;
-import android.support.v4.app.DialogFragment;
-import android.widget.DatePicker;
+import org.holoeverywhere.app.DialogFragment;
+import org.holoeverywhere.widget.DatePicker;
 
 public class DatePickerFragment extends DialogFragment implements OnDateSetListener {
 
@@ -20,7 +21,6 @@ public class DatePickerFragment extends DialogFragment implements OnDateSetListe
 	private Calendar m_calendar;
 
 	public DatePickerFragment(int m_id, long timestamp) {
-		super();
 		this.m_id = m_id;
 		this.m_timestamp = timestamp;
 	}
@@ -38,7 +38,17 @@ public class DatePickerFragment extends DialogFragment implements OnDateSetListe
 		int day = m_calendar.get(Calendar.DAY_OF_MONTH);
 
 		// Create a new instance of DatePickerDialog and return it
-		return new DatePickerDialog(getActivity(), this, year, month, day);
+		return new DatePickerDialog(getActivity(), this, year, month, day) {
+
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				super.onClick(dialog, which);
+		        if (which != DialogInterface.BUTTON_POSITIVE) {
+		        	dismiss();
+		        }
+			}
+			
+		};
 	}
 
 	public void onDateSet(DatePicker view, int year, int month, int day) {
@@ -47,6 +57,14 @@ public class DatePickerFragment extends DialogFragment implements OnDateSetListe
 		m_calendar.set(Calendar.DAY_OF_MONTH, day);
 
 		MyTeamManagerActivity.getBus().post(new DatePickerValuesEvent(m_id, m_calendar.getTimeInMillis()));
+		
+		dismiss();
 	}
+	
+
+
+
+	
+	
 
 }

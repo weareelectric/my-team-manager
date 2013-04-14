@@ -7,7 +7,9 @@ import android.content.res.Resources;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
+import org.holoeverywhere.widget.AdapterView;
+import org.holoeverywhere.widget.ListView;
+
 import android.widget.ArrayAdapter;
 
 import com.actionbarsherlock.app.SherlockActivity;
@@ -44,7 +46,7 @@ public class EventsListFragment extends BaseListFragmentWithSectionHeaders {
 	@Override
 	protected void init() {
 		m_showNoDataMessage = true;
-		m_quickAction = new QuickAction(getSherlockActivity());
+		m_quickAction = new QuickAction(getActivity());
 		ActionItem deleteEvent = new ActionItem(ID_DELETE_EVENT, getResources().getString(R.string.delete), getResources()
 				.getDrawable(android.R.drawable.ic_menu_delete));
 		deleteEvent.setSticky(true);
@@ -78,7 +80,7 @@ public class EventsListFragment extends BaseListFragmentWithSectionHeaders {
 
 	@Override
 	public String getDeleteConfirmationMsg() {
-		Resources res = getSherlockActivity().getResources();
+		Resources res = getActivity().getResources();
 		return res.getString(R.string.alert_event_confirmation_msg);
 	}
 
@@ -99,16 +101,16 @@ public class EventsListFragment extends BaseListFragmentWithSectionHeaders {
 	}
 
 	@Override
-	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+	public void onListItemClick(ListView l, View v, int position, long id) {
 		//		EventBean event = (EventBean) m_itemsList.get(position);
-		//		Intent intent = new Intent(getSherlockActivity(),
+		//		Intent intent = new Intent(getActivity(),
 		//				AddEventInfoActivity.class);
 		//		intent.putExtra(KEY_BEANDATA, event);
 		//		intent.putExtra(MatchesListFragment.KEY_EVENT_OR_MATCH, true);
 		//		startActivityForResult(intent, CODE_BEAN_CHANGE);
 
 		EventBean event = (EventBean) m_itemsList.get(position);
-		Intent intent = new Intent(getSherlockActivity(), EventDetailActivity.class);
+		Intent intent = new Intent(getActivity(), EventDetailActivity.class);
 		intent.putExtra(KeyConstants.KEY_BEANDATA, event);
 		startActivityForResult(intent, KeyConstants.CODE_BEAN_CHANGE);
 	}
@@ -135,7 +137,7 @@ public class EventsListFragment extends BaseListFragmentWithSectionHeaders {
 	}
 
 	protected void addEvent() {
-		Intent intent = new Intent(getSherlockActivity(), AddEventInfoActivity.class);
+		Intent intent = new Intent(getActivity(), AddEventInfoActivity.class);
 		intent.putExtra(KeyConstants.KEY_EVENT_OR_MATCH, true);
 		startActivity(intent);
 	}
@@ -177,7 +179,7 @@ public class EventsListFragment extends BaseListFragmentWithSectionHeaders {
 		default:
 			Log.d(LOG_TAG, "actionId: " + m_itemSelectedForContextMenu);
 			EventBean event = (EventBean) m_itemsList.get(m_itemSelectedForContextMenu);
-			EventDeleteConfirmationManager.deleteAllLinkedEvents(event, getSherlockActivity(), false);
+			EventDeleteConfirmationManager.deleteAllLinkedEvents(event, getActivity(), false);
 			// here we reload the list...we don't have all the objects to send the broadcast
 			requestData();
 			m_itemSelectedForContextMenu = -1;

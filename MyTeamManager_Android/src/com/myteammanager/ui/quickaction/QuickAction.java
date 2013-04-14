@@ -12,11 +12,11 @@ import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 
 import android.widget.ImageView;
-import android.widget.TextView;
-import android.widget.PopupWindow.OnDismissListener;
+import org.holoeverywhere.widget.TextView;
+import org.holoeverywhere.widget.PopupWindow.OnDismissListener;
 
 import android.view.Gravity;
-import android.view.LayoutInflater;
+import org.holoeverywhere.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;

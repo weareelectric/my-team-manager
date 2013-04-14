@@ -2,18 +2,18 @@ package com.myteammanager.ui.fragments;
 
 import java.util.ArrayList;
 
-import android.app.Activity;
-import android.app.AlertDialog;
+import org.holoeverywhere.app.Activity;
+import org.holoeverywhere.app.AlertDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.view.LayoutInflater;
+import org.holoeverywhere.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.TextView;
+import org.holoeverywhere.widget.Button;
+import org.holoeverywhere.widget.EditText;
+import org.holoeverywhere.widget.TextView;
 
 import com.myteammanager.R;
 import com.myteammanager.adapter.RecipientListAdapterWithCheckbox;
@@ -72,13 +72,13 @@ public class SendMessageFragment extends BaseFragment {
 			@Override
 			public void onClick(View arg0) {
 				AlertDialog.Builder builder = new AlertDialog.Builder(
-						getSherlockActivity());
+						getActivity());
 
 				String[] playersNoAdress = new String[m_playersWithNoAddress.size()];
 				
 				int k = 0;
 				for ( PlayerBean player : m_playersWithNoAddress ) {
-					playersNoAdress[k] = player.getSurnameAndName(false, getSherlockActivity());
+					playersNoAdress[k] = player.getSurnameAndName(false, getActivity());
 					k++;
 				}
 
@@ -134,7 +134,7 @@ public class SendMessageFragment extends BaseFragment {
 				Intent intent = new Intent(Intent.ACTION_SEND);
 				intent.setType("plain/text");
 				intent.putExtra(Intent.EXTRA_EMAIL, emails);
-				intent.putExtra(Intent.EXTRA_SUBJECT, getResources().getString(R.string.title_subject_free_text_email, SettingsManager.getInstance(getSherlockActivity()).getTeamName()));
+				intent.putExtra(Intent.EXTRA_SUBJECT, getResources().getString(R.string.title_subject_free_text_email, SettingsManager.getInstance(getActivity()).getTeamName()));
 				intent.putExtra(Intent.EXTRA_TEXT, editTextMessage.getText().toString());
 				startActivity(Intent.createChooser(intent, ""));
 				
@@ -150,7 +150,7 @@ public class SendMessageFragment extends BaseFragment {
 	public void onAttach(Activity activity) {
 		super.onAttach(activity);
 		
-		Bundle extra = getSherlockActivity().getIntent().getExtras();
+		Bundle extra = getActivity().getIntent().getExtras();
 		m_chosenRecipients = (ArrayList<PlayerBean>)extra.get(KeyConstants.KEY_SELECTED_RECIPIENT);
 		m_playersWithNoAddress= (ArrayList<PlayerBean>) MyTeamManagerDBManager.getInstance().getListOfBeansWhere(new PlayerBean(), "(email is null or email = '') and (phone is null or phone = '')", true);
 		m_msgText = (String)extra.get(KeyConstants.KEY_MSG_TEXT);

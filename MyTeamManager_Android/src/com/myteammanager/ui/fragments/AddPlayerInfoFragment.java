@@ -7,14 +7,14 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
-import android.view.LayoutInflater;
+import org.holoeverywhere.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.CheckBox;
-import android.widget.DatePicker;
-import android.widget.EditText;
-import android.widget.Spinner;
+import org.holoeverywhere.widget.CheckBox;
+import org.holoeverywhere.widget.DatePicker;
+import org.holoeverywhere.widget.EditText;
+import org.holoeverywhere.widget.Spinner;
 
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
@@ -64,7 +64,7 @@ public class AddPlayerInfoFragment extends BaseTwoButtonActionsFormFragment  {
 
 		super.onCreateView(inflater, container, savedInstanceState);
 		
-		Intent intent = getSherlockActivity().getIntent();
+		Intent intent = getActivity().getIntent();
 		
 		if ( intent != null ) {
 			Bundle bundle = intent.getExtras();
@@ -87,8 +87,8 @@ public class AddPlayerInfoFragment extends BaseTwoButtonActionsFormFragment  {
 		m_shirtNumberSpinner = (Spinner) m_root.findViewById(R.id.spinnerShirtNumbers);
 		m_spinnerMultipleEmails = (Spinner)m_root.findViewById(R.id.spinnerMultipleEmails);
 		m_spinnerMultiplePhones = (Spinner)m_root.findViewById(R.id.spinnerMultiplePhones);
-		ArrayAdapter<String> shirtNumbersAdapter = new ArrayAdapter<String>(getSherlockActivity(),
-				android.R.layout.simple_spinner_item, PlayerAndroidUtil.getTShirtNumbers(getSherlockActivity()));
+		ArrayAdapter<String> shirtNumbersAdapter = new ArrayAdapter<String>(getActivity(),
+				android.R.layout.simple_spinner_item, PlayerAndroidUtil.getTShirtNumbers(getActivity()));
 		m_shirtNumberSpinner.setAdapter(shirtNumbersAdapter);
 
 		m_birthDateCheckBox = (CheckBox) m_root.findViewById(R.id.checkboxBirthDate);
@@ -138,7 +138,7 @@ public class AddPlayerInfoFragment extends BaseTwoButtonActionsFormFragment  {
 					m_multipleEmails[k] = contact.getEmails().get(k);
 				}
 				
-				ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(getSherlockActivity(),android.R.layout.simple_spinner_item, m_multipleEmails);
+				ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(getActivity(),android.R.layout.simple_spinner_item, m_multipleEmails);
 				spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item); // The drop down vieww
 				m_spinnerMultipleEmails.setAdapter(spinnerArrayAdapter);
 			}
@@ -158,7 +158,7 @@ public class AddPlayerInfoFragment extends BaseTwoButtonActionsFormFragment  {
 					m_multiplePhones[k] = contact.getPhones().get(k);
 				}
 				
-				ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(getSherlockActivity(),android.R.layout.simple_spinner_item, m_multiplePhones);
+				ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(getActivity(),android.R.layout.simple_spinner_item, m_multiplePhones);
 				spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item); // The drop down vieww
 				m_spinnerMultiplePhones.setAdapter(spinnerArrayAdapter);
 			}
@@ -258,7 +258,7 @@ public class AddPlayerInfoFragment extends BaseTwoButtonActionsFormFragment  {
 		//		switch (item.getItemId()) {
 		//
 		//		case R.id.menu_add_additionalInfo:
-		//			Intent intent = new Intent(getSherlockActivity(),
+		//			Intent intent = new Intent(getActivity(),
 		//					AddPlayerDetailsActivity.class);
 		//			if ( m_player == null ) {
 		//				m_player = new PlayerBean();

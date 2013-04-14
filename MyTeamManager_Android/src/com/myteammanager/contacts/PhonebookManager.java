@@ -2,7 +2,7 @@ package com.myteammanager.contacts;
 
 import java.util.ArrayList;
 
-import android.app.Activity;
+import org.holoeverywhere.app.Activity;
 import android.database.Cursor;
 import android.net.Uri;
 import android.provider.ContactsContract;

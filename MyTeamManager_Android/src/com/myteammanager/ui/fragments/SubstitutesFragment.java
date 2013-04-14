@@ -3,14 +3,14 @@ package com.myteammanager.ui.fragments;
 import java.util.ArrayList;
 
 import android.os.Bundle;
-import android.view.LayoutInflater;
+import org.holoeverywhere.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.LinearLayout;
-import android.widget.ListView;
-import android.widget.TextView;
+import org.holoeverywhere.widget.Button;
+import org.holoeverywhere.widget.LinearLayout;
+import org.holoeverywhere.widget.ListView;
+import org.holoeverywhere.widget.TextView;
 
 import com.myteammanager.R;
 import com.myteammanager.beans.PlayerBean;
@@ -52,11 +52,11 @@ public class SubstitutesFragment extends BaseFragment {
 	}
 
 	public void updateNotSelectedTextView(ArrayList<PlayerBean> notSelectedPlayers) {
-		m_notSelectedTextView.setText(PlayerUtil.getListOfPlayersFromList(getSherlockActivity(), notSelectedPlayers, true));
+		m_notSelectedTextView.setText(PlayerUtil.getListOfPlayersFromList(getActivity(), notSelectedPlayers, true));
 	}
 
 	public void updateSubstitutesTextView(ArrayList<PlayerBean> players) {
-		m_substitutesTextView.setText(PlayerUtil.getListOfPlayersFromList(getSherlockActivity(), players, true));
+		m_substitutesTextView.setText(PlayerUtil.getListOfPlayersFromList(getActivity(), players, true));
 	}
 
 	@Override

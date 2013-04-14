@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 
 import com.actionbarsherlock.view.Menu;
@@ -33,7 +35,7 @@ public class ChoosePlayerFromContactsFragment extends BaseListFragment implement
 	@Override
 	protected ArrayList<? extends BaseBean> getData() {
 		try {
-			return PhonebookManager.getContacts(getSherlockActivity());
+			return PhonebookManager.getContacts(getSupportActivity());
 		} catch (NoDataException e) {
 			Log.e(LOG_TAG, "Error reading from phone address book");
 			return new ArrayList<ContactBean>();
@@ -43,7 +45,7 @@ public class ChoosePlayerFromContactsFragment extends BaseListFragment implement
 	@Override
 	protected ArrayAdapter<? extends BaseBean> initAdapter() {
 		m_itemsList.clear();
-		return new ContactListAdapterWithCheckbox(getSherlockActivity(), R.layout.list_with_checkbox, m_itemsList, this);
+		return new ContactListAdapterWithCheckbox(getActivity(), R.layout.list_with_checkbox, m_itemsList, this);
 	}
 	
 	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
@@ -75,8 +77,8 @@ public class ChoosePlayerFromContactsFragment extends BaseListFragment implement
 			}
 			Intent intent = new Intent();
 			intent.putExtra(KeyConstants.KEY_CHOSEN_CONTACTS, m_chosenContacts);
-			getSherlockActivity().setResult(KeyConstants.RESULT_CONTACTS_CHOSEN, intent);
-			getSherlockActivity().finish();
+			getActivity().setResult(KeyConstants.RESULT_CONTACTS_CHOSEN, intent);
+			getActivity().finish();
 			break;
 		}
 		return true;
@@ -101,6 +103,7 @@ public class ChoosePlayerFromContactsFragment extends BaseListFragment implement
 	public void checkboxChanged(boolean isSelectAll) {
 		
 	}
+
 
 	
 }

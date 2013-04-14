@@ -9,14 +9,14 @@ import android.support.v4.app.FragmentManager;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
-import android.view.LayoutInflater;
+import org.holoeverywhere.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.CheckBox;
+import org.holoeverywhere.widget.Button;
+import org.holoeverywhere.widget.CheckBox;
 import android.widget.ScrollView;
-import android.widget.TextView;
+import org.holoeverywhere.widget.TextView;
 
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
@@ -80,11 +80,11 @@ public class MatchDetailFragment extends BaseFragment implements TextWatcher {
 
 		m_root = (ScrollView) inflater.inflate(R.layout.fragment_match_detail, null, false);
 
-		Bundle extra = getSherlockActivity().getIntent().getExtras();
-		m_res = getSherlockActivity().getResources();
+		Bundle extra = getActivity().getIntent().getExtras();
+		m_res = getActivity().getResources();
 
 		m_match = (MatchBean) extra.get(KeyConstants.KEY_BEANDATA);
-		getSherlockActivity().setTitle(m_res.getString(R.string.label_practice));
+		getActivity().setTitle(m_res.getString(R.string.label_practice));
 
 		// Match
 		m_textViewMatch = (TextView) m_root.findViewById(R.id.textViewMatch);
@@ -109,7 +109,7 @@ public class MatchDetailFragment extends BaseFragment implements TextWatcher {
 
 			@Override
 			public void onClick(View v) {
-				FragmentManager fm = getSherlockActivity().getSupportFragmentManager();
+				FragmentManager fm = getFragmentManager();
 				ResultDialog editNameDialog = new ResultDialog();
 				editNameDialog.setMatch(m_match);
 				editNameDialog.show(fm, "fragment_edit_result");
@@ -126,7 +126,7 @@ public class MatchDetailFragment extends BaseFragment implements TextWatcher {
 
 				@Override
 				public void onClick(View v) {
-					Intent intent = new Intent(getSherlockActivity(), EditConvocationActivity.class);
+					Intent intent = new Intent(getActivity(), EditConvocationActivity.class);
 					intent.putExtra(KeyConstants.KEY_MATCH, m_match);
 					startActivityForResult(intent, KeyConstants.CODE_BEAN_CHANGE);
 				}
@@ -137,7 +137,7 @@ public class MatchDetailFragment extends BaseFragment implements TextWatcher {
 
 			@Override
 			public void onClick(View v) {
-				Intent intent = new Intent(getSherlockActivity(), EditTeamLineUpActivity.class);
+				Intent intent = new Intent(getActivity(), EditTeamLineUpActivity.class);
 				intent.putExtra(KeyConstants.KEY_MATCH, m_match);
 				startActivityForResult(intent, KeyConstants.CODE_BEAN_CHANGE);
 			}
@@ -147,7 +147,7 @@ public class MatchDetailFragment extends BaseFragment implements TextWatcher {
 
 			@Override
 			public void onClick(View v) {
-				Intent intent = new Intent(getSherlockActivity(), ScorersActivity.class);
+				Intent intent = new Intent(getActivity(), ScorersActivity.class);
 				intent.putExtra(KeyConstants.KEY_MATCH, m_match);
 				startActivity(intent);
 			}
@@ -157,7 +157,7 @@ public class MatchDetailFragment extends BaseFragment implements TextWatcher {
 
 			@Override
 			public void onClick(View v) {
-				Intent intent = new Intent(getSherlockActivity(), MatchSubstitutionsActivity.class);
+				Intent intent = new Intent(getActivity(), MatchSubstitutionsActivity.class);
 				intent.putExtra(KeyConstants.KEY_MATCH, m_match);
 				startActivity(intent);
 			}
@@ -168,7 +168,7 @@ public class MatchDetailFragment extends BaseFragment implements TextWatcher {
 
 		MyTeamManagerActivity.getBus().register(this);
 
-		getSherlockActivity().setTitle(R.string.title_match);
+		getActivity().setTitle(R.string.title_match);
 
 		return m_root;
 	}
@@ -195,10 +195,10 @@ public class MatchDetailFragment extends BaseFragment implements TextWatcher {
 	
 
 	protected void updateFields() {
-		m_textViewMatch.setText(m_match.getTeam1StringToShow(getSherlockActivity()) + " - "
-				+ m_match.getTeam2StringToShow(getSherlockActivity()));
+		m_textViewMatch.setText(m_match.getTeam1StringToShow(getActivity()) + " - "
+				+ m_match.getTeam2StringToShow(getActivity()));
 		m_textViewMatchDate.setText(m_res.getString(R.string.label_date_semicoloumn,
-				DateTimeUtil.getDateFrom(m_match.getTimestamp(), getSherlockActivity())));
+				DateTimeUtil.getDateFrom(m_match.getTimestamp(), getActivity())));
 		m_textViewMatchTime.setText(m_res.getString(R.string.label_time_semicoloumn,
 				DateTimeUtil.getTimeStringFrom(m_match.getTimestamp())));
 		// m_textViewMatchLocation.setText(m_res.getString(R.string.label_location_semicoloumn, m_match.getLocation()));
@@ -230,7 +230,7 @@ public class MatchDetailFragment extends BaseFragment implements TextWatcher {
 					}
 					PlayerBean player = scorer.getPlayer();
 					if (player != null) {
-						stringForScorer.append(player.getSurnameAndName(true, getSherlockActivity()));
+						stringForScorer.append(player.getSurnameAndName(true, getActivity()));
 					} else {
 						stringForScorer.append(getResources().getString(R.string.label_unknown_player));
 					}
@@ -263,15 +263,15 @@ public class MatchDetailFragment extends BaseFragment implements TextWatcher {
 
 	@Override
 	public void button1Pressed(int alertId) {
-		DeleteMatchManager.deleteMatch(m_match, getSherlockActivity());
+		DeleteMatchManager.deleteMatch(m_match, getActivity());
 		MyTeamManagerActivity.getBus().post(new EventOrMatchChanged());
 
 		Intent intent = new Intent();
 		intent.putExtra(KeyConstants.KEY_BEANDATA, m_match);
-		getSherlockActivity().setResult(KeyConstants.RESULT_BEAN_DELETED, intent);
+		getActivity().setResult(KeyConstants.RESULT_BEAN_DELETED, intent);
 		
 		
-		getSherlockActivity().finish();
+		getActivity().finish();
 	}
 
 	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
@@ -284,7 +284,7 @@ public class MatchDetailFragment extends BaseFragment implements TextWatcher {
 		switch (item.getItemId()) {
 
 		case R.id.menu_edit_event_match:
-			Intent intent = new Intent(getSherlockActivity(), AddEventInfoActivity.class);
+			Intent intent = new Intent(getActivity(), AddEventInfoActivity.class);
 			intent.putExtra(KeyConstants.KEY_BEANDATA, m_match);
 			intent.putExtra(KeyConstants.KEY_EVENT_OR_MATCH, false);
 			startActivityForResult(intent, KeyConstants.CODE_BEAN_CHANGE);
@@ -295,9 +295,9 @@ public class MatchDetailFragment extends BaseFragment implements TextWatcher {
 			break;
 
 		case R.id.menu_share_match:
-			intent = new Intent(getSherlockActivity(), PostMatchDetailActivity.class);
+			intent = new Intent(getActivity(), PostMatchDetailActivity.class);
 			StringBuffer sb = new StringBuffer();
-			sb.append(m_match.getMatchString(getSherlockActivity()));
+			sb.append(m_match.getMatchString(getActivity()));
 			if (m_match.getResultEntered() > 0) {
 				sb.append(" ");
 				sb.append(m_match.getMatchResult());

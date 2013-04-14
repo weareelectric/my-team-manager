@@ -1,7 +1,7 @@
 package com.myteammanager.adapter.holders;
 
 import android.view.View;
-import android.widget.TextView;
+import org.holoeverywhere.widget.TextView;
 
 import com.myteammanager.R;
 import com.myteammanager.beans.BaseBean;

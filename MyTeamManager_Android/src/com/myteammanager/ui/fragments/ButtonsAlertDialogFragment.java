@@ -1,10 +1,10 @@
 package com.myteammanager.ui.fragments;
 
-import android.app.AlertDialog;
-import android.app.Dialog;
+import org.holoeverywhere.app.AlertDialog;
+import org.holoeverywhere.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.support.v4.app.DialogFragment;
+import org.holoeverywhere.app.DialogFragment;
 
 import com.myteammanager.R;
 import com.myteammanager.ui.ButtonsAlertDialogListener;

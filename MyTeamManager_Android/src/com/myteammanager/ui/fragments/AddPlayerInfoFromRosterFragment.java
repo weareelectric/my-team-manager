@@ -3,7 +3,7 @@ package com.myteammanager.ui.fragments;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.LayoutInflater;
+import org.holoeverywhere.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -48,7 +48,7 @@ public class AddPlayerInfoFromRosterFragment extends AddPlayerInfoFragment {
 	@Override
 	protected void customizeMenuItem1(View root) {
 		super.customizeMenuItem1(root);
-		m_menuItem1.setTitle(getSherlockActivity().getResources().getString(
+		m_menuItem1.setTitle(getActivity().getResources().getString(
 				R.string.save));
 	}
 
@@ -77,7 +77,7 @@ public class AddPlayerInfoFromRosterFragment extends AddPlayerInfoFragment {
 	@Override
 	protected void clickOnMenuItem2() {
 		// User wants to add data taking them from a contact in the address book
-		Intent intent = new Intent(getSherlockActivity(),
+		Intent intent = new Intent(getActivity(),
 				ChooseSinglePlayerFromContactsActivity.class);
 		startActivityForResult(intent, KeyConstants.CODE_CONTACT_CHOSEN);
 	}

@@ -2,19 +2,19 @@ package com.myteammanager.ui.fragments;
 
 import java.util.ArrayList;
 
-import android.app.Activity;
-import android.app.AlertDialog;
+import org.holoeverywhere.app.Activity;
+import org.holoeverywhere.app.AlertDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.view.LayoutInflater;
+import org.holoeverywhere.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.TextView;
-import android.widget.Toast;
+import org.holoeverywhere.widget.Button;
+import org.holoeverywhere.widget.EditText;
+import org.holoeverywhere.widget.TextView;
+import org.holoeverywhere.widget.Toast;
 
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
@@ -59,11 +59,12 @@ public class SendMessageFacebookFragment extends BaseFragment implements Faceboo
 	}
 	
 
+	
 	@Override
 	public void onAttach(Activity activity) {
 		super.onAttach(activity);
 		
-		Bundle extra = getSherlockActivity().getIntent().getExtras();
+		Bundle extra = getActivity().getIntent().getExtras();
 		if ( extra != null ) {
 			m_msgText = (String)extra.get(KeyConstants.KEY_MSG_TEXT);
 		}
@@ -82,7 +83,7 @@ public class SendMessageFacebookFragment extends BaseFragment implements Faceboo
 			case R.id.menu_post_on_facebook:
 				showProgressDialog(getResources().getString(R.string.dialog_waiting_sending_data));
 				FacebookManager.getInstance().postMessage(m_editTextMessage.getText().toString(),
-						SettingsManager.getInstance(getSherlockActivity()).getFacebookPageId(), getSherlockActivity(),
+						SettingsManager.getInstance(getActivity()).getFacebookPageId(), getActivity(),
 						new FacebookStatusPublishedEvent(this));
 				break;
 		}
@@ -96,21 +97,21 @@ public class SendMessageFacebookFragment extends BaseFragment implements Faceboo
 		FacebookError error = postEvent.getFacebookError();
 		cancelProgressDialog();
 		if (error != null) {
-			getSherlockActivity().runOnUiThread(new Runnable() {
+			getActivity().runOnUiThread(new Runnable() {
 
 				@Override
 				public void run() {
-					Toast.makeText(getSherlockActivity(), R.string.toast_facebook_error_post_status, Toast.LENGTH_LONG).show();
+					Toast.makeText(getActivity(), R.string.toast_facebook_error_post_status, Toast.LENGTH_LONG).show();
 				}
 			});
 
 		} else {
-			getSherlockActivity().runOnUiThread(new Runnable() {
+			getActivity().runOnUiThread(new Runnable() {
 
 				@Override
 				public void run() {
-					Toast.makeText(getSherlockActivity(), R.string.toast_facebook_status_posted, Toast.LENGTH_LONG).show();
-					getSherlockActivity().finish();
+					Toast.makeText(getActivity(), R.string.toast_facebook_status_posted, Toast.LENGTH_LONG).show();
+					getActivity().finish();
 				}
 			});
 

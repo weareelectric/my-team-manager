@@ -4,11 +4,11 @@ import java.util.ArrayList;
 
 import android.content.Context;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemSelectedListener;
+import org.holoeverywhere.widget.AdapterView;
+import org.holoeverywhere.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
-import android.widget.Spinner;
-import android.widget.TextView;
+import org.holoeverywhere.widget.Spinner;
+import org.holoeverywhere.widget.TextView;
 
 import com.myteammanager.R;
 import com.myteammanager.beans.BaseBean;

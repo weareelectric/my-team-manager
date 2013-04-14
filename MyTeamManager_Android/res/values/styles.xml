@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <style name="Theme.MyTeamManager" parent="@style/Theme.Sherlock.Light">
+    <style name="Theme.MyTeamManager" parent="@style/Holo.Theme.Light">
         <item name="actionBarStyle">@style/Widget.Styled.ActionBar</item>
         <item name="android:actionBarStyle">@style/Widget.Styled.ActionBar</item>
         <item name="actionBarTabStyle">@style/MyTeamManager.TabView</item>

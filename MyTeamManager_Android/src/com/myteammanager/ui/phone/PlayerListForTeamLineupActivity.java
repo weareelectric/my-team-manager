@@ -2,7 +2,7 @@ package com.myteammanager.ui.phone;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
+import org.holoeverywhere.app.Fragment;
 
 import com.myteammanager.R;
 import com.myteammanager.beans.MatchBean;

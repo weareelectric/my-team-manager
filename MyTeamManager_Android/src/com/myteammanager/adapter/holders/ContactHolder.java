@@ -1,10 +1,10 @@
 package com.myteammanager.adapter.holders;
 
 import android.view.View;
-import android.widget.CheckBox;
+import org.holoeverywhere.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
-import android.widget.TextView;
+import org.holoeverywhere.widget.TextView;
 
 import com.myteammanager.R;
 import com.myteammanager.beans.BaseBean;

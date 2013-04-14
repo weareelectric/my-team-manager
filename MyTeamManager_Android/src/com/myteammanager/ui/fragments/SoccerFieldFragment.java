@@ -8,19 +8,19 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.util.Log;
-import android.view.LayoutInflater;
+import org.holoeverywhere.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnLongClickListener;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
-import android.widget.FrameLayout;
+import org.holoeverywhere.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout.LayoutParams;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
+import org.holoeverywhere.widget.TextView;
 
-import com.actionbarsherlock.app.SherlockFragment;
+import org.holoeverywhere.app.Fragment;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.myteammanager.MyTeamManagerActivity;
@@ -40,7 +40,7 @@ import com.myteammanager.ui.quickaction.QuickAction;
 import com.myteammanager.util.KeyConstants;
 import com.myteammanager.util.PlayerUtil;
 
-public class SoccerFieldFragment extends SherlockFragment implements OnClickListener, OnLongClickListener {
+public class SoccerFieldFragment extends Fragment implements OnClickListener, OnLongClickListener {
 
 	private static final String LOG_TAG = SoccerFieldFragment.class.getName();
 
@@ -86,7 +86,7 @@ public class SoccerFieldFragment extends SherlockFragment implements OnClickList
 
 		m_root = (FrameLayout) inflater.inflate(R.layout.fragment_soccer_field, null, false);
 
-		m_quickAction = new QuickAction(getSherlockActivity());
+		m_quickAction = new QuickAction(getActivity());
 		ActionItem deletePlayer = new ActionItem(ID_REMOVE_PLAYERLINEUP, getResources().getString(R.string.delete),
 				getResources().getDrawable(android.R.drawable.ic_menu_delete));
 		deletePlayer.setSticky(true);
@@ -114,7 +114,7 @@ public class SoccerFieldFragment extends SherlockFragment implements OnClickList
 
 		//gets screen dimensions
 		final DisplayMetrics metrics = new DisplayMetrics();
-		getSherlockActivity().getWindowManager().getDefaultDisplay().getMetrics(metrics);
+		getActivity().getWindowManager().getDefaultDisplay().getMetrics(metrics);
 
 		//this happens before the layout is visible
 		vto.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
@@ -150,7 +150,7 @@ public class SoccerFieldFragment extends SherlockFragment implements OnClickList
 
 				// Place players on the field. 3 rows. 2 rows of 4 players and 1 rows of 3 players
 				for (int k = 1; k <= 11; k++) {
-					LayoutInflater myInflater = getSherlockActivity().getLayoutInflater();
+					LayoutInflater myInflater = getLayoutInflater();
 					View playerView = myInflater.inflate(R.layout.lineup_player, m_root, false);
 					playerView.setOnClickListener(SoccerFieldFragment.this);
 					playerView.setOnLongClickListener(SoccerFieldFragment.this);
@@ -197,12 +197,12 @@ public class SoccerFieldFragment extends SherlockFragment implements OnClickList
 
 		m_chosenPlayers.add(player);
 
-		View playerView = getSherlockActivity().findViewById(m_idOfPLayerIconBeingEdited);
+		View playerView = getActivity().findViewById(m_idOfPLayerIconBeingEdited);
 		TextView lastNameTextView = (TextView) playerView.findViewById(R.id.playerLastName);
-		lastNameTextView.setText(player.getSurnameAndName(true, getSherlockActivity()));
+		lastNameTextView.setText(player.getSurnameAndName(true, getActivity()));
 
 		TextView roleAbbrTextView = (TextView) playerView.findViewById(R.id.roleAbbreviation);
-		roleAbbrTextView.setText(player.getAbbreviatedRole(getSherlockActivity()));
+		roleAbbrTextView.setText(player.getAbbreviatedRole(getActivity()));
 
 		if (playerView.getTag() != null) {
 			// this player has been replaced, back to the list of possible choices
@@ -268,7 +268,7 @@ public class SoccerFieldFragment extends SherlockFragment implements OnClickList
 
 	@Override
 	public void onClick(View v) {
-		Intent intent = new Intent(getSherlockActivity(), PlayerListForTeamLineupActivity.class);
+		Intent intent = new Intent(getActivity(), PlayerListForTeamLineupActivity.class);
 		intent.putExtra(KeyConstants.KEY_MATCH, m_match);
 		intent.putExtra(KeyConstants.KEY_PLAYERS_LIST, m_playersConvocatedOrInTheRoster);
 		intent.putExtra(KeyConstants.KEY_PLAYERS_ALREADY_IN_THE_LINEUP, m_chosenPlayers);
@@ -277,7 +277,7 @@ public class SoccerFieldFragment extends SherlockFragment implements OnClickList
 	}
 
 	public void startSubstitutesSelection() {
-		Intent intent = new Intent(getSherlockActivity(), EditSubstitutesActivity.class);
+		Intent intent = new Intent(getActivity(), EditSubstitutesActivity.class);
 		intent.putExtra(KeyConstants.KEY_MATCH, m_match);
 
 		ArrayList<PlayerBean> substitutesAndNotChosenPlayers = new ArrayList<PlayerBean>(m_playersConvocatedOrInTheRoster);
@@ -392,7 +392,7 @@ public class SoccerFieldFragment extends SherlockFragment implements OnClickList
 				lineupPlayer = alreadyStoredLineupPlayers.get(k);
 				m_idOfPLayerIconBeingEdited = lineupPlayer.getIdOfCorrespondentView();
 
-				Log.d(LOG_TAG, "Lineup player: " + lineupPlayer.getPlayer().getSurnameAndName(true, getSherlockActivity()));
+				Log.d(LOG_TAG, "Lineup player: " + lineupPlayer.getPlayer().getSurnameAndName(true, getActivity()));
 				
 				if (lineupPlayer.getOnTheBench() == LineupBean.ON_THE_BENCH) {
 					lineupPlayer.getPlayer().setOnTheBench(true);

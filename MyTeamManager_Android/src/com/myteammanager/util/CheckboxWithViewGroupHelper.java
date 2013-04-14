@@ -6,11 +6,11 @@ import java.util.Date;
 import android.text.InputType;
 import android.util.Log;
 import android.view.View;
-import android.widget.CheckBox;
+import org.holoeverywhere.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
-import android.widget.EditText;
-import android.widget.Spinner;
+import org.holoeverywhere.widget.EditText;
+import org.holoeverywhere.widget.Spinner;
 
 import com.myteammanager.ui.views.DatePickerEasy;
 import com.myteammanager.ui.views.TimePickerEasy;

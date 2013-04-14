@@ -3,20 +3,20 @@ package com.myteammanager.ui.fragments;
 import java.util.ArrayList;
 import java.util.Date;
 
-import android.app.AlertDialog;
+import org.holoeverywhere.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v4.app.DialogFragment;
-import android.view.LayoutInflater;
+import org.holoeverywhere.app.DialogFragment;
+import org.holoeverywhere.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.LinearLayout;
-import android.widget.TextView;
-import android.widget.Toast;
+import org.holoeverywhere.widget.Button;
+import org.holoeverywhere.widget.LinearLayout;
+import org.holoeverywhere.widget.TextView;
+import org.holoeverywhere.widget.Toast;
 
 import com.myteammanager.MyTeamManagerActivity;
 import com.myteammanager.R;
@@ -96,7 +96,7 @@ public class NewHomeFragment extends BaseFragment implements CheckboxListener,
 
 			@Override
 			public void onClick(View v) {
-				Intent intent = new Intent(getSherlockActivity(),
+				Intent intent = new Intent(getActivity(),
 						AddEventInfoActivity.class);
 				intent.putExtra(KeyConstants.KEY_EVENT_OR_MATCH, false);
 				startActivity(intent);
@@ -107,7 +107,7 @@ public class NewHomeFragment extends BaseFragment implements CheckboxListener,
 
 			@Override
 			public void onClick(View v) {
-				Intent intent = new Intent(getSherlockActivity(),
+				Intent intent = new Intent(getActivity(),
 						AddEventInfoActivity.class);
 				intent.putExtra(KeyConstants.KEY_EVENT_OR_MATCH, true);
 				startActivity(intent);
@@ -120,7 +120,7 @@ public class NewHomeFragment extends BaseFragment implements CheckboxListener,
 			@Override
 			public void onClick(View v) {
 				AlertDialog.Builder builder = new AlertDialog.Builder(
-						getSherlockActivity());
+						getActivity());
 				builder.setTitle(getString(R.string.title_select_recipients));
 
 				m_playersWithPhoneOrEmail = (ArrayList<BaseBean>) MyTeamManagerDBManager
@@ -138,7 +138,7 @@ public class NewHomeFragment extends BaseFragment implements CheckboxListener,
 					m_playersWithPhoneOrEmail.add(0, selectAllPlayer);
 
 					m_recipientListAdapter = new RecipientListAdapterWithCheckbox(
-							getSherlockActivity(), R.layout.list_with_checkbox,
+							getActivity(), R.layout.list_with_checkbox,
 							m_playersWithPhoneOrEmail, NewHomeFragment.this);
 
 					builder.setAdapter(m_recipientListAdapter, null);
@@ -162,7 +162,7 @@ public class NewHomeFragment extends BaseFragment implements CheckboxListener,
 			
 			@Override
 			public void onClick(View arg0) {
-				Intent intent = new Intent(getSherlockActivity(),
+				Intent intent = new Intent(getActivity(),
 						SendMessageFacebookActivity.class);
 				startActivity(intent);
 			}
@@ -174,7 +174,7 @@ public class NewHomeFragment extends BaseFragment implements CheckboxListener,
 
 			@Override
 			public void onClick(View v) {
-				Intent intent = new Intent(getSherlockActivity(),
+				Intent intent = new Intent(getActivity(),
 						MatchDetailActivity.class);
 				intent.putExtra(KeyConstants.KEY_BEANDATA, m_nextMatch);
 				startActivity(intent);
@@ -187,7 +187,7 @@ public class NewHomeFragment extends BaseFragment implements CheckboxListener,
 
 			@Override
 			public void onClick(View v) {
-				Intent intent = new Intent(getSherlockActivity(),
+				Intent intent = new Intent(getActivity(),
 						EventDetailActivity.class);
 				intent.putExtra(KeyConstants.KEY_BEANDATA, m_nextTraining);
 				startActivity(intent);
@@ -212,7 +212,7 @@ public class NewHomeFragment extends BaseFragment implements CheckboxListener,
 
 			@Override
 			public void onClick(View v) {
-				Intent intent = new Intent(getSherlockActivity(),
+				Intent intent = new Intent(getActivity(),
 						RosterActivity.class);
 				startActivity(intent);
 			}
@@ -241,27 +241,27 @@ public class NewHomeFragment extends BaseFragment implements CheckboxListener,
 
 	public void updateStatsTable() {
 		m_pointsTextView.setText(""
-				+ SettingsManager.getInstance(getSherlockActivity())
+				+ SettingsManager.getInstance(getActivity())
 						.getPoints());
 		m_playedTextView.setText(""
-				+ SettingsManager.getInstance(getSherlockActivity())
+				+ SettingsManager.getInstance(getActivity())
 						.getPlayed());
 		m_wonTextView.setText(""
-				+ SettingsManager.getInstance(getSherlockActivity()).getWon());
+				+ SettingsManager.getInstance(getActivity()).getWon());
 		m_drawTextView.setText(""
-				+ SettingsManager.getInstance(getSherlockActivity()).getDraw());
+				+ SettingsManager.getInstance(getActivity()).getDraw());
 		m_lostTextView.setText(""
-				+ SettingsManager.getInstance(getSherlockActivity()).getLost());
+				+ SettingsManager.getInstance(getActivity()).getLost());
 		m_scoredTextView.setText(""
-				+ SettingsManager.getInstance(getSherlockActivity())
+				+ SettingsManager.getInstance(getActivity())
 						.getScored());
 		m_againstTextView.setText(""
-				+ SettingsManager.getInstance(getSherlockActivity())
+				+ SettingsManager.getInstance(getActivity())
 						.getAgainst());
 	}
 
 	public void startAddMatchListActivity() {
-		Intent intent = new Intent(getSherlockActivity(),
+		Intent intent = new Intent(getActivity(),
 				MatchesListActivity.class);
 		startActivity(intent);
 	}
@@ -322,12 +322,12 @@ public class NewHomeFragment extends BaseFragment implements CheckboxListener,
 	public void changeMatchString() {
 		if (m_nextMatch != null) {
 			String matchString = m_nextMatch
-					.getMatchString(getSherlockActivity());
+					.getMatchString(getActivity());
 
 			if (m_nextMatch.getTimestamp() != -1) {
 				matchString += "\n"
 						+ DateTimeUtil.getDateFrom(m_nextMatch.getTimestamp(),
-								getSherlockActivity());
+								getActivity());
 			}
 
 			if (m_nextMatch.getTimestamp() > 0) {
@@ -352,7 +352,7 @@ public class NewHomeFragment extends BaseFragment implements CheckboxListener,
 	public void changeEventString() {
 		if (m_nextTraining != null) {
 			String trainingString = DateTimeUtil.getDateFrom(
-					m_nextTraining.getTimestamp(), getSherlockActivity());
+					m_nextTraining.getTimestamp(), getActivity());
 
 			if (m_nextTraining.getTimestamp() > 0) {
 				trainingString += "\n"
@@ -402,7 +402,7 @@ public class NewHomeFragment extends BaseFragment implements CheckboxListener,
 	}
 
 	public void startAddEventListActivity() {
-		Intent intent = new Intent(getSherlockActivity(),
+		Intent intent = new Intent(getActivity(),
 				EventsListActivity.class);
 		startActivity(intent);
 	}
@@ -411,26 +411,26 @@ public class NewHomeFragment extends BaseFragment implements CheckboxListener,
 	public void resultChanged(ResultEnteredEvent event) {
 		int[] variations = event.getVariationsForStats();
 
-		SettingsManager.getInstance(getSherlockActivity()).setPoints(
-				SettingsManager.getInstance(getSherlockActivity()).getPoints()
+		SettingsManager.getInstance(getActivity()).setPoints(
+				SettingsManager.getInstance(getActivity()).getPoints()
 						+ variations[0]);
-		SettingsManager.getInstance(getSherlockActivity()).setPlayed(
-				SettingsManager.getInstance(getSherlockActivity()).getPlayed()
+		SettingsManager.getInstance(getActivity()).setPlayed(
+				SettingsManager.getInstance(getActivity()).getPlayed()
 						+ variations[1]);
-		SettingsManager.getInstance(getSherlockActivity()).setWon(
-				SettingsManager.getInstance(getSherlockActivity()).getWon()
+		SettingsManager.getInstance(getActivity()).setWon(
+				SettingsManager.getInstance(getActivity()).getWon()
 						+ variations[2]);
-		SettingsManager.getInstance(getSherlockActivity()).setDraw(
-				SettingsManager.getInstance(getSherlockActivity()).getDraw()
+		SettingsManager.getInstance(getActivity()).setDraw(
+				SettingsManager.getInstance(getActivity()).getDraw()
 						+ variations[3]);
-		SettingsManager.getInstance(getSherlockActivity()).setLost(
-				SettingsManager.getInstance(getSherlockActivity()).getLost()
+		SettingsManager.getInstance(getActivity()).setLost(
+				SettingsManager.getInstance(getActivity()).getLost()
 						+ variations[4]);
-		SettingsManager.getInstance(getSherlockActivity()).setScored(
-				SettingsManager.getInstance(getSherlockActivity()).getScored()
+		SettingsManager.getInstance(getActivity()).setScored(
+				SettingsManager.getInstance(getActivity()).getScored()
 						+ variations[5]);
-		SettingsManager.getInstance(getSherlockActivity()).setAgainst(
-				SettingsManager.getInstance(getSherlockActivity()).getAgainst()
+		SettingsManager.getInstance(getActivity()).setAgainst(
+				SettingsManager.getInstance(getActivity()).getAgainst()
 						+ variations[6]);
 
 		updateStatsTable();
@@ -468,7 +468,7 @@ public class NewHomeFragment extends BaseFragment implements CheckboxListener,
 	@Override
 	public void onClick(DialogInterface dialog, int which) {
 		if (which == AlertDialog.BUTTON_POSITIVE) {
-			Intent intent = new Intent(getSherlockActivity(),
+			Intent intent = new Intent(getActivity(),
 					SendMessageActivity.class);
 
 			PlayerBean player = null;

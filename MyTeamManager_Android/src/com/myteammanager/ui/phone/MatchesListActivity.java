@@ -2,7 +2,7 @@ package com.myteammanager.ui.phone;
 
 import android.content.Context;
 import android.content.Intent;
-import android.support.v4.app.Fragment;
+import org.holoeverywhere.app.Fragment;
 
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;

@@ -2,15 +2,15 @@ package com.myteammanager.ui.fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.DialogFragment;
+import org.holoeverywhere.app.DialogFragment;
 import android.util.Log;
-import android.view.LayoutInflater;
+import org.holoeverywhere.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.WindowManager.LayoutParams;
-import android.widget.Button;
-import android.widget.EditText;
+import org.holoeverywhere.widget.Button;
+import org.holoeverywhere.widget.EditText;
 
 import com.myteammanager.MyTeamManagerActivity;
 import com.myteammanager.R;
@@ -46,6 +46,7 @@ public class ResultDialog extends DialogFragment {
 		m_goalAway = (EditText) view.findViewById(R.id.editTextGoalAway);
 		m_save = (Button) view.findViewById(R.id.buttonSave);
 		m_delete = (Button) view.findViewById(R.id.buttonDelete);
+		
 
 		m_save.setOnClickListener(new OnClickListener() {
 
