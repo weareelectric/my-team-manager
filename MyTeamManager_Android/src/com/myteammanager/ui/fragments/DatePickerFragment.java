@@ -4,14 +4,13 @@ import java.util.Calendar;
 
 import com.myteammanager.MyTeamManagerActivity;
 import com.myteammanager.events.DatePickerValuesEvent;
-import com.myteammanager.events.TimePickerValuesEvent;
 
-import android.app.DatePickerDialog;
-import android.app.DatePickerDialog.OnDateSetListener;
-import android.app.Dialog;
+import org.holoeverywhere.app.DatePickerDialog;
+import org.holoeverywhere.app.DatePickerDialog.OnDateSetListener;
+import org.holoeverywhere.app.Dialog;
 import android.os.Bundle;
-import android.support.v4.app.DialogFragment;
-import android.widget.DatePicker;
+import org.holoeverywhere.app.DialogFragment;
+import org.holoeverywhere.widget.DatePicker;
 
 public class DatePickerFragment extends DialogFragment implements OnDateSetListener {
 

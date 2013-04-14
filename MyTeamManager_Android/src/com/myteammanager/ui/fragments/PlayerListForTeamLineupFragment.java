@@ -7,17 +7,17 @@ import android.content.res.Resources;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v4.app.FragmentTransaction;
+import android.app.FragmentTransaction;
 import android.util.Log;
-import android.view.LayoutInflater;
+import org.holoeverywhere.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
+import org.holoeverywhere.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.LinearLayout;
-import android.widget.ListView;
-import android.widget.TextView;
+import org.holoeverywhere.widget.Button;
+import org.holoeverywhere.widget.LinearLayout;
+import org.holoeverywhere.widget.ListView;
+import org.holoeverywhere.widget.TextView;
 
 import com.actionbarsherlock.app.ActionBar.Tab;
 import com.actionbarsherlock.app.ActionBar.TabListener;
@@ -69,7 +69,7 @@ public class PlayerListForTeamLineupFragment extends RosterFragment {
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		Bundle bundle = getSherlockActivity().getIntent().getExtras();
+		Bundle bundle = getActivity().getIntent().getExtras();
 		if (bundle != null) {
 			m_playersStillToChoose = (ArrayList<PlayerBean>) bundle.get(KeyConstants.KEY_PLAYERS_LIST);
 			m_match = (MatchBean) bundle.get(KeyConstants.KEY_MATCH);
@@ -108,8 +108,9 @@ public class PlayerListForTeamLineupFragment extends RosterFragment {
 		m_handler.sendMessage(msg);
 	}
 
+
 	@Override
-	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+	public void onListItemClick(ListView l, View v, int position, long id) {
 		PlayerBean player = (PlayerBean) m_itemsList.get(position);
 		Intent intent = new Intent();
 
@@ -118,8 +119,8 @@ public class PlayerListForTeamLineupFragment extends RosterFragment {
 		removeSpearatorBeanFromList();
 		intent.putExtra(KeyConstants.KEY_PLAYERS_LIST, m_itemsList);
 
-		getSherlockActivity().setResult(KeyConstants.RESULT_PLAYER_FOR_LINEUP_CHOSEN, intent);
-		getSherlockActivity().finish();
+		getActivity().setResult(KeyConstants.RESULT_PLAYER_FOR_LINEUP_CHOSEN, intent);
+		getActivity().finish();
 	}
 
 	protected void refreshItemsAfterLoadedNewData(ArrayList<BaseBean> newData) {

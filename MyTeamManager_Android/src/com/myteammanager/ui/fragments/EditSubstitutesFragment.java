@@ -7,15 +7,15 @@ import android.content.res.Resources;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v4.app.FragmentTransaction;
+import android.app.FragmentTransaction;
 import android.util.Log;
-import android.view.LayoutInflater;
+import org.holoeverywhere.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.LinearLayout;
-import android.widget.ListView;
+import org.holoeverywhere.widget.Button;
+import org.holoeverywhere.widget.LinearLayout;
+import org.holoeverywhere.widget.ListView;
 
 import com.actionbarsherlock.app.ActionBar.Tab;
 import com.actionbarsherlock.app.ActionBar.TabListener;
@@ -48,7 +48,7 @@ public class EditSubstitutesFragment extends EditConvocationFragment {
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		Bundle bundle = getSherlockActivity().getIntent().getExtras();
+		Bundle bundle = getActivity().getIntent().getExtras();
 		if (bundle != null) {
 			m_playersStillToChoose = (ArrayList<PlayerBean>) bundle.get(KeyConstants.KEY_PLAYERS_LIST);
 			m_match = (MatchBean) bundle.get(KeyConstants.KEY_MATCH);
@@ -124,7 +124,7 @@ public class EditSubstitutesFragment extends EditConvocationFragment {
 			intent.putExtra(KeyConstants.KEY_NOT_CHOSEN_PLAYERS, notChosenPlayers);
 
 			// finish of activity is called automatically after the writing operations in the database
-			getSherlockActivity().setResult(KeyConstants.RESULT_PLAYERS_ONTHEBENCH_CHOSEN, intent);
+			getActivity().setResult(KeyConstants.RESULT_PLAYERS_ONTHEBENCH_CHOSEN, intent);
 			break;
 		}
 		return true;

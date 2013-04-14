@@ -7,7 +7,7 @@ import java.util.Vector;
 
 import android.content.Context;
 import android.util.Log;
-import android.view.LayoutInflater;
+import org.holoeverywhere.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;

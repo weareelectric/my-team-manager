@@ -3,7 +3,7 @@ package com.myteammanager.ui.fragments;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.LayoutInflater;
+import org.holoeverywhere.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -27,7 +27,7 @@ public class EditPlayerInfoFragment extends AddPlayerInfoFromRosterFragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		super.onCreateView(inflater, container, savedInstanceState);
-		Bundle extra = getSherlockActivity().getIntent().getExtras();
+		Bundle extra = getActivity().getIntent().getExtras();
 		m_player = (PlayerBean) extra.get(KeyConstants.KEY_BEANDATA);
 		m_playerName.setText(m_player.getName());
 		m_playerLastName.setText(m_player.getLastName());

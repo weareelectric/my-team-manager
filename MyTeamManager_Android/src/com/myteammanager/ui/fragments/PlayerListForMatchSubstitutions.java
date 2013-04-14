@@ -9,17 +9,17 @@ import android.content.res.Resources;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v4.app.FragmentTransaction;
+import android.app.FragmentTransaction;
 import android.util.Log;
-import android.view.LayoutInflater;
+import org.holoeverywhere.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
+import org.holoeverywhere.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.LinearLayout;
-import android.widget.ListView;
-import android.widget.TextView;
+import org.holoeverywhere.widget.Button;
+import org.holoeverywhere.widget.LinearLayout;
+import org.holoeverywhere.widget.ListView;
+import org.holoeverywhere.widget.TextView;
 
 import com.actionbarsherlock.app.ActionBar.Tab;
 import com.actionbarsherlock.app.ActionBar.TabListener;
@@ -59,7 +59,7 @@ public class PlayerListForMatchSubstitutions extends RosterFragment {
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		Bundle bundle = getSherlockActivity().getIntent().getExtras();
+		Bundle bundle = getActivity().getIntent().getExtras();
 		if (bundle != null) {
 			m_match = (MatchBean) bundle.get(KeyConstants.KEY_MATCH);
 		}
@@ -83,7 +83,7 @@ public class PlayerListForMatchSubstitutions extends RosterFragment {
 				Log.d(LOG_TAG, "Size of chosen player: " + size);
 				for (int k = 0; k < size; k++) {
 					lineupPlayer = alreadyStoredLineupPlayers.get(k);
-					Log.d(LOG_TAG, "Player in first eleven: " + lineupPlayer.getPlayer().getSurnameAndName(false, getSherlockActivity()));
+					Log.d(LOG_TAG, "Player in first eleven: " + lineupPlayer.getPlayer().getSurnameAndName(false, getActivity()));
 					m_titularPlayers.add(lineupPlayer.getPlayer());
 				}
 
@@ -175,9 +175,6 @@ public class PlayerListForMatchSubstitutions extends RosterFragment {
 	protected void addSectionHeadersToItemsList() {
 	}
 
-	@Override
-	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-	}
 
 	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
 		inflater.inflate(R.menu.edit_substitutions, menu);

@@ -2,23 +2,23 @@ package com.myteammanager.ui.fragments;
 
 import java.util.ArrayList;
 
-import android.app.AlertDialog;
+import org.holoeverywhere.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v4.app.FragmentTransaction;
+import android.app.FragmentTransaction;
 import android.util.Log;
-import android.view.LayoutInflater;
+import org.holoeverywhere.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
+import org.holoeverywhere.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.EditText;
-import android.widget.LinearLayout;
-import android.widget.ListView;
-import android.widget.Toast;
+import org.holoeverywhere.widget.EditText;
+import org.holoeverywhere.widget.LinearLayout;
+import org.holoeverywhere.widget.ListView;
+import org.holoeverywhere.widget.Toast;
 
 import com.actionbarsherlock.app.ActionBar.Tab;
 import com.actionbarsherlock.app.ActionBar.TabListener;
@@ -41,7 +41,7 @@ import com.myteammanager.util.DateTimeUtil;
 import com.myteammanager.util.KeyConstants;
 import com.myteammanager.util.StringUtil;
 
-public class EditConvocationFragment extends RosterFragment implements TabListener, CheckboxListener {
+public class EditConvocationFragment extends RosterFragment implements CheckboxListener {
 
 	private static final int MSG_UPDATETITLE = 1;
 
@@ -75,7 +75,7 @@ public class EditConvocationFragment extends RosterFragment implements TabListen
 		public void handleMessage(Message msg) {
 			if (msg.what == MSG_UPDATETITLE) {
 
-				getSherlockActivity().setTitle(getString(R.string.title_convocations, m_numbersOfConvocatedPlayersForRole[0]));
+				getActivity().setTitle(getString(R.string.title_convocations, m_numbersOfConvocatedPlayersForRole[0]));
 
 				m_child1.setVisibility(View.VISIBLE);
 
@@ -102,7 +102,7 @@ public class EditConvocationFragment extends RosterFragment implements TabListen
 		Log.d(LOG_TAG, "init");
 
 
-		Bundle extra = getSherlockActivity().getIntent().getExtras();
+		Bundle extra = getActivity().getIntent().getExtras();
 		m_match = (MatchBean) extra.get(KeyConstants.KEY_MATCH);
 
 		if (m_match.getNumberOfPlayerConvocated() > 0) {
@@ -129,8 +129,9 @@ public class EditConvocationFragment extends RosterFragment implements TabListen
 		return new ConvocationAdapter(getActivity(), R.layout.list_with_checkbox, m_itemsList, this);
 	}
 	
+
 	@Override
-	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+	public void onListItemClick(ListView l, View v, int position, long id) {
 		Log.d(LOG_TAG, "onItemClicked");
 		// Do nothing. Avoid that the click opens the activity to modify the player
 		
@@ -195,7 +196,7 @@ public class EditConvocationFragment extends RosterFragment implements TabListen
 			updateMatchObjectAndSaveConvocations(false);
 			
 			AlertDialog.Builder builder = new AlertDialog.Builder(
-					getSherlockActivity());
+					getActivity());
 
 			String[] items = {getResources().getString(R.string.label_to_all_players), getResources().getString(R.string.label_to_only_convocated)};
 			
@@ -240,7 +241,7 @@ public class EditConvocationFragment extends RosterFragment implements TabListen
 			
 		case R.id.menu_share_convocations:
 			updateMatchObjectAndSaveConvocations(false);
-			Intent intent = new Intent(getSherlockActivity(), SendMessageFacebookActivity.class);
+			Intent intent = new Intent(getActivity(), SendMessageFacebookActivity.class);
 			intent.putExtra(KeyConstants.KEY_MSG_TEXT, getTextForConvocationMessage(m_finalConvocations));
 			startActivity(intent);
 			break;
@@ -297,9 +298,9 @@ public class EditConvocationFragment extends RosterFragment implements TabListen
 		// Store the new convocations and the number of convocated players in the match object
 		Intent intent = new Intent();
 		intent.putExtra(KeyConstants.KEY_BEANDATA, m_match);
-		getSherlockActivity().sendBroadcast(intent);
+		getActivity().sendBroadcast(intent);
 
-		getSherlockActivity().setResult(KeyConstants.RESULT_BEAN_EDITED, intent);
+		getActivity().setResult(KeyConstants.RESULT_BEAN_EDITED, intent);
 		
 		DBManager.getInstance().updateBean(m_match);
 		
@@ -311,13 +312,13 @@ public class EditConvocationFragment extends RosterFragment implements TabListen
 	protected String getTextForConvocationMessage(
 			ArrayList<ConvocationBean> convocations) {
 		StringBuffer sb = new StringBuffer();
-		sb.append(m_match.getMatchString(getSherlockActivity()));
+		sb.append(m_match.getMatchString(getActivity()));
 
 		String timestamp = "";
 		if (m_match.getTimestamp() != -1) {
 			timestamp += "\n\n";
 			timestamp += getString(R.string.label_date_semicoloumn,
-					DateTimeUtil.getDateFrom(m_match.getTimestamp(), getSherlockActivity()));
+					DateTimeUtil.getDateFrom(m_match.getTimestamp(), getActivity()));
 			timestamp += " ";
 		}
 
@@ -343,7 +344,7 @@ public class EditConvocationFragment extends RosterFragment implements TabListen
 
 		for (int k = 0; k < convocations.size(); k++) {
 			sb.append("\n");
-			sb.append(convocations.get(k).getPlayer().getSurnameAndName(false, getSherlockActivity()));
+			sb.append(convocations.get(k).getPlayer().getSurnameAndName(false, getActivity()));
 		}
 
 		String message = sb.toString();
@@ -464,21 +465,6 @@ public class EditConvocationFragment extends RosterFragment implements TabListen
 	}
 
 	@Override
-	public void onTabSelected(Tab tab, FragmentTransaction ft) {
-
-	}
-
-	@Override
-	public void onTabUnselected(Tab tab, FragmentTransaction ft) {
-
-	}
-
-	@Override
-	public void onTabReselected(Tab tab, FragmentTransaction ft) {
-
-	}
-
-	@Override
 	public void checkboxChanged(boolean isSelectAll) {
 		Log.d(EDIT_CONVOCATION_TAG, "convocationChanged");
 
@@ -506,7 +492,7 @@ public class EditConvocationFragment extends RosterFragment implements TabListen
 	}
 
 	protected void openMessageScreen(ArrayList<BaseBean> playersWithPhoneOrEmail) {
-		Intent intent = new Intent(getSherlockActivity(),
+		Intent intent = new Intent(getActivity(),
 				SendMessageActivity.class);
 		intent.putExtra(KeyConstants.KEY_SELECTED_RECIPIENT,
 				playersWithPhoneOrEmail);

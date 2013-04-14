@@ -5,13 +5,14 @@ import java.util.ArrayList;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.LayoutInflater;
+import org.holoeverywhere.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.widget.Button;
 
-import com.actionbarsherlock.app.SherlockFragment;
+import org.holoeverywhere.app.Fragment;
+import org.holoeverywhere.widget.Button;
+
 import com.myteammanager.MyTeamManagerActivity;
 import com.myteammanager.R;
 import com.myteammanager.beans.ContactBean;
@@ -21,7 +22,7 @@ import com.myteammanager.ui.phone.ChoosePlayerFromContactsActivity;
 import com.myteammanager.ui.phone.WizardEnterPlayersInfoActivity;
 import com.myteammanager.util.KeyConstants;
 
-public class WizardEnterPlayersInfoFragment extends SherlockFragment {
+public class WizardEnterPlayersInfoFragment extends Fragment {
 	
 	
 
@@ -35,8 +36,8 @@ public class WizardEnterPlayersInfoFragment extends SherlockFragment {
 			
 			@Override
 			public void onClick(View arg0) {
-				getSherlockActivity().setResult(KeyConstants.RESULT_START_CONTACTS_SELECTION);
-				getSherlockActivity().finish();
+				getActivity().setResult(KeyConstants.RESULT_START_CONTACTS_SELECTION);
+				getActivity().finish();
 				
 			}
 		});
@@ -46,8 +47,8 @@ public class WizardEnterPlayersInfoFragment extends SherlockFragment {
 			
 			@Override
 			public void onClick(View arg0) {
-				getSherlockActivity().setResult(MyTeamManagerActivity.RESULT_ENTER_PLAYERS_INFO_START);
-				getSherlockActivity().finish();
+				getActivity().setResult(MyTeamManagerActivity.RESULT_ENTER_PLAYERS_INFO_START);
+				getActivity().finish();
 				
 			}
 		});

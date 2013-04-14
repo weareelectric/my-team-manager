@@ -1,6 +1,9 @@
 package com.myteammanager.util;
 
+import org.holoeverywhere.app.Activity;
+
 import android.content.Intent;
+import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 
 import com.actionbarsherlock.app.SherlockFragmentActivity;
@@ -36,7 +39,7 @@ public class EventDeleteConfirmationManager {
 
 	}
 
-	public static void deleteAllLinkedEvents(EventBean event, SherlockFragmentActivity sherlockFragmentActivity,
+	public static void deleteAllLinkedEvents(EventBean event, FragmentActivity activity,
 			boolean sendRefreshListIntent) {
 		String whereClause = "id == " + event.getId() + " or parentEvent == " + event.getId();
 
@@ -50,7 +53,7 @@ public class EventDeleteConfirmationManager {
 
 		if (sendRefreshListIntent) {
 			Intent intent = new Intent(KeyConstants.INTENT_RELOAD_LIST);
-			sherlockFragmentActivity.sendBroadcast(intent);
+			activity.sendBroadcast(intent);
 		}
 
 	}

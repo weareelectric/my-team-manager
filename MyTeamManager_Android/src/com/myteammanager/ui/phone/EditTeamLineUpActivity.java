@@ -2,15 +2,16 @@ package com.myteammanager.ui.phone;
 
 import java.util.ArrayList;
 
-import android.app.Dialog;
+import org.holoeverywhere.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.widget.TextView;
+import org.holoeverywhere.LayoutInflater;
+import org.holoeverywhere.app.Activity;
 
-import com.actionbarsherlock.app.SherlockFragmentActivity;
+import android.view.View;
+import org.holoeverywhere.widget.TextView;
+
 import com.myteammanager.R;
 import com.myteammanager.beans.MatchBean;
 import com.myteammanager.beans.PlayerBean;
@@ -20,7 +21,7 @@ import com.myteammanager.ui.fragments.SubstitutesFragment;
 import com.myteammanager.util.KeyConstants;
 import com.myteammanager.util.PlayerUtil;
 
-public class EditTeamLineUpActivity extends SherlockFragmentActivity {
+public class EditTeamLineUpActivity extends Activity {
 
 	private final static String LOG_TAG = EditTeamLineUpActivity.class.getName();
 

@@ -6,21 +6,21 @@ import java.util.Date;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
-import android.support.v4.app.FragmentTransaction;
+import android.app.FragmentTransaction;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
-import android.view.LayoutInflater;
+import org.holoeverywhere.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemSelectedListener;
-import android.widget.CheckBox;
-import android.widget.EditText;
-import android.widget.LinearLayout;
+import org.holoeverywhere.widget.AdapterView;
+import org.holoeverywhere.widget.AdapterView.OnItemSelectedListener;
+import org.holoeverywhere.widget.CheckBox;
+import org.holoeverywhere.widget.EditText;
+import org.holoeverywhere.widget.LinearLayout;
 import android.widget.ScrollView;
-import android.widget.Spinner;
-import android.widget.TextView;
+import org.holoeverywhere.widget.Spinner;
+import org.holoeverywhere.widget.TextView;
 
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.ActionBar.Tab;
@@ -75,11 +75,11 @@ public class EventDetailFragment extends BaseFragment implements TextWatcher {
 
 		m_root = (ScrollView) inflater.inflate(R.layout.fragment_event_detail, null, false);
 
-		Bundle extra = getSherlockActivity().getIntent().getExtras();
-		m_res = getSherlockActivity().getResources();
+		Bundle extra = getActivity().getIntent().getExtras();
+		m_res = getActivity().getResources();
 
 		m_event = (EventBean) extra.get(KeyConstants.KEY_BEANDATA);
-		getSherlockActivity().setTitle(m_res.getString(R.string.label_practice));
+		getActivity().setTitle(m_res.getString(R.string.label_practice));
 
 		// Event
 		// m_textViewEventArrivalTime = (TextView) m_root.findViewById(R.id.textViewArrivalTime);
@@ -96,13 +96,13 @@ public class EventDetailFragment extends BaseFragment implements TextWatcher {
 
 	@Override
 	public String getDeleteConfirmationMsg() {
-		Resources res = getSherlockActivity().getResources();
+		Resources res = getActivity().getResources();
 		return res.getString(R.string.alert_event_confirmation_msg);
 	}
 
 	public void updateFields() {
 		m_textViewEventDate.setText(m_res.getString(R.string.label_date_semicoloumn,
-				DateTimeUtil.getDateFrom(m_event.getTimestamp(), getSherlockActivity())));
+				DateTimeUtil.getDateFrom(m_event.getTimestamp(), getActivity())));
 		// m_textViewEventArrivalTime.setText(m_res.getString(R.string.label_arrival_time_semicoloumn,
 				// DateTimeUtil.getTimeStringFrom(m_event.getArrivalTime())));
 		m_textViewEventTime.setText(m_res.getString(R.string.label_time_semicoloumn,
@@ -137,9 +137,9 @@ public class EventDetailFragment extends BaseFragment implements TextWatcher {
 
 		Intent intent = new Intent();
 		intent.putExtra(KeyConstants.KEY_BEANDATA, m_event);
-		getSherlockActivity().setResult(KeyConstants.RESULT_BEAN_DELETED, intent);
+		getActivity().setResult(KeyConstants.RESULT_BEAN_DELETED, intent);
 
-		getSherlockActivity().finish();
+		getActivity().finish();
 	}
 
 	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
@@ -151,7 +151,7 @@ public class EventDetailFragment extends BaseFragment implements TextWatcher {
 		switch (item.getItemId()) {
 
 		case R.id.menu_edit_event_match:
-			Intent intent = new Intent(getSherlockActivity(), AddEventInfoActivity.class);
+			Intent intent = new Intent(getActivity(), AddEventInfoActivity.class);
 			intent.putExtra(KeyConstants.KEY_EVENT_OR_MATCH, true);
 			intent.putExtra(KeyConstants.KEY_BEANDATA, m_event);
 			startActivityForResult(intent, KeyConstants.CODE_BEAN_CHANGE);
@@ -187,14 +187,14 @@ public class EventDetailFragment extends BaseFragment implements TextWatcher {
 		Log.d(LOG_TAG, "button2Pressed");
 		Intent intent = new Intent();
 		intent.putExtra(KeyConstants.KEY_BEANDATA, m_event);
-		EventDeleteConfirmationManager.deleteAllLinkedEvents(m_event, getSherlockActivity(), true);
+		EventDeleteConfirmationManager.deleteAllLinkedEvents(m_event, getActivity(), true);
 		
 		MyTeamManagerActivity.getBus().post(new EventOrMatchChanged());
 
 		intent.setAction(KeyConstants.INTENT_BEAN_DELETED);
-		getSherlockActivity().setResult(KeyConstants.RESULT_BEAN_DELETED, intent);
+		getActivity().setResult(KeyConstants.RESULT_BEAN_DELETED, intent);
 
-		getSherlockActivity().finish();
+		getActivity().finish();
 
 	}
 

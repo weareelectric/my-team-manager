@@ -4,29 +4,29 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.logging.Logger;
 
-import android.app.AlertDialog;
+import org.holoeverywhere.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
-import android.support.v4.app.DialogFragment;
+import org.holoeverywhere.app.DialogFragment;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.text.format.DateFormat;
 import android.text.format.DateUtils;
 import android.util.Log;
-import android.view.LayoutInflater;
+import org.holoeverywhere.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.WindowManager.LayoutParams;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemSelectedListener;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.LinearLayout;
-import android.widget.Spinner;
-import android.widget.TextView;
+import org.holoeverywhere.widget.AdapterView;
+import org.holoeverywhere.widget.AdapterView.OnItemSelectedListener;
+import org.holoeverywhere.widget.Button;
+import org.holoeverywhere.widget.EditText;
+import org.holoeverywhere.widget.LinearLayout;
+import org.holoeverywhere.widget.Spinner;
+import org.holoeverywhere.widget.TextView;
 
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.view.Menu;
@@ -106,14 +106,14 @@ public class AddEventInfoFragment extends BaseTwoButtonActionsFormFragment {
 
 		super.onCreateView(inflater, container, savedInstanceState);
 		
-		m_context = getSherlockActivity();
+		m_context = getActivity();
 
-		Bundle extra = getSherlockActivity().getIntent().getExtras();
+		Bundle extra = getActivity().getIntent().getExtras();
 		m_isEvent = extra.getBoolean(KeyConstants.KEY_EVENT_OR_MATCH);
 		Log.d(LOG_TAG, "m_isEvent: " + m_isEvent);
 
 		if (m_isEvent) {
-			getSherlockActivity().setTitle(R.string.title_add_event);
+			getActivity().setTitle(R.string.title_add_event);
 			m_event = (EventBean) extra.get(KeyConstants.KEY_BEANDATA);
 			Log.d(LOG_TAG, "m_event: " + m_event);
 			if (m_event != null) {
@@ -122,7 +122,7 @@ public class AddEventInfoFragment extends BaseTwoButtonActionsFormFragment {
 				m_event = new EventBean();
 			}
 		} else {
-			getSherlockActivity().setTitle(R.string.title_add_match);
+			getActivity().setTitle(R.string.title_add_match);
 			m_match = (MatchBean) extra.get(KeyConstants.KEY_BEANDATA);
 			Log.d(LOG_TAG, "m_match: " + m_match);
 			if (m_match != null) {
@@ -338,10 +338,10 @@ public class AddEventInfoFragment extends BaseTwoButtonActionsFormFragment {
 		}
 
 		Log.d(LOG_TAG, "Result for calling activity: " + resultCode);
-		getSherlockActivity().setResult(resultCode, intent);
+		getActivity().setResult(resultCode, intent);
 
 		// Notify also possible broadcastReceiver 
-		getSherlockActivity().sendBroadcast(intent);
+		getActivity().sendBroadcast(intent);
 	}
 
 	protected void saveEvent() {
@@ -399,12 +399,12 @@ public class AddEventInfoFragment extends BaseTwoButtonActionsFormFragment {
 					resultCode = KeyConstants.RESULT_BEAN_EDITED;
 				}
 
-				getSherlockActivity().setResult(resultCode, intent);
+				getActivity().setResult(resultCode, intent);
 				
 				notifyForResult();
 
 				MyTeamManagerActivity.getBus().post(new EventOrMatchChanged());
-				getSherlockActivity().finish();
+				getActivity().finish();
 			}
 
 		} else {
@@ -428,9 +428,9 @@ public class AddEventInfoFragment extends BaseTwoButtonActionsFormFragment {
 			
 			notifyForResult();
 
-			getSherlockActivity().setResult(resultCode, intent);
+			getActivity().setResult(resultCode, intent);
 
-			getSherlockActivity().finish();
+			getActivity().finish();
 		}
 
 	}
@@ -455,7 +455,7 @@ public class AddEventInfoFragment extends BaseTwoButtonActionsFormFragment {
 		m_opponentEditText.requestFocus();
 		m_homeAwaySpinner.setSelection(0);
 
-		ActionBar actionBar = getSherlockActivity().getSupportActionBar();
+		ActionBar actionBar = getSupportActionBar();
 
 
 		// m_matchCancledCheckBox.setChecked(false);
@@ -552,7 +552,7 @@ public class AddEventInfoFragment extends BaseTwoButtonActionsFormFragment {
 
 	@Override
 	public String getDeleteConfirmationMsg() {
-		Resources res = getSherlockActivity().getResources();
+		Resources res = getActivity().getResources();
 		return res.getString(R.string.alert_event_confirmation_msg);
 	}
 
@@ -599,7 +599,7 @@ public class AddEventInfoFragment extends BaseTwoButtonActionsFormFragment {
 		}
 		else {
 			if (!StringUtil.isNotEmpty(m_eventDateEditText.getText().toString())) {
-				AlertDialog.Builder builder = new AlertDialog.Builder(getSherlockActivity()).setMessage(getString(R.string.msg_date_needed_for_event));
+				AlertDialog.Builder builder = new AlertDialog.Builder(getActivity()).setMessage(getString(R.string.msg_date_needed_for_event));
 				builder.show();
 				canSave = false;
 			}
@@ -618,7 +618,7 @@ public class AddEventInfoFragment extends BaseTwoButtonActionsFormFragment {
 
 	@Override
 	protected void customizeMenuItem1(View root) {
-		m_menuItem1.setTitle(getSherlockActivity().getResources().getString(R.string.save));
+		m_menuItem1.setTitle(getActivity().getResources().getString(R.string.save));
 	}
 
 	@Override
@@ -648,7 +648,7 @@ public class AddEventInfoFragment extends BaseTwoButtonActionsFormFragment {
 
 			
 			m_opponentEditText.requestFocus();
-			getSherlockActivity().getWindow().setSoftInputMode(LayoutParams.SOFT_INPUT_STATE_VISIBLE);
+			getActivity().getWindow().setSoftInputMode(LayoutParams.SOFT_INPUT_STATE_VISIBLE);
 		}
 	}
 
@@ -660,16 +660,16 @@ public class AddEventInfoFragment extends BaseTwoButtonActionsFormFragment {
 			DBManager.getInstance().deleteBean(m_event);
 		} else {
 			intent.putExtra(KeyConstants.KEY_BEANDATA, m_match);
-			DeleteMatchManager.deleteMatch(m_match, getSherlockActivity());
+			DeleteMatchManager.deleteMatch(m_match, getActivity());
 		}
 
 		intent.setAction(KeyConstants.INTENT_BEAN_DELETED);
 		getActivity().setResult(KeyConstants.RESULT_BEAN_DELETED, intent);
 
 		// Notify also possible broadcastReceiver 
-		getSherlockActivity().sendBroadcast(intent);
+		getActivity().sendBroadcast(intent);
 		MyTeamManagerActivity.getBus().post(new EventOrMatchChanged());
-		getSherlockActivity().finish();
+		getActivity().finish();
 	}
 
 	@Override
@@ -677,13 +677,13 @@ public class AddEventInfoFragment extends BaseTwoButtonActionsFormFragment {
 
 		Intent intent = new Intent();
 		intent.putExtra(KeyConstants.KEY_BEANDATA, m_event);
-		EventDeleteConfirmationManager.deleteAllLinkedEvents(m_event, getSherlockActivity(), true);
+		EventDeleteConfirmationManager.deleteAllLinkedEvents(m_event, getActivity(), true);
 
 		intent.setAction(KeyConstants.INTENT_BEAN_DELETED);
 		getActivity().setResult(KeyConstants.RESULT_BEAN_DELETED, intent);
 
 		MyTeamManagerActivity.getBus().post(new EventOrMatchChanged());
-		getSherlockActivity().finish();
+		getActivity().finish();
 	}
 
 	@Override
@@ -693,12 +693,12 @@ public class AddEventInfoFragment extends BaseTwoButtonActionsFormFragment {
 
 	private void showDatePicker(int id, long timestamp) {
 		DialogFragment newFragment = new DatePickerFragment(id, timestamp);
-		newFragment.show(getSherlockActivity().getSupportFragmentManager(), "datePicker");
+		newFragment.show(getActivity().getSupportFragmentManager(), "datePicker");
 	}
 
 	private void showTimePicker(int id, long timestamp) {
 		DialogFragment newFragment = new TimePickerFragment(id, timestamp);
-		newFragment.show(getSherlockActivity().getSupportFragmentManager(), "timePicker");
+		newFragment.show(getActivity().getSupportFragmentManager(), "timePicker");
 	}
 
 	private void showMatchDatePicker() {

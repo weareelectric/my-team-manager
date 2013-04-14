@@ -6,7 +6,7 @@ import java.util.Date;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.util.Log;
-import android.widget.TimePicker;
+import org.holoeverywhere.widget.TimePicker;
 
 public class TimePickerEasy extends TimePicker {
 

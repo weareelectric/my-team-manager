@@ -1,23 +1,17 @@
 package com.myteammanager.ui.fragments;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.LayoutInflater;
+import org.holoeverywhere.LayoutInflater;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.LinearLayout;
+import org.holoeverywhere.widget.LinearLayout;
 import android.widget.ScrollView;
 
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 import com.myteammanager.R;
-import com.myteammanager.ui.phone.AddEventInfoActivity;
-import com.myteammanager.util.KeyConstants;
-import com.myteammanager.util.StringUtil;
 
 public abstract class BaseTwoButtonActionsFormFragment extends BaseFragment  {
 

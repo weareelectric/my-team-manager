@@ -6,13 +6,13 @@ import com.myteammanager.MyTeamManagerActivity;
 import com.myteammanager.events.TimePickerValuesEvent;
 
 import android.animation.TimeInterpolator;
-import android.app.Dialog;
-import android.app.TimePickerDialog;
+import org.holoeverywhere.app.Dialog;
+import org.holoeverywhere.app.TimePickerDialog;
 import android.os.Bundle;
-import android.support.v4.app.DialogFragment;
+import org.holoeverywhere.app.DialogFragment;
 import android.text.format.DateFormat;
 import android.util.Log;
-import android.widget.TimePicker;
+import org.holoeverywhere.widget.TimePicker;
 
 public class TimePickerFragment extends DialogFragment implements TimePickerDialog.OnTimeSetListener {
 

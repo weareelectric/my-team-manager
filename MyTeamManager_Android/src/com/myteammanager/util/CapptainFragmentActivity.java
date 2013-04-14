@@ -17,15 +17,15 @@
 package com.myteammanager.util;
 
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
+import org.holoeverywhere.app.Activity;
 
 import com.ubikod.capptain.android.sdk.CapptainAgent;
 import com.ubikod.capptain.android.sdk.CapptainAgentUtils;
 
 /**
- * Helper class used to replace Android's android.support.v4.app.FragmentActivity class.
+ * Helper class used to replace Android's org.holoeverywhere.app.FragmentActivity class.
  */
-public abstract class CapptainFragmentActivity extends FragmentActivity
+public abstract class CapptainFragmentActivity extends Activity
 {
   private CapptainAgent mCapptainAgent;
 

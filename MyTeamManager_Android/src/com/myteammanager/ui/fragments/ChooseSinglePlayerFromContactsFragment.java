@@ -6,7 +6,9 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
+import org.holoeverywhere.widget.AdapterView;
+import org.holoeverywhere.widget.ListView;
+
 import android.widget.ArrayAdapter;
 
 import com.actionbarsherlock.view.Menu;
@@ -38,7 +40,7 @@ public class ChooseSinglePlayerFromContactsFragment extends BaseListFragment imp
 	@Override
 	protected ArrayList<? extends BaseBean> getData() {
 		try {
-			return PhonebookManager.getContacts(getSherlockActivity());
+			return PhonebookManager.getContacts(getSupportActivity());
 		} catch (NoDataException e) {
 			Log.e(LOG_TAG, "Error reading from phone address book");
 			return new ArrayList<ContactBean>();
@@ -48,18 +50,18 @@ public class ChooseSinglePlayerFromContactsFragment extends BaseListFragment imp
 	@Override
 	protected ArrayAdapter<? extends BaseBean> initAdapter() {
 		m_itemsList.clear();
-		return new SimpleContactAdapter(getSherlockActivity(), R.layout.list, m_itemsList);
+		return new SimpleContactAdapter(getActivity(), R.layout.list, m_itemsList);
 	}
 	
-	
-	@Override
-	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
+
+	@Override
+	public void onListItemClick(ListView l, View v, int position, long id) {
 		ContactBean contact = (ContactBean) m_itemsList.get(position);
 		Intent intent = new Intent();
 		intent.putExtra(KeyConstants.KEY_CHOSEN_CONTACT, contact);
-		getSherlockActivity().setResult(KeyConstants.RESULT_CONTACT_CHOSEN, intent);
-		getSherlockActivity().finish();
+		getActivity().setResult(KeyConstants.RESULT_CONTACT_CHOSEN, intent);
+		getActivity().finish();
 	}
 
 	@Override
@@ -81,6 +83,5 @@ public class ChooseSinglePlayerFromContactsFragment extends BaseListFragment imp
 	public void checkboxChanged(boolean isSelectAll) {
 		
 	}
-
 	
 }

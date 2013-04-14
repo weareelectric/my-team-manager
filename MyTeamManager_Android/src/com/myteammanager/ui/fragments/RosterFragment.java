@@ -7,7 +7,9 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AbsListView;
-import android.widget.AdapterView;
+import org.holoeverywhere.widget.AdapterView;
+import org.holoeverywhere.widget.ListView;
+
 import android.widget.ArrayAdapter;
 
 import com.actionbarsherlock.view.Menu;
@@ -36,7 +38,7 @@ public class RosterFragment extends BaseListFragmentWithSectionHeaders {
 		m_isFastScrolledEnabled = false;
 		m_showNoDataMessage = true;
 
-		m_quickAction = new QuickAction(getSherlockActivity());
+		m_quickAction = new QuickAction(getActivity());
 		ActionItem deletePlayer = new ActionItem(ID_DELETE_PLAYER, getResources().getString(R.string.delete),
 				getResources().getDrawable(android.R.drawable.ic_menu_delete));
 		deletePlayer.setSticky(true);
@@ -54,6 +56,15 @@ public class RosterFragment extends BaseListFragmentWithSectionHeaders {
 				}
 			}
 		});
+	}
+	
+
+	@Override
+	public void onListItemClick(ListView l, View v, int position, long id) {
+		PlayerBean player = (PlayerBean) m_itemsList.get(position);
+		Intent intent = new Intent(getActivity(), EditPlayerInfoActivity.class);
+		intent.putExtra(KeyConstants.KEY_BEANDATA, player);
+		startActivityForResult(intent, KeyConstants.CODE_BEAN_CHANGE);
 	}
 
 	@Override
@@ -74,13 +85,6 @@ public class RosterFragment extends BaseListFragmentWithSectionHeaders {
 		// return MyTeamManagerDBManager.getInstance().getListOfBeans(new PlayerBean(), true);
 	}
 
-	@Override
-	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-		PlayerBean player = (PlayerBean) m_itemsList.get(position);
-		Intent intent = new Intent(getSherlockActivity(), EditPlayerInfoActivity.class);
-		intent.putExtra(KeyConstants.KEY_BEANDATA, player);
-		startActivityForResult(intent, KeyConstants.CODE_BEAN_CHANGE);
-	}
 
 	@Override
 	public void onScroll(AbsListView arg0, int arg1, int arg2, int arg3) {
@@ -113,7 +117,7 @@ public class RosterFragment extends BaseListFragmentWithSectionHeaders {
 	}
 
 	protected void addPlayer() {
-		Intent intent = new Intent(getSherlockActivity(), AddPlayerInfoFromRosterActivity.class);
+		Intent intent = new Intent(getActivity(), AddPlayerInfoFromRosterActivity.class);
 		startActivityForResult(intent, KeyConstants.CODE_BEAN_CHANGE);
 	}
 
@@ -140,7 +144,7 @@ public class RosterFragment extends BaseListFragmentWithSectionHeaders {
 	}
 
 	protected String getSeparatorString(PlayerBean playerBean) {
-		return PlayerAndroidUtil.getRoleString(getSherlockActivity(), playerBean.getRole());
+		return PlayerAndroidUtil.getRoleString(getActivity(), playerBean.getRole());
 	}
 
 	@Override

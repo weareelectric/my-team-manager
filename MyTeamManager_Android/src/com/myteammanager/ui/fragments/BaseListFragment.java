@@ -4,29 +4,30 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
-import android.app.ProgressDialog;
+import org.holoeverywhere.LayoutInflater;
+import org.holoeverywhere.app.ListFragment;
+import org.holoeverywhere.app.ProgressDialog;
+import org.holoeverywhere.widget.AdapterView;
+import org.holoeverywhere.widget.AdapterView.OnItemClickListener;
+import org.holoeverywhere.widget.Button;
+import org.holoeverywhere.widget.LinearLayout;
+import org.holoeverywhere.widget.ListView;
+import org.holoeverywhere.widget.TextView;
+
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.res.Resources;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AbsListView.OnScrollListener;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.LinearLayout;
-import android.widget.ListView;
-import android.widget.TextView;
 
-import com.actionbarsherlock.app.SherlockFragment;
+import com.actionbarsherlock.internal.widget.IcsAdapterView.AdapterContextMenuInfo;
 import com.myteammanager.BeanChangeBroadcastReceiver;
 import com.myteammanager.R;
 import com.myteammanager.beans.BaseBean;
@@ -36,7 +37,7 @@ import com.myteammanager.ui.ButtonsAlertDialogListener;
 import com.myteammanager.ui.quickaction.QuickAction;
 import com.myteammanager.util.KeyConstants;
 
-public abstract class BaseListFragment extends SherlockFragment implements OnItemClickListener, OnScrollListener,
+public abstract class BaseListFragment extends ListFragment implements OnScrollListener,
 		ButtonsAlertDialogListener {
 
 	public static final String LOG_TAG = BaseListFragment.class.getName();
@@ -70,12 +71,12 @@ public abstract class BaseListFragment extends SherlockFragment implements OnIte
 	public abstract void button3Pressed(int alertId);
 
 	public String getDeleteConfirmationMsg() {
-		Resources res = getSherlockActivity().getResources();
+		Resources res = getActivity().getResources();
 		return res.getString(R.string.alert_general_confirmation_msg);
 	}
 
 	public String getDeleteConfirmationTitle() {
-		Resources res = getSherlockActivity().getResources();
+		Resources res = getActivity().getResources();
 		return res.getString(R.string.alert_general_confirmation_title);
 	}
 
@@ -102,14 +103,14 @@ public abstract class BaseListFragment extends SherlockFragment implements OnIte
 		filter.addAction(KeyConstants.INTENT_BEAN_CHANGED);
 		filter.addAction(KeyConstants.INTENT_BEAN_DELETED);
 		filter.addAction(KeyConstants.INTENT_RELOAD_LIST);
-		getSherlockActivity().registerReceiver(m_beanChangeReceiver, filter);
+		getActivity().registerReceiver(m_beanChangeReceiver, filter);
 	}
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
 		View root = inflater.inflate(R.layout.fragment_base_list, null);
-		m_listView = (ListView) root.findViewById(R.id.list);
+		m_listView = (ListView) root.findViewById(android.R.id.list);
 		registerForContextMenu(m_listView);
 		setHasOptionsMenu(true);
 		
@@ -129,7 +130,7 @@ public abstract class BaseListFragment extends SherlockFragment implements OnIte
 		return root;
 
 	}
-	
+
 	protected void noDataButtonAction() {
 		
 	}
@@ -152,22 +153,23 @@ public abstract class BaseListFragment extends SherlockFragment implements OnIte
 		init();
 
 		m_listView.setAdapter(m_adapter);
-		m_listView.setOnItemClickListener(this);
 		
 		requestData();
 	}
+	
+	
 
 	protected void showProgressDialog(final String text) {
-		getSherlockActivity().runOnUiThread(new Runnable() {
+		getActivity().runOnUiThread(new Runnable() {
 			public void run() {
-				pd = ProgressDialog.show(getSherlockActivity(), "", text, true);
+				pd = ProgressDialog.show(getActivity(), "", text, true);
 			}
 		});
 
 	}
 
 	protected void cancelProgressDialog() {
-		getSherlockActivity().runOnUiThread(new Runnable() {
+		getActivity().runOnUiThread(new Runnable() {
 			public void run() {
 				if (pd != null) {
 					pd.cancel();
@@ -224,21 +226,19 @@ public abstract class BaseListFragment extends SherlockFragment implements OnIte
 		// TODO Auto-generated method stub
 
 	}
+	
+	
 
 	@Override
-	public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
+	public void onCreateContextMenu(
+			com.actionbarsherlock.view.ContextMenu menu, View v,
+			ContextMenuInfo menuInfo) {
 		super.onCreateContextMenu(menu, v, menuInfo);
 		Log.d(LOG_TAG, "contextMenu");
 
 		if (v.getId() == R.id.list) {
 			if (m_quickAction != null) {
-				AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) menuInfo;
+				AdapterContextMenuInfo info = (AdapterContextMenuInfo)menuInfo;
 				ListView listView = (ListView) v;
 				Log.d(LOG_TAG, "info.position: " + info.position);
 				Log.d(LOG_TAG, "Count of childs in list: " + m_listView.getCount());
@@ -246,7 +246,6 @@ public abstract class BaseListFragment extends SherlockFragment implements OnIte
 				m_quickAction.show(info.targetView);
 			}
 		}
-
 	}
 
 	@Override
@@ -352,7 +351,7 @@ public abstract class BaseListFragment extends SherlockFragment implements OnIte
 	@Override
 	public void onDestroy() {
 		if (m_beanChangeReceiver != null) {
-			getSherlockActivity().unregisterReceiver(m_beanChangeReceiver);
+			getActivity().unregisterReceiver(m_beanChangeReceiver);
 		}
 
 		super.onDestroy();
@@ -389,7 +388,7 @@ public abstract class BaseListFragment extends SherlockFragment implements OnIte
 			protected void onPostExecute(String[] result) {
 				cancelProgressDialog();
 				if (exitFromActivityAtTheEnd) {
-					getSherlockActivity().finish();
+					getActivity().finish();
 				}
 
 			}

@@ -1,7 +1,7 @@
 package com.myteammanager;
 
-import android.app.AlertDialog;
-import android.app.Dialog;
+import org.holoeverywhere.app.AlertDialog;
+import org.holoeverywhere.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.PixelFormat;
@@ -10,11 +10,11 @@ import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 
-import com.actionbarsherlock.app.SherlockFragmentActivity;
+import org.holoeverywhere.app.Activity;
 import com.flurry.android.FlurryAgent;
 import com.myteammanager.util.CapptainFragmentActivity;
 
-public abstract class BaseActivity extends SherlockFragmentActivity {
+public abstract class BaseActivity extends Activity {
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);

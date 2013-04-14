@@ -9,17 +9,17 @@ import android.content.res.Resources;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v4.app.FragmentTransaction;
+import android.app.FragmentTransaction;
 import android.util.Log;
-import android.view.LayoutInflater;
+import org.holoeverywhere.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
+import org.holoeverywhere.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.LinearLayout;
-import android.widget.ListView;
-import android.widget.TextView;
+import org.holoeverywhere.widget.Button;
+import org.holoeverywhere.widget.LinearLayout;
+import org.holoeverywhere.widget.ListView;
+import org.holoeverywhere.widget.TextView;
 
 import com.actionbarsherlock.app.ActionBar.Tab;
 import com.actionbarsherlock.app.ActionBar.TabListener;
@@ -56,7 +56,7 @@ public class PlayerListForScorerChoice extends RosterFragment {
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		Bundle bundle = getSherlockActivity().getIntent().getExtras();
+		Bundle bundle = getActivity().getIntent().getExtras();
 		if (bundle != null) {
 			m_match = (MatchBean) bundle.get(KeyConstants.KEY_MATCH);
 		}
@@ -89,7 +89,7 @@ public class PlayerListForScorerChoice extends RosterFragment {
 
 				if ( !listOfPlayers.contains(lineupPlayer.getPlayer())) {
 					listOfPlayers.add(lineupPlayer.getPlayer());
-					Log.d(LOG_TAG, "lineupPlayer.getPlayer(): " + lineupPlayer.getPlayer().getSurnameAndName(false, getSherlockActivity()));
+					Log.d(LOG_TAG, "lineupPlayer.getPlayer(): " + lineupPlayer.getPlayer().getSurnameAndName(false, getActivity()));
 				}
 				
 
@@ -156,10 +156,6 @@ public class PlayerListForScorerChoice extends RosterFragment {
 	protected void addSectionHeadersToItemsList() {
 	}
 
-	@Override
-	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-	}
-
 	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
 		inflater.inflate(R.menu.edit_scorers, menu);
 	}
@@ -174,7 +170,7 @@ public class PlayerListForScorerChoice extends RosterFragment {
 			int size = m_itemsList.size();
 			for (int k = 0; k < size; k++) {
 				PlayerBean player = (PlayerBean) m_itemsList.get(k);
-				Log.d(LOG_TAG, "Scored by " + player.getSurnameAndName(true, getSherlockActivity()) + ": " + player.getGoalScoredInTheMatch());
+				Log.d(LOG_TAG, "Scored by " + player.getSurnameAndName(true, getActivity()) + ": " + player.getGoalScoredInTheMatch());
 				if (player.getGoalScoredInTheMatch() > 0) {
 					ScorerBean scorer = new ScorerBean();
 					scorer.setMatch(m_match);

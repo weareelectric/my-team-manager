@@ -2,24 +2,21 @@ package com.myteammanager.ui.fragments;
 
 import java.util.ArrayList;
 
-import android.app.ProgressDialog;
+import org.holoeverywhere.app.ProgressDialog;
 import android.content.res.Resources;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.LayoutInflater;
+import org.holoeverywhere.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.actionbarsherlock.app.SherlockFragment;
-import com.myteammanager.MyTeamManagerActivity;
+import org.holoeverywhere.app.Fragment;
 import com.myteammanager.R;
 import com.myteammanager.beans.BaseBean;
-import com.myteammanager.events.EventOrMatchChanged;
 import com.myteammanager.storage.DBManager;
 import com.myteammanager.ui.ButtonsAlertDialogListener;
 
-public abstract class BaseFragment extends SherlockFragment implements ButtonsAlertDialogListener {
+public abstract class BaseFragment extends Fragment implements ButtonsAlertDialogListener {
 
 	protected ProgressDialog pd;
 
@@ -33,12 +30,12 @@ public abstract class BaseFragment extends SherlockFragment implements ButtonsAl
 	}
 
 	public String getDeleteConfirmationMsg() {
-		Resources res = getSherlockActivity().getResources();
+		Resources res = getActivity().getResources();
 		return res.getString(R.string.alert_general_confirmation_msg);
 	}
 
 	public String getDeleteConfirmationTitle() {
-		Resources res = getSherlockActivity().getResources();
+		Resources res = getActivity().getResources();
 		return res.getString(R.string.alert_general_confirmation_title);
 	}
 
@@ -55,16 +52,16 @@ public abstract class BaseFragment extends SherlockFragment implements ButtonsAl
 	}
 
 	protected void showProgressDialog(final String text) {
-		getSherlockActivity().runOnUiThread(new Runnable() {
+		getActivity().runOnUiThread(new Runnable() {
 			public void run() {
-				pd = ProgressDialog.show(getSherlockActivity(), "", text, true);
+				pd = ProgressDialog.show(getActivity(), "", text, true);
 			}
 		});
 
 	}
 
 	protected void cancelProgressDialog() {
-		getSherlockActivity().runOnUiThread(new Runnable() {
+		getActivity().runOnUiThread(new Runnable() {
 			public void run() {
 				if (pd != null) {
 					pd.cancel();
@@ -94,7 +91,7 @@ public abstract class BaseFragment extends SherlockFragment implements ButtonsAl
 			protected void onPostExecute(String[] result) {
 				cancelProgressDialog();
 				doActionAfetrInsertBeans();
-				getSherlockActivity().finish();
+				getActivity().finish();
 			}
 
 		}.execute();

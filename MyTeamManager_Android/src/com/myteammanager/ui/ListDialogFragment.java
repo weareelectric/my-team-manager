@@ -1,17 +1,18 @@
 package com.myteammanager.ui;
 
-import android.app.Dialog;
+import org.holoeverywhere.app.Dialog;
+import org.holoeverywhere.app.DialogFragment;
+import org.holoeverywhere.widget.AdapterView;
+import org.holoeverywhere.widget.ListView;
+import org.holoeverywhere.widget.TextView;
+
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.v4.app.DialogFragment;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
-import android.widget.ListView;
-import android.widget.TextView;
 
 import com.myteammanager.listener.DialogListListener;
 
@@ -40,16 +41,20 @@ public class ListDialogFragment extends DialogFragment {
 		Dialog d = new Dialog(m_context);
 		d.setTitle(m_title);
 
-		final ListView modeList = new ListView(m_context);
+		ListView modeList = new ListView(m_context);
 		modeList.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
-			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-				m_listener.listItemClicked(position);
+			public void onItemClick(android.widget.AdapterView<?> arg0,
+					View arg1, int position, long arg3) {
 
+					m_listener.listItemClicked(position);
+				
 			}
 
+	
 		});
+
 
 		ArrayAdapter<String> modeAdapter = new ArrayAdapter<String>(m_context, android.R.layout.simple_list_item_1,
 				android.R.id.text1, m_labels) {

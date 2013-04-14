@@ -6,7 +6,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
+import org.holoeverywhere.widget.AdapterView;
+import org.holoeverywhere.widget.ListView;
+
 import android.widget.ArrayAdapter;
 
 import com.actionbarsherlock.view.Menu;
@@ -36,7 +38,7 @@ public class MatchesListFragment extends BaseListFragmentWithSectionHeaders {
 	@Override
 	protected void init() {
 		m_showNoDataMessage = true;
-		m_quickAction = new QuickAction(getSherlockActivity());
+		m_quickAction = new QuickAction(getActivity());
 		ActionItem deleteEvent = new ActionItem(ID_DELETE_MATCH, getResources().getString(R.string.delete), getResources()
 				.getDrawable(android.R.drawable.ic_menu_delete));
 		deleteEvent.setSticky(true);
@@ -82,16 +84,16 @@ public class MatchesListFragment extends BaseListFragmentWithSectionHeaders {
 	}
 
 	@Override
-	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+	public void onListItemClick(ListView l, View v, int position, long id) {
 		//		MatchBean match = (MatchBean) m_itemsList.get(position);
-		//		Intent intent = new Intent(getSherlockActivity(),
+		//		Intent intent = new Intent(getActivity(),
 		//				AddEventInfoActivity.class);
 		//		intent.putExtra(KEY_BEANDATA, match);
 		//		intent.putExtra(MatchesListFragment.KEY_EVENT_OR_MATCH, false);
 		//		startActivityForResult(intent, CODE_BEAN_CHANGE);
 
 		MatchBean match = (MatchBean) m_itemsList.get(position);
-		Intent intent = new Intent(getSherlockActivity(), MatchDetailActivity.class);
+		Intent intent = new Intent(getActivity(), MatchDetailActivity.class);
 		intent.putExtra(KeyConstants.KEY_BEANDATA, match);
 		startActivityForResult(intent, KeyConstants.CODE_BEAN_CHANGE);
 	}
@@ -113,7 +115,7 @@ public class MatchesListFragment extends BaseListFragmentWithSectionHeaders {
 	}
 
 	protected void addMatch() {
-		Intent intent = new Intent(getSherlockActivity(), AddEventInfoActivity.class);
+		Intent intent = new Intent(getActivity(), AddEventInfoActivity.class);
 		intent.putExtra(KeyConstants.KEY_EVENT_OR_MATCH, false);
 		startActivity(intent);
 	}
@@ -122,7 +124,7 @@ public class MatchesListFragment extends BaseListFragmentWithSectionHeaders {
 	public void button1Pressed(int alertId) {
 		Log.d(LOG_TAG, "actionId: " + m_itemSelectedForContextMenu);
 		MatchBean match = (MatchBean) m_itemsList.get(m_itemSelectedForContextMenu);
-		DeleteMatchManager.deleteMatch(match, getSherlockActivity());
+		DeleteMatchManager.deleteMatch(match, getActivity());
 		deleteBeanInTheList(match);
 		m_itemSelectedForContextMenu = -1;
 
