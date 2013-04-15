@@ -7,8 +7,6 @@ import java.util.Comparator;
 import org.holoeverywhere.LayoutInflater;
 import org.holoeverywhere.app.ListFragment;
 import org.holoeverywhere.app.ProgressDialog;
-import org.holoeverywhere.widget.AdapterView;
-import org.holoeverywhere.widget.AdapterView.OnItemClickListener;
 import org.holoeverywhere.widget.Button;
 import org.holoeverywhere.widget.LinearLayout;
 import org.holoeverywhere.widget.ListView;
@@ -25,9 +23,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AbsListView.OnScrollListener;
+import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.ArrayAdapter;
 
-import com.actionbarsherlock.internal.widget.IcsAdapterView.AdapterContextMenuInfo;
 import com.myteammanager.BeanChangeBroadcastReceiver;
 import com.myteammanager.R;
 import com.myteammanager.beans.BaseBean;
@@ -236,7 +234,7 @@ public abstract class BaseListFragment extends ListFragment implements OnScrollL
 		super.onCreateContextMenu(menu, v, menuInfo);
 		Log.d(LOG_TAG, "contextMenu");
 
-		if (v.getId() == R.id.list) {
+		if (v.getId() == android.R.id.list) {
 			if (m_quickAction != null) {
 				AdapterContextMenuInfo info = (AdapterContextMenuInfo)menuInfo;
 				ListView listView = (ListView) v;

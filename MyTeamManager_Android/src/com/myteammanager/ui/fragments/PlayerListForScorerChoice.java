@@ -62,7 +62,7 @@ public class PlayerListForScorerChoice extends RosterFragment {
 		}
 
 		m_root = inflater.inflate(R.layout.fragment_base_list, null);
-		m_listView = (ListView) m_root.findViewById(R.id.list);
+		m_listView = (ListView) m_root.findViewById(android.R.id.list);
 
 		return m_root;
 

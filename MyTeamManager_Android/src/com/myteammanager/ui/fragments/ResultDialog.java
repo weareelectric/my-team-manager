@@ -1,7 +1,11 @@
 package com.myteammanager.ui.fragments;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+
+import org.holoeverywhere.app.AlertDialog;
+import org.holoeverywhere.app.Dialog;
 import org.holoeverywhere.app.DialogFragment;
 import android.util.Log;
 import org.holoeverywhere.LayoutInflater;
@@ -38,53 +42,67 @@ public class ResultDialog extends DialogFragment {
 	public void setMatch(MatchBean match) {
 		this.m_match = match;
 	}
+	
 
 	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		View view = inflater.inflate(R.layout.fragment_match_result, container);
+	public Dialog onCreateDialog(Bundle savedInstanceState) {
+		LayoutInflater factory = LayoutInflater.from(getActivity());
+	    final View view = factory.inflate(R.layout.fragment_match_result, null);
+	    
 		m_goalHome = (EditText) view.findViewById(R.id.editTextGoalHome);
 		m_goalAway = (EditText) view.findViewById(R.id.editTextGoalAway);
-		m_save = (Button) view.findViewById(R.id.buttonSave);
-		m_delete = (Button) view.findViewById(R.id.buttonDelete);
-
-		m_save.setOnClickListener(new OnClickListener() {
+	    
+	    AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+	    builder.setPositiveButton(R.string.save, new DialogInterface.OnClickListener() {
 
 			@Override
-			public void onClick(View v) {
+			public void onClick(DialogInterface dialog, int which) {
 				saveResult(true);
 			}
+
 		});
-
-		m_delete.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-
-				int[] variations = m_match.getChangeInStatsAfterNewResult(-1, -1);
-
-				m_match.setGoalHome(-1);
-				m_match.setGoalAway(-1);
-				m_match.setResultEntered(0);
-				ResultEnteredEvent event = new ResultEnteredEvent(m_match, true, -1, -1);
-				event.setVariationsForStats(variations);
-				MyTeamManagerActivity.getBus().post(event);
-				dismiss();
-			}
-		});
-
-		if (m_match.getResultEntered() == 1) {
-			m_delete.setVisibility(View.VISIBLE);
-
-			m_goalHome.setText("" + m_match.getGoalHome());
+	    
+	    if (m_match.getResultEntered() == 1) {
+	    	m_goalHome.setText("" + m_match.getGoalHome());
 			m_goalAway.setText("" + m_match.getGoalAway());
-		}
+			
+	    	builder.setNegativeButton(R.string.delete, new DialogInterface.OnClickListener() {
+				
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
 
-		getDialog().setTitle(R.string.enter_result);
+					int[] variations = m_match.getChangeInStatsAfterNewResult(-1, -1);
 
-		m_goalHome.requestFocus();
-		getDialog().getWindow().setSoftInputMode(LayoutParams.SOFT_INPUT_STATE_VISIBLE);
-
-		return view;
+					m_match.setGoalHome(-1);
+					m_match.setGoalAway(-1);
+					m_match.setResultEntered(0);
+					ResultEnteredEvent event = new ResultEnteredEvent(m_match, true, -1, -1);
+					event.setVariationsForStats(variations);
+					MyTeamManagerActivity.getBus().post(event);
+					dismiss();
+				}
+			});
+	    	
+	    	builder.setNeutralButton(R.string.cancel, new DialogInterface.OnClickListener() {
+				
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					dismiss();
+					
+				}
+			});
+	    }
+	    
+	    
+	    
+	    builder.setTitle(R.string.enter_result);
+	    
+	    builder.setView(view);
+	    
+	    AlertDialog d = builder.create();
+	    d.getWindow().setSoftInputMode(LayoutParams.SOFT_INPUT_STATE_VISIBLE);
+	    
+		return d;
 	}
 
 	public void saveResult(boolean dismiss) {

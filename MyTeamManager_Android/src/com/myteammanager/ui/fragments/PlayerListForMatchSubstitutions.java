@@ -65,7 +65,7 @@ public class PlayerListForMatchSubstitutions extends RosterFragment {
 		}
 
 		m_root = inflater.inflate(R.layout.fragment_base_list, null);
-		m_listView = (ListView) m_root.findViewById(R.id.list);
+		m_listView = (ListView) m_root.findViewById(android.R.id.list);
 		
 		int size = 0;
 		// Load the existent titular players. We need to load here to make it

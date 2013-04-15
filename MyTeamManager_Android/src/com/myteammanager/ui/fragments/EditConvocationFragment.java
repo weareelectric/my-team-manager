@@ -89,7 +89,7 @@ public class EditConvocationFragment extends RosterFragment implements CheckboxL
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		updateTotalNumberAndNumberOfConvocatedForRole();
 		m_root = inflater.inflate(R.layout.fragment_edit_convocations, null);
-		m_listView = (ListView) m_root.findViewById(R.id.list);
+		m_listView = (ListView) m_root.findViewById(android.R.id.list);
 		m_hangoutPlaceAndTimeEditText = (EditText) m_root.findViewById(R.id.textFieldHangoutPlaceAndTime);
 		registerForContextMenu(m_listView);
 		setHasOptionsMenu(true);

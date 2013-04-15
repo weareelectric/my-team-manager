@@ -2,9 +2,17 @@ package com.myteammanager.ui.fragments;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.logging.Logger;
 
+import org.holoeverywhere.LayoutInflater;
 import org.holoeverywhere.app.AlertDialog;
+import org.holoeverywhere.app.DialogFragment;
+import org.holoeverywhere.widget.AdapterView;
+import org.holoeverywhere.widget.AdapterView.OnItemSelectedListener;
+import org.holoeverywhere.widget.EditText;
+import org.holoeverywhere.widget.LinearLayout;
+import org.holoeverywhere.widget.Spinner;
+import org.holoeverywhere.widget.TextView;
+
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
