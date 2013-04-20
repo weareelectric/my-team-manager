@@ -111,7 +111,7 @@ public class MatchesListFragment extends BaseListFragmentWithSectionHeaders {
 			addMatch();
 			break;
 		}
-		return super.onOptionsItemSelected(item);
+		return true;
 	}
 
 	protected void addMatch() {

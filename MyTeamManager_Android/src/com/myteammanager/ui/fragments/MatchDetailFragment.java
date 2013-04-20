@@ -315,7 +315,7 @@ public class MatchDetailFragment extends BaseFragment implements TextWatcher {
 			startActivity(intent);
 			break;
 		}
-		return super.onOptionsItemSelected(item);
+		return true;
 	}
 
 	@Override

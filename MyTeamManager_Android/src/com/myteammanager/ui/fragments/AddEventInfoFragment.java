@@ -17,24 +17,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
-import org.holoeverywhere.app.DialogFragment;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.text.format.DateFormat;
+import android.os.Handler;
 import android.text.format.DateUtils;
 import android.util.Log;
-import org.holoeverywhere.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.WindowManager.LayoutParams;
-import org.holoeverywhere.widget.AdapterView;
-import org.holoeverywhere.widget.AdapterView.OnItemSelectedListener;
-import org.holoeverywhere.widget.Button;
-import org.holoeverywhere.widget.EditText;
-import org.holoeverywhere.widget.LinearLayout;
-import org.holoeverywhere.widget.Spinner;
-import org.holoeverywhere.widget.TextView;
 
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.view.Menu;
@@ -219,11 +208,25 @@ public class AddEventInfoFragment extends BaseTwoButtonActionsFormFragment {
 			@Override
 			public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
 				if (position == SPINNER_REPEAT_NONE_POSITION) {
-					m_eventEndRepeatDateEditText.setVisibility(View.GONE);
-					m_endRepeatDataText.setVisibility(View.GONE);
-				} else {
-					m_eventEndRepeatDateEditText.setVisibility(View.VISIBLE);
-					m_endRepeatDataText.setVisibility(View.VISIBLE);
+					// Fix for a Holoeverywhere bug: the spinner refresh its viezw only after the onItemSelected method is called
+					Handler han = new Handler();
+			        han.postAtTime(new Runnable() {
+			            @Override
+			            public void run() {
+			            	m_eventEndRepeatDateEditText.setVisibility(View.GONE);
+							m_endRepeatDataText.setVisibility(View.GONE);
+			            }
+			        }, 1000);
+				} else  {
+					Handler han = new Handler();
+		        han.postAtTime(new Runnable() {
+		            @Override
+		            public void run() {
+		            	m_eventEndRepeatDateEditText.setVisibility(View.VISIBLE);
+						m_endRepeatDataText.setVisibility(View.VISIBLE);
+		            }
+		        }, 1000);
+					
 
 					// Set a date one day or one week later if it is the first time we show the date picker
 					if (!m_datePickerAlreadyShown && !m_isUpdate) {
@@ -242,6 +245,7 @@ public class AddEventInfoFragment extends BaseTwoButtonActionsFormFragment {
 
 					m_datePickerAlreadyShown = true;
 				}
+				
 			}
 
 			@Override

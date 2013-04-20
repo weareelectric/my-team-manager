@@ -78,12 +78,17 @@ public class EditSubstitutesFragment extends EditConvocationFragment {
 	public void updateCountersForConvocations() {
 		// Keep the empty method to avoid the counters from parent class appears
 	}
+	
+
+	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+		inflater.inflate(R.menu.edit_substitutions, menu);
+	}
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 
-		case R.id.menu_save_convocations:
+		case R.id.menu_save_substitutions:
 			ArrayList<LineupBean> substitutes = new ArrayList<LineupBean>();
 			ArrayList<PlayerBean> substitutePlayers = new ArrayList<PlayerBean>();
 			ArrayList<PlayerBean> notChosenPlayers = new ArrayList<PlayerBean>();

@@ -499,5 +499,7 @@ public class EditConvocationFragment extends RosterFragment implements CheckboxL
 		intent.putExtra(KeyConstants.KEY_MSG_TEXT, getTextForConvocationMessage(m_finalConvocations));
 		startActivity(intent);
 	}
+	
+	
 
 }

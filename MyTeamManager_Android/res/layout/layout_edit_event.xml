@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
     android:orientation="vertical" >
     
     <EditText android:id="@+id/editTextForFocus" android:layout_width="0dip" android:layout_height="0dip" android:inputType="none" />
@@ -77,8 +77,9 @@
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
         android:layout_marginTop="10dp"
-        android:gravity="top"
         android:hint="@string/label_note_optional"
+        android:gravity="top"
+        android:focusable="true"
         android:lines="4" >
     </EditText>
 
