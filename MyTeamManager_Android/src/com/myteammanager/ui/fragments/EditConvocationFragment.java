@@ -240,10 +240,17 @@ public class EditConvocationFragment extends RosterFragment implements CheckboxL
 			break;
 			
 		case R.id.menu_share_convocations:
-			updateMatchObjectAndSaveConvocations(false);
-			Intent intent = new Intent(getActivity(), SendMessageFacebookActivity.class);
-			intent.putExtra(KeyConstants.KEY_MSG_TEXT, getTextForConvocationMessage(m_finalConvocations));
-			startActivity(intent);
+			if ( SettingsManager.getInstance(getSupportActivity()).isFacebookActivated()) {
+				updateMatchObjectAndSaveConvocations(false);
+				Intent intent = new Intent(getActivity(), SendMessageFacebookActivity.class);
+				intent.putExtra(KeyConstants.KEY_MSG_TEXT, getTextForConvocationMessage(m_finalConvocations));
+				startActivity(intent);
+			}
+			else {
+				builder = new AlertDialog.Builder(getActivity()).setMessage(getString(R.string.msg_suggest_activate_facebook_from_settings));
+				builder.show();
+			}
+
 			break;
 			
 		}

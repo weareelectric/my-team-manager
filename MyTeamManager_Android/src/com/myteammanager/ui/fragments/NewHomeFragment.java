@@ -162,9 +162,16 @@ public class NewHomeFragment extends BaseFragment implements CheckboxListener,
 			
 			@Override
 			public void onClick(View arg0) {
-				Intent intent = new Intent(getActivity(),
-						SendMessageFacebookActivity.class);
-				startActivity(intent);
+				if ( SettingsManager.getInstance(getSupportActivity()).isFacebookActivated()) {
+					Intent intent = new Intent(getActivity(),
+							SendMessageFacebookActivity.class);
+					startActivity(intent);
+				}
+				else {
+					AlertDialog.Builder builder = new AlertDialog.Builder(getActivity()).setMessage(getString(R.string.msg_suggest_activate_facebook_from_settings));
+					builder.show();
+				}
+
 			}
 		});
 
