@@ -19,6 +19,7 @@ import com.myteammanager.R;
 import com.myteammanager.adapter.MatchListAdapter;
 import com.myteammanager.beans.BaseBean;
 import com.myteammanager.beans.MatchBean;
+import com.myteammanager.events.EventOrMatchChanged;
 import com.myteammanager.events.EventsListChanged;
 import com.myteammanager.events.MatchListChanged;
 import com.myteammanager.events.ResultEnteredEvent;
@@ -180,6 +181,11 @@ public class MatchesListFragment extends BaseListFragmentWithSectionHeaders {
 
 	@Subscribe
 	public void resultChanged(ResultEnteredEvent event) {
+		super.editBeanInTheList(event.getMatch());
+	}
+	
+	@Subscribe
+	public void resultChanged(EventOrMatchChanged event) {
 		super.editBeanInTheList(event.getMatch());
 	}
 	

@@ -13,6 +13,8 @@ import org.holoeverywhere.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+
+import org.holoeverywhere.app.AlertDialog;
 import org.holoeverywhere.widget.Button;
 import org.holoeverywhere.widget.CheckBox;
 import android.widget.ScrollView;
@@ -31,6 +33,7 @@ import com.myteammanager.events.ResultEnteredEvent;
 import com.myteammanager.events.ScorersChangeEvent;
 import com.myteammanager.events.TeamLineupSelectionEvent;
 import com.myteammanager.storage.DBManager;
+import com.myteammanager.storage.SettingsManager;
 import com.myteammanager.ui.phone.AddEventInfoActivity;
 import com.myteammanager.ui.phone.EditConvocationActivity;
 import com.myteammanager.ui.phone.EditTeamLineUpActivity;
@@ -117,21 +120,7 @@ public class MatchDetailFragment extends BaseFragment implements TextWatcher {
 			}
 		});
 
-		if (m_match.getLineupConfigured() == 1) {
-			disableConvocationButton();
-			enableSubstitutionsButton();
-		} else {
-			disableSubstitutionsButton();
-			m_convocationButton.setOnClickListener(new OnClickListener() {
-
-				@Override
-				public void onClick(View v) {
-					Intent intent = new Intent(getActivity(), EditConvocationActivity.class);
-					intent.putExtra(KeyConstants.KEY_MATCH, m_match);
-					startActivityForResult(intent, KeyConstants.CODE_BEAN_CHANGE);
-				}
-			});
-		}
+		updateButtons();
 
 		m_lineupButton.setOnClickListener(new OnClickListener() {
 
@@ -171,6 +160,24 @@ public class MatchDetailFragment extends BaseFragment implements TextWatcher {
 		getActivity().setTitle(R.string.title_match);
 
 		return m_root;
+	}
+
+	protected void updateButtons() {
+		if (m_match.getLineupConfigured() == 1) {
+			disableConvocationButton();
+			enableSubstitutionsButton();
+		} else {
+			disableSubstitutionsButton();
+			m_convocationButton.setOnClickListener(new OnClickListener() {
+
+				@Override
+				public void onClick(View v) {
+					Intent intent = new Intent(getActivity(), EditConvocationActivity.class);
+					intent.putExtra(KeyConstants.KEY_MATCH, m_match);
+					startActivityForResult(intent, KeyConstants.CODE_BEAN_CHANGE);
+				}
+			});
+		}
 	}
 
 	public void disableConvocationButton() {
@@ -295,24 +302,31 @@ public class MatchDetailFragment extends BaseFragment implements TextWatcher {
 			break;
 
 		case R.id.menu_share_match:
-			intent = new Intent(getActivity(), PostMatchDetailActivity.class);
-			StringBuffer sb = new StringBuffer();
-			sb.append(m_match.getMatchString(getActivity()));
-			if (m_match.getResultEntered() > 0) {
-				sb.append(" ");
-				sb.append(m_match.getMatchResult());
+			if ( SettingsManager.getInstance(getSupportActivity()).isFacebookActivated()) {
+				intent = new Intent(getActivity(), PostMatchDetailActivity.class);
+				StringBuffer sb = new StringBuffer();
+				sb.append(m_match.getMatchString(getActivity()));
+				if (m_match.getResultEntered() > 0) {
+					sb.append(" ");
+					sb.append(m_match.getMatchResult());
+				}
+
+				if (null != m_scorers && m_scorers.size() > 0) {
+					sb.append("\n\n");
+					sb.append(m_res.getString(R.string.label_scorer));
+					sb.append(" ");
+					sb.append(getScorersString(m_scorers));
+				}
+
+				intent.putExtra(KeyConstants.KEY_MSG_TEXT, sb.toString());
+
+				startActivity(intent);
+			}
+			else {
+				AlertDialog.Builder builder = new AlertDialog.Builder(getActivity()).setMessage(getString(R.string.msg_suggest_activate_facebook_from_settings));
+				builder.show();
 			}
 
-			if (null != m_scorers && m_scorers.size() > 0) {
-				sb.append("\n\n");
-				sb.append(m_res.getString(R.string.label_scorer));
-				sb.append(" ");
-				sb.append(getScorersString(m_scorers));
-			}
-
-			intent.putExtra(KeyConstants.KEY_MSG_TEXT, sb.toString());
-
-			startActivity(intent);
 			break;
 		}
 		return true;
@@ -329,6 +343,9 @@ public class MatchDetailFragment extends BaseFragment implements TextWatcher {
 				m_match = (MatchBean) data.getExtras().get(KeyConstants.KEY_BEANDATA);
 				Log.d(LOG_TAG, "Number of players convocated: " + m_match.getNumberOfPlayerConvocated());
 				updateFields();
+				
+				updateButtons();
+				
 			} else if (resultCode == KeyConstants.RESULT_BEAN_DELETED) {
 				getActivity().finish();
 			}

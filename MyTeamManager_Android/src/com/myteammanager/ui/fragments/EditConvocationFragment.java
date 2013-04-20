@@ -25,12 +25,14 @@ import com.actionbarsherlock.app.ActionBar.TabListener;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
+import com.myteammanager.MyTeamManagerActivity;
 import com.myteammanager.R;
 import com.myteammanager.adapter.ConvocationAdapter;
 import com.myteammanager.beans.BaseBean;
 import com.myteammanager.beans.ConvocationBean;
 import com.myteammanager.beans.MatchBean;
 import com.myteammanager.beans.PlayerBean;
+import com.myteammanager.events.EventOrMatchChanged;
 import com.myteammanager.specializedStorage.MyTeamManagerDBManager;
 import com.myteammanager.storage.DBManager;
 import com.myteammanager.storage.SettingsManager;
@@ -240,10 +242,17 @@ public class EditConvocationFragment extends RosterFragment implements CheckboxL
 			break;
 			
 		case R.id.menu_share_convocations:
-			updateMatchObjectAndSaveConvocations(false);
-			Intent intent = new Intent(getActivity(), SendMessageFacebookActivity.class);
-			intent.putExtra(KeyConstants.KEY_MSG_TEXT, getTextForConvocationMessage(m_finalConvocations));
-			startActivity(intent);
+			if ( SettingsManager.getInstance(getSupportActivity()).isFacebookActivated()) {
+				updateMatchObjectAndSaveConvocations(false);
+				Intent intent = new Intent(getActivity(), SendMessageFacebookActivity.class);
+				intent.putExtra(KeyConstants.KEY_MSG_TEXT, getTextForConvocationMessage(m_finalConvocations));
+				startActivity(intent);
+			}
+			else {
+				builder = new AlertDialog.Builder(getActivity()).setMessage(getString(R.string.msg_suggest_activate_facebook_from_settings));
+				builder.show();
+			}
+
 			break;
 			
 		}
@@ -303,6 +312,8 @@ public class EditConvocationFragment extends RosterFragment implements CheckboxL
 		getActivity().setResult(KeyConstants.RESULT_BEAN_EDITED, intent);
 		
 		DBManager.getInstance().updateBean(m_match);
+		
+		MyTeamManagerActivity.getBus().post(new EventOrMatchChanged(m_match));
 		
 		insertBeans(m_finalConvocations, false, exitActivity);
 

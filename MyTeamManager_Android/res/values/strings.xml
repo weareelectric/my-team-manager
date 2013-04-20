@@ -222,4 +222,5 @@
 <string name="msg_player_lastname_is_mandatory">You need to enter the lastname</string>
 <string name="msg_date_needed_for_event">You need to specify the date of the event</string>
 <string name="label_deleted_player">Deleted player</string>
+<string name="msg_suggest_activate_facebook_from_settings">Ops..., you need to activate the \'Post on Facebook\' option in the settings and retry</string>
 </resources>
