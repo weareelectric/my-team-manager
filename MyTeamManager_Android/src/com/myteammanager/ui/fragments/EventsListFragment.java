@@ -133,7 +133,7 @@ public class EventsListFragment extends BaseListFragmentWithSectionHeaders {
 
 			break;
 		}
-		return super.onOptionsItemSelected(item);
+		return true;
 	}
 
 	protected void addEvent() {

@@ -163,7 +163,7 @@ public class EventDetailFragment extends BaseFragment implements TextWatcher {
 					R.string.alert_delete_event_conf_btn3);
 			break;
 		}
-		return super.onOptionsItemSelected(item);
+		return true;
 	}
 
 	@Override

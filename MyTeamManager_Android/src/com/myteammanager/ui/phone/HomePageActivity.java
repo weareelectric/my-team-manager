@@ -216,7 +216,7 @@ public class HomePageActivity extends BaseSinglePaneActivity implements Facebook
 			startActivityForResult(intent, KeyConstants.CODE_SETTINGS_ACTIVIY);
 			break;
 		}
-		return super.onOptionsItemSelected(item);
+		return true;
 	}
 
 	@Override

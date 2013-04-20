@@ -187,7 +187,7 @@ public class PlayerListForScorerChoice extends RosterFragment {
 			break;
 
 		}
-		return super.onOptionsItemSelected(item);
+		return true;
 	}
 
 }

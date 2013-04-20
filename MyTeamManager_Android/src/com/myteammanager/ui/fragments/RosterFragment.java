@@ -113,7 +113,7 @@ public class RosterFragment extends BaseListFragmentWithSectionHeaders {
 			addPlayer();
 			break;
 		}
-		return super.onOptionsItemSelected(item);
+		return true;
 	}
 
 	protected void addPlayer() {

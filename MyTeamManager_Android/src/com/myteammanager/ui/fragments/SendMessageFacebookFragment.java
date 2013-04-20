@@ -87,7 +87,7 @@ public class SendMessageFacebookFragment extends BaseFragment implements Faceboo
 						new FacebookStatusPublishedEvent(this));
 				break;
 		}
-		return super.onOptionsItemSelected(item);
+		return true;
 	}
 	
 	@Override

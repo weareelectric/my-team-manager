@@ -71,7 +71,7 @@ public class EditPlayerInfoFragment extends AddPlayerInfoFromRosterFragment {
 			showDeleteConfirmation();
 			break;
 		}
-		return super.onOptionsItemSelected(item);
+		return true;
 	}
 
 	@Override

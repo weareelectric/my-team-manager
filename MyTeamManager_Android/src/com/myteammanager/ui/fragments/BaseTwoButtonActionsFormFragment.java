@@ -67,7 +67,7 @@ public abstract class BaseTwoButtonActionsFormFragment extends BaseFragment  {
 			clickOnMenuItem2();
 			break;
 		}
-		return super.onOptionsItemSelected(item);
+		return true;
 	}
 	
 	protected abstract void clickOnMenuItem1();

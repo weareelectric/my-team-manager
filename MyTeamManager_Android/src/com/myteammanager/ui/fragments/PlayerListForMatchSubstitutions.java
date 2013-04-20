@@ -206,7 +206,7 @@ public class PlayerListForMatchSubstitutions extends RosterFragment {
 			break;
 
 		}
-		return super.onOptionsItemSelected(item);
+		return true;
 	}
 
 }
