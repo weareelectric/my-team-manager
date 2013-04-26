@@ -131,10 +131,7 @@ public class AddEventInfoFragment extends BaseTwoButtonActionsFormFragment {
 		}
 
 		Log.d(LOG_TAG, "m_isUpdate: " + m_isUpdate);
-		if (!m_isUpdate) {
-			Log.d(LOG_TAG, "Remove delete menu item");
-			m_menu.removeItem(R.id.menu_edit_delete_event_match);
-		}
+
 
 		m_addEventLayout = (LinearLayout) m_root.findViewById(R.id.editEventLayout);
 		m_addMatchLayout = (LinearLayout) m_root.findViewById(R.id.editMatchLayout);
@@ -259,7 +256,6 @@ public class AddEventInfoFragment extends BaseTwoButtonActionsFormFragment {
 
 		}
 
-		m_menuItem1.setEnabled(true);
 
 		setEventOrMatchView();
 
@@ -547,6 +543,13 @@ public class AddEventInfoFragment extends BaseTwoButtonActionsFormFragment {
 		inflater.inflate(R.menu.event_menu_edit, menu);
 		m_menu = menu;
 		super.onCreateOptionsMenu(menu, inflater);
+		
+		if (!m_isUpdate) {
+			Log.d(LOG_TAG, "Remove delete menu item");
+			m_menu.removeItem(R.id.menu_edit_delete_event_match);
+		}
+		
+		m_menuItem1.setEnabled(true);
 
 	}
 
@@ -627,6 +630,8 @@ public class AddEventInfoFragment extends BaseTwoButtonActionsFormFragment {
 			performActionsAndExit();
 		}
 	}
+	
+	
 
 	@Override
 	protected void customizeMenuItem1(View root) {

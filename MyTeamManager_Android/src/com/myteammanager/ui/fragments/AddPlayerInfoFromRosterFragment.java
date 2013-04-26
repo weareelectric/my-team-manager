@@ -38,6 +38,8 @@ public class AddPlayerInfoFromRosterFragment extends AddPlayerInfoFragment {
 		inflater.inflate(R.menu.add_player_menu, menu);
 		m_menuItem1 = menu.findItem(R.id.menu_item1);
 		m_menuItem2 = menu.findItem(R.id.menu_item2);
+		
+		m_menuItem1.setEnabled(true);
 	}
 
 	@Override

@@ -100,7 +100,6 @@ public class AddPlayerInfoFragment extends BaseTwoButtonActionsFormFragment  {
 			populateFormWithDataFromContact(0);
 		}
 		
-		m_menuItem1.setEnabled(true);
 		
 		return m_root;
 	}
@@ -329,4 +328,12 @@ public class AddPlayerInfoFragment extends BaseTwoButtonActionsFormFragment  {
 	@Override
 	public void button3Pressed(int alertId) {
 	}
+
+	@Override
+	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+		super.onCreateOptionsMenu(menu, inflater);
+		m_menuItem1.setEnabled(true);
+	}
+	
+	
 }

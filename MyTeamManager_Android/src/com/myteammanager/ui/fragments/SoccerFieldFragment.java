@@ -147,6 +147,14 @@ public class SoccerFieldFragment extends Fragment implements OnClickListener, On
 
 				int marginWidth = (metrics.widthPixels - 4 * imgWidth) / 5;
 				int marginHeight = (m_finalHeightPitch - 3 * imgHeight) / 4;
+				
+				if ( marginHeight < 0 ) {
+					marginHeight = 0;
+				}
+				
+				Log.d(LOG_TAG, "marginWidth: " + marginWidth);
+				Log.d(LOG_TAG, "marginHeight: " + marginHeight);
+				Log.d(LOG_TAG, "imgHeight: " + imgHeight);
 
 				// Place players on the field. 3 rows. 2 rows of 4 players and 1 rows of 3 players
 				for (int k = 1; k <= 11; k++) {

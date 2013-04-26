@@ -284,6 +284,7 @@ public class MatchDetailFragment extends BaseFragment implements TextWatcher {
 	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
 		inflater.inflate(R.menu.event_menu_detail, menu);
 		m_menuItem1 = menu.findItem(R.id.menu_share_match);
+		
 		super.onCreateOptionsMenu(menu, inflater);
 	}
 

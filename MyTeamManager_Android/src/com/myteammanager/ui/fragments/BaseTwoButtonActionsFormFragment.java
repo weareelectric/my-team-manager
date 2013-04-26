@@ -41,8 +41,7 @@ public abstract class BaseTwoButtonActionsFormFragment extends BaseFragment  {
 		
 		linear.addView(linearLayoutDefinedForm, 0);
 		
-		customizeMenuItem1(m_root);
-		customizeMenuItem2(m_root);
+
 		
 		
 		return m_root;
@@ -52,6 +51,10 @@ public abstract class BaseTwoButtonActionsFormFragment extends BaseFragment  {
 		inflater.inflate(R.menu.default_form_menu, menu);
 		m_menuItem1 = menu.findItem(R.id.menu_item1);
 		m_menuItem2 = menu.findItem(R.id.menu_item2);
+		
+		customizeMenuItem1(m_root);
+		customizeMenuItem2(m_root);
+		
 		super.onCreateOptionsMenu(menu, inflater);
 	}
 	

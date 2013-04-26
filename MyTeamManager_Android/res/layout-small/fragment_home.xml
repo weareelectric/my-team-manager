@@ -1,0 +1,407 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:id="@+id/topButtons"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="0dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="2dp"
+        android:orientation="horizontal" >
+
+        <Button
+            android:id="@+id/buttonRoster"
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="1dp"
+            android:layout_weight="1.0"
+            android:drawableTop="@drawable/roster"
+            android:text="@string/label_roster"
+            android:textColor="#555555"
+            android:textSize="14dp" />
+
+        <Button
+            android:id="@+id/buttonMatches"
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="1dp"
+            android:layout_weight="1.0"
+            android:drawableTop="@drawable/stadium"
+            android:text="@string/label_matches"
+            android:textColor="#555555"
+            android:textSize="14dp" />
+
+        <Button
+            android:id="@+id/buttonTraining"
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.0"
+            android:drawableTop="@drawable/schedule"
+            android:text="@string/label_training"
+            android:textColor="#555555"
+            android:textSize="14dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/topButtons"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="0dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="2dp"
+        android:orientation="horizontal" >
+
+        <Button
+            android:id="@+id/buttonMessage"
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="1dp"
+            android:layout_weight="1.0"
+            android:drawableTop="@drawable/btn_send_msg"
+            android:text="@string/label_send_msg"
+            android:textColor="#555555"
+            android:textSize="14dp" />
+
+        <Button
+            android:id="@+id/buttonFacebook"
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="1dp"
+            android:layout_weight="1.0"
+            android:drawableTop="@drawable/facebook_home"
+            android:text="@string/label_facebook"
+            android:textColor="#555555"
+            android:textSize="14dp" />
+
+        <Button
+            android:id="@+id/buttonHelp"
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.0"
+            android:drawableTop="@drawable/help"
+            android:text="@string/label_help"
+            android:textColor="#555555"
+            android:textSize="14dp" />
+    </LinearLayout>
+
+
+    
+        <View
+        android:layout_width="fill_parent"
+        android:layout_height="3dip"
+        />
+
+    <RelativeLayout
+        android:id="@+id/statsBox"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:layout_below="@+id/topButtons"
+        android:layout_marginBottom="2dp"
+        android:layout_marginLeft="7dp"
+        android:layout_marginRight="7dp"
+        android:layout_marginTop="2dp"
+        android:background="@drawable/box_border"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/textViewStats"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:text="@string/label_stats"
+            android:textColor="#555555"
+            android:textSize="16dp"
+            android:textStyle="bold" />
+
+        <TableLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textViewStats"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:background="#FFFFFF"
+            android:stretchColumns="*" >
+
+            <TableRow
+                android:id="@+id/tableRow1"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="1dp"
+                android:layout_marginTop="1dp"
+                android:background="#FFFFFF" >
+
+                <TextView
+                    android:id="@+id/pointsTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@color/HomePageComingEvents"
+                    android:text="@string/label_points_short"
+                    android:textSize="14dp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/playedTextView"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="1dp"
+                    android:background="@color/HomePageComingEvents"
+                    android:text="@string/label_played_short"
+                    android:textSize="14dp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/wonTextView"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="1dp"
+                    android:background="@color/HomePageComingEvents"
+                    android:text="@string/label_won_short"
+                    android:textSize="14dp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/drawTextView"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="1dp"
+                    android:background="@color/HomePageComingEvents"
+                    android:text="@string/label_draw_short"
+                    android:textSize="14dp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/lostTextView"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="1dp"
+                    android:background="@color/HomePageComingEvents"
+                    android:text="@string/label_lost_short"
+                    android:textSize="14dp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/scoredTextView"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="1dp"
+                    android:background="@color/HomePageComingEvents"
+                    android:text="@string/label_goal_scored_short"
+                    android:textSize="14dp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/againstTextView"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="1dp"
+                    android:background="@color/HomePageComingEvents"
+                    android:text="@string/label_goal_against_short"
+                    android:textSize="14dp"
+                    android:textStyle="bold" />
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/tableRow2"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="1dp"
+                android:layout_marginLeft="1dp"
+                android:background="#FFFFFF" >
+
+                <TextView
+                    android:id="@+id/pointsValueTextView"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="1dp"
+                    android:background="@color/HomePageComingEvents"
+                    android:text="20"
+                    android:textSize="14dp" />
+
+                <TextView
+                    android:id="@+id/playedValueTextView"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="1dp"
+                    android:layout_marginTop="1dp"
+                    android:background="@color/HomePageComingEvents"
+                    android:text="10"
+                    android:textSize="14dp" />
+
+                <TextView
+                    android:id="@+id/wonValueTextView"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="1dp"
+                    android:layout_marginTop="1dp"
+                    android:background="@color/HomePageComingEvents"
+                    android:text="5"
+                    android:textSize="14dp" />
+
+                <TextView
+                    android:id="@+id/drawValueTextView"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="1dp"
+                    android:layout_marginTop="1dp"
+                    android:background="@color/HomePageComingEvents"
+                    android:text="5"
+                    android:textSize="14dp" />
+
+                <TextView
+                    android:id="@+id/lostValueTextView"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="1dp"
+                    android:layout_marginTop="1dp"
+                    android:background="@color/HomePageComingEvents"
+                    android:text="0"
+                    android:textSize="14dp" />
+
+                <TextView
+                    android:id="@+id/scoredValueTextView"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="1dp"
+                    android:layout_marginTop="1dp"
+                    android:background="@color/HomePageComingEvents"
+                    android:text="15"
+                    android:textSize="14dp" />
+
+                <TextView
+                    android:id="@+id/againstValueTextView"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="1dp"
+                    android:layout_marginTop="1dp"
+                    android:background="@color/HomePageComingEvents"
+                    android:text="5"
+                    android:textSize="14dp" />
+            </TableRow>
+        </TableLayout>
+    </RelativeLayout>
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="0dip"
+        android:layout_weight="1" />
+
+    <TextView
+        android:id="@+id/textViewNextMatch"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="3dp"
+        android:background="@drawable/homepage_header_gradient"
+        android:text="@string/label_next_match"
+        android:textColor="#FFFFFF"
+        android:textSize="14dp"
+        android:textStyle="bold" />
+
+    <RelativeLayout
+        android:id="@+id/nextMatchBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/HomePageComingEvents"
+        android:minHeight="65dp"
+        android:orientation="vertical" >
+
+        <!--
+            <ImageView
+            android:id="@+id/imageViewBaloon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="5dp"
+            android:src="@drawable/balloon" />
+        -->
+
+        <Button
+            android:id="@+id/textViewMatch"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textViewNextMatch"
+            android:layout_centerVertical="true"
+            android:background="@drawable/homepage_button"
+            android:gravity="center|center_vertical"
+            android:minHeight="65dp"
+            android:textColor="#555555"
+            android:textSize="16dp"
+            android:visibility="gone" />
+
+        <Button
+            android:id="@+id/nextMatchButton"
+            android:layout_width="150dp"
+            android:layout_height="50dp"
+            android:layout_below="@+id/textViewNextMatch"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_marginTop="2dp"
+            android:background="@drawable/homepage_button"
+            android:drawableRight="@drawable/ic_list_more"
+            android:text="@string/btn_add_match"
+            android:textColor="#555555"
+            android:textSize="14dp"
+            android:visibility="gone" />
+    </RelativeLayout>
+
+    <!--
+    <View
+    android:layout_width="fill_parent"
+    android:layout_height="1dip"
+    android:background="@color/HomePageLine" />
+    -->
+
+    <TextView
+        android:id="@+id/textViewNextTraining"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/homepage_header_gradient"
+        android:text="@string/label_next_training"
+        android:textColor="#FFFFFF"
+        android:textSize="14dp"
+        android:textStyle="bold" 
+        android:visibility="gone"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/HomePageComingEvents"
+        android:minHeight="65dp"
+        android:orientation="vertical"
+        android:visibility="gone" >
+
+        <!--
+             <ImageView
+            android:id="@+id/imageViewTraining"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="5dp"
+            android:src="@drawable/training" />
+        -->
+
+        <Button
+            android:id="@+id/textViewTrainingDate"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textViewNextTraining"
+            android:background="@drawable/homepage_button"
+            android:gravity="center|center_vertical"
+            android:minHeight="65dp"
+            android:text="@string/msg_no_next_training_available"
+            android:textColor="#555555"
+            android:textSize="16dp"
+            android:visibility="gone" />
+
+        <Button
+            android:id="@+id/nextEventButton"
+            android:layout_width="150dp"
+            android:layout_height="50dp"
+            android:layout_below="@+id/textViewNextTraining"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_marginTop="2dp"
+            android:background="@drawable/homepage_button"
+            android:drawableRight="@drawable/ic_list_more"
+            android:text="@string/btn_add_event"
+            android:textColor="#555555"
+            android:textSize="14dp"
+            android:visibility="gone" />
+    </RelativeLayout>
+
+</LinearLayout>
