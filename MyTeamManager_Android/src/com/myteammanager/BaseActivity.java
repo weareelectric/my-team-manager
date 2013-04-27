@@ -1,8 +1,7 @@
 package com.myteammanager;
 
-import org.holoeverywhere.app.AlertDialog;
-import org.holoeverywhere.app.Dialog;
-import android.content.Context;
+import org.holoeverywhere.app.Activity;
+
 import android.content.Intent;
 import android.graphics.PixelFormat;
 import android.net.Uri;
@@ -10,9 +9,8 @@ import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 
-import org.holoeverywhere.app.Activity;
-import com.flurry.android.FlurryAgent;
-import com.myteammanager.util.CapptainFragmentActivity;
+import com.ubikod.capptain.android.sdk.CapptainAgent;
+import com.ubikod.capptain.android.sdk.CapptainAgentUtils;
 
 public abstract class BaseActivity extends Activity {
 
@@ -74,7 +72,7 @@ public abstract class BaseActivity extends Activity {
 	protected void onStop() {
 		super.onStop();
 		Log.d("BaseActivity",this + " onStop");
-		FlurryAgent.onStartSession(this, "DQ2HS8S62WK8Q7YZ5TX6");
+//		FlurryAgent.onEndSession(this);
 	}
 	
 	@Override
@@ -82,9 +80,26 @@ public abstract class BaseActivity extends Activity {
 	{
 		super.onStart();
 		Log.d("BaseActivity",this + " onSTart");
-		FlurryAgent.onStartSession(this, "DQ2HS8S62WK8Q7YZ5TX6");
-		FlurryAgent.onPageView();
+//		FlurryAgent.onStartSession(this, "DQ2HS8S62WK8Q7YZ5TX6");
+//		FlurryAgent.onPageView();
 	}
+
+	@Override
+	protected void onResume() {
+		super.onResume();
+		 String activityNameOnCapptain = CapptainAgentUtils.buildCapptainActivityName(getClass()); // Uses short class name and removes "Activity" at the end.
+		 CapptainAgent.getInstance(this).startActivity(this, activityNameOnCapptain, null);
+	}
+
+	@Override
+	protected void onPause() {
+	    super.onPause();
+	    CapptainAgent.getInstance(this).endActivity();
+	}
+	
+	
+	
+	
 
 	
 	

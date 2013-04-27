@@ -20,6 +20,8 @@ import com.myteammanager.ui.fragments.SoccerFieldFragment;
 import com.myteammanager.ui.fragments.SubstitutesFragment;
 import com.myteammanager.util.KeyConstants;
 import com.myteammanager.util.PlayerUtil;
+import com.ubikod.capptain.android.sdk.CapptainAgent;
+import com.ubikod.capptain.android.sdk.CapptainAgentUtils;
 
 public class EditTeamLineUpActivity extends Activity {
 
@@ -86,6 +88,17 @@ public class EditTeamLineUpActivity extends Activity {
 			
 		}*/
 	
+	@Override
+	protected void onResume() {
+		super.onResume();
+		 String activityNameOnCapptain = CapptainAgentUtils.buildCapptainActivityName(getClass()); // Uses short class name and removes "Activity" at the end.
+		 CapptainAgent.getInstance(this).startActivity(this, activityNameOnCapptain, null);
+	}
 
+	@Override
+	protected void onPause() {
+	    super.onPause();
+	    CapptainAgent.getInstance(this).endActivity();
+	}
 
 }

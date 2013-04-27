@@ -156,9 +156,6 @@
             android:screenOrientation="portrait" >
         </activity>
 
-        <meta-data
-            android:name="capptain:appId"
-            android:value="myt000002" />
 
         <service
             android:name="com.ubikod.capptain.android.service.CapptainService"
@@ -178,10 +175,14 @@
             <meta-data
                 android:name="capptain:api:id"
                 android:value="b6a5b1113175bf391e442a8653876b84" />
+            
+            <meta-data android:name="capptain:log:test" android:value="true" />
         </service>
 
         <activity android:name=".ui.phone.ChooseSinglePlayerFromContactsActivity" >
         </activity>
+        
+        <meta-data android:name="capptain:appId" android:value="myt000002"/>
     </application>
 
 </manifest>
