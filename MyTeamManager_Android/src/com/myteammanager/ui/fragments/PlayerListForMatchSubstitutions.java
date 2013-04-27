@@ -53,7 +53,7 @@ public class PlayerListForMatchSubstitutions extends RosterFragment {
 
 	private MatchBean m_match;
 	private boolean m_isUpdate = false;
-	private ArrayList<PlayerBean> m_titularPlayers;
+	private ArrayList<PlayerBean> m_possiblePlayerReplaced;
 
 	private View m_root;
 
@@ -68,23 +68,25 @@ public class PlayerListForMatchSubstitutions extends RosterFragment {
 		m_listView = (ListView) m_root.findViewById(android.R.id.list);
 		
 		int size = 0;
-		// Load the existent titular players. We need to load here to make it
+		// Load the existent players for the match. We need to load here to make it
 		// available for the Adapter
-		if (m_titularPlayers == null) {
-			m_titularPlayers = new ArrayList<PlayerBean>();
-			ArrayList<LineupBean> alreadyStoredLineupPlayers = (ArrayList<LineupBean>) DBManager
+		if (m_possiblePlayerReplaced == null) {
+			m_possiblePlayerReplaced = new ArrayList<PlayerBean>();
+			ArrayList<LineupBean> playersInTheMatch = (ArrayList<LineupBean>) DBManager
 					.getInstance().getListOfBeansWhere(
-							new LineupBean(), "match = " + m_match.getId() + " and onTheBench = 0",
+							new LineupBean(), "match = " + m_match.getId(),
 							false);
 			size = 0;
-			if (alreadyStoredLineupPlayers != null
-					&& (size = alreadyStoredLineupPlayers.size()) > 0) {
+			if (playersInTheMatch != null
+					&& (size = playersInTheMatch.size()) > 0) {
 				LineupBean lineupPlayer = null;
 				Log.d(LOG_TAG, "Size of chosen player: " + size);
 				for (int k = 0; k < size; k++) {
-					lineupPlayer = alreadyStoredLineupPlayers.get(k);
-					Log.d(LOG_TAG, "Player in first eleven: " + lineupPlayer.getPlayer().getSurnameAndName(false, getActivity()));
-					m_titularPlayers.add(lineupPlayer.getPlayer());
+					lineupPlayer = playersInTheMatch.get(k);
+					PlayerBean player = lineupPlayer.getPlayer();
+					player.setOnTheBench(lineupPlayer.getOnTheBench()==1);
+					Log.d(LOG_TAG, "Player in first eleven: " + player.getSurnameAndName(false, getActivity()));
+					m_possiblePlayerReplaced.add(player);
 				}
 
 			}
@@ -93,7 +95,7 @@ public class PlayerListForMatchSubstitutions extends RosterFragment {
 			PlayerBean player = new PlayerBean();
 			player.setName("");
 			player.setLastName("");
-			m_titularPlayers.add(0, player);
+			m_possiblePlayerReplaced.add(0, player);
 		}
 
 		return m_root;
@@ -136,8 +138,10 @@ public class PlayerListForMatchSubstitutions extends RosterFragment {
 		
 
 		
-		for (PlayerBean titular : m_titularPlayers ) {
-			playerNotInLineup.remove(titular);
+		for (PlayerBean player : m_possiblePlayerReplaced ) {
+			if ( !player.isOnTheBench() ) {
+				playerNotInLineup.remove(player);
+			}
 		}
 		
 		// Set the values for the already existant sostitution
@@ -159,7 +163,7 @@ public class PlayerListForMatchSubstitutions extends RosterFragment {
 	@Override
 	protected ArrayAdapter<? extends BaseBean> initAdapter() {
 		m_itemsList.clear();
-		return new SubstitutionsListAdapter(getActivity(), R.layout.list_substitutions_item, m_itemsList, m_titularPlayers);
+		return new SubstitutionsListAdapter(getActivity(), R.layout.list_substitutions_item, m_itemsList, m_possiblePlayerReplaced);
 	}
 
 	@Override
