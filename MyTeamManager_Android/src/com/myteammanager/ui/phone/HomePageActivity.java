@@ -8,11 +8,15 @@ import java.util.ArrayList;
 import org.json.JSONException;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources.NotFoundException;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+
+import org.holoeverywhere.app.Activity;
+import org.holoeverywhere.app.AlertDialog;
 import org.holoeverywhere.app.Fragment;
 import android.util.Log;
 import org.holoeverywhere.widget.Toast;
@@ -27,6 +31,7 @@ import com.facebook.android.Facebook.DialogListener;
 import com.facebook.android.FacebookError;
 import com.myteammanager.R;
 import com.myteammanager.beans.PageBean;
+import com.myteammanager.beans.PlayerBean;
 import com.myteammanager.data.FacebookManager;
 import com.myteammanager.data.FacebookParser;
 import com.myteammanager.events.FacebookPageResponseEvent;
@@ -43,7 +48,7 @@ import com.myteammanager.util.KeyConstants;
 import com.myteammanager.util.StringUtil;
 
 public class HomePageActivity extends BaseSinglePaneActivity implements FacebookResponseListener,
-		ButtonsAlertDialogListener, DialogListListener {
+		ButtonsAlertDialogListener, DialogInterface.OnClickListener {
 
 	private static Facebook m_facebook = new Facebook("365945950147624");
 	private SharedPreferences m_prefs;
@@ -188,17 +193,6 @@ public class HomePageActivity extends BaseSinglePaneActivity implements Facebook
 
 	}
 
-	@Override
-	public void listItemClicked(int index) {
-		Log.d("HomePageActivity", "Selected index in the dialog: " + index);
-		m_listDialogFragment.dismiss();
-
-		PageBean fbPageChosen = m_fbPageList.get(index);
-		Log.d("HomePageActivity", "IdPage: " + fbPageChosen.getIdPage());
-		Log.d("HomePageActivity", "Page name: " + fbPageChosen.getName());
-		SettingsManager.getInstance(this).setFacebookPageId(fbPageChosen.getIdPage());
-		SettingsManager.getInstance(this).setFacebookPageName(fbPageChosen.getName());
-	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -234,13 +228,45 @@ public class HomePageActivity extends BaseSinglePaneActivity implements Facebook
 			FacebookPageResponseEvent pagesResponse = (FacebookPageResponseEvent) event;
 			m_fbPageList = pagesResponse.getPages();
 			cancelProgressDialog();
-
+/*
 			m_listDialogFragment = new ListDialogFragment(this, getResources().getString(
 					R.string.dialog_facebook_choose_your_page_title), "", PageBean.getPages(m_fbPageList));
 			m_listDialogFragment.setListener(this);
 			m_listDialogFragment.show(getSupportFragmentManager(), "");
+			*/
+	
+			runOnUiThread(new Runnable() {
+
+				private AlertDialog m_alert;
+
+				@Override
+				public void run() {
+					AlertDialog.Builder builder = new AlertDialog.Builder(
+							HomePageActivity.this);
+					builder.setItems(PageBean.getPages(m_fbPageList), HomePageActivity.this);
+					m_alert = builder.create();
+					m_alert.setTitle(getResources().getString(R.string.title_dialog_facebook_pages));
+					
+					m_alert.show();
+				}
+			});
+			
+
 		}
 
+	}
+
+	@Override
+	public void onClick(DialogInterface dialog, int which) {
+		Log.d("HomePageActivity", "Selected index in the dialog: " + which);
+		dialog.dismiss();
+
+		PageBean fbPageChosen = m_fbPageList.get(which);
+		Log.d("HomePageActivity", "IdPage: " + fbPageChosen.getIdPage());
+		Log.d("HomePageActivity", "Page name: " + fbPageChosen.getName());
+		SettingsManager.getInstance(this).setFacebookPageId(fbPageChosen.getIdPage());
+		SettingsManager.getInstance(this).setFacebookPageName(fbPageChosen.getName());
+		
 	}
 	
 }

@@ -141,7 +141,7 @@
     <string name="dialog_facebook_choose_your_page_title">Choose your team page</string>
     <string name="settings_title_facebook">Facebook</string>
     <string name="settings_facebook_activation_summary">Enable posting messages, match and convocations on your team Facebook page</string>
-    <string name="settings_facebook_activation_label">Post su Facebook</string>
+    <string name="settings_facebook_activation_label">Post on Facebook</string>
     <string name="label_menu_settings">Settings</string>
     <string name="btn_scorer">Edit scorers</string>
 
@@ -244,4 +244,5 @@
 	<string name="text_help_message">Communicate with your players via SMS or email.</string>
 	<string name="title_help_facebook"><b>Facebook</b></string>
 	<string name="text_help_facebook">Post your message on your team Facebook page to share whatever you want with your players</string>
+	<string name="title_dialog_facebook_pages">Your team\'s Facebook page is:</string>
 </resources>
