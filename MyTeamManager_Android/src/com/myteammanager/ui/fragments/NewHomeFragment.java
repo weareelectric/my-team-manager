@@ -38,6 +38,7 @@ import com.myteammanager.ui.CheckboxListener;
 import com.myteammanager.ui.phone.AddEventInfoActivity;
 import com.myteammanager.ui.phone.EventDetailActivity;
 import com.myteammanager.ui.phone.EventsListActivity;
+import com.myteammanager.ui.phone.HelpActivity;
 import com.myteammanager.ui.phone.MatchDetailActivity;
 import com.myteammanager.ui.phone.MatchesListActivity;
 import com.myteammanager.ui.phone.RosterActivity;
@@ -59,6 +60,7 @@ public class NewHomeFragment extends BaseFragment implements CheckboxListener,
 	private Button m_buttonNextTrainingEntered;
 	private Button m_messageButton;
 	private Button m_facebookButton;
+	private Button m_helpButton;
 
 	private TextView m_pointsTextView;
 	private TextView m_playedTextView;
@@ -238,6 +240,19 @@ public class NewHomeFragment extends BaseFragment implements CheckboxListener,
 			@Override
 			public void onClick(View v) {
 				startAddEventListActivity();
+			}
+		});
+		
+		m_helpButton = (Button) m_root
+				.findViewById(R.id.buttonHelp);
+		m_helpButton.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View arg0) {
+				Intent intent = new Intent(getActivity(),
+						HelpActivity.class);
+				startActivity(intent);
+				
 			}
 		});
 

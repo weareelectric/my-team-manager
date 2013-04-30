@@ -234,5 +234,14 @@
     <string name="title_subject_contactus_email">Suggestion or problem</string>
     <string name="settings_title_version">Version 1.0</string>
     <string name="settings_version_summary">Copyright 2013 Emanuele Pecorari</string>
-
+	<string name="title_help_roster"><b>Roster</b></string>
+	<string name="text_help_roster">In this section you can manage your players: add them, edit their profile, see their statistics</string>
+	<string name="title_help_matches"><b>Matches</b></string>
+	<string name="text_help_matches">Configure the list of your team\'s matches, the dates and time. Add your personal notes, the convocations, where to meet, the lineup and the substitutions, the result and the scorers. Share the convocations and the details of the match with your players on Facebook, or send them an email or a SMS</string>
+	<string name="title_help_training"><b>Training</b></string>
+	<string name="text_help_training">Manage your training sessions, the date and the time. Save your note for each session</string>
+	<string name="title_help_message"><b>Message</b></string>
+	<string name="text_help_message">Communicate with your players via SMS or email.</string>
+	<string name="title_help_facebook"><b>Facebook</b></string>
+	<string name="text_help_facebook">Post your message on your team Facebook page to share whatever you want with your players</string>
 </resources>

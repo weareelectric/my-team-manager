@@ -144,6 +144,10 @@ public class EventDetailFragment extends BaseFragment implements TextWatcher {
 
 	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
 		inflater.inflate(R.menu.event_menu_detail, menu);
+		
+		MenuItem shareMatch = menu.findItem(R.id.menu_share_match);
+		shareMatch.setVisible(false);
+		
 		super.onCreateOptionsMenu(menu, inflater);
 	}
 
