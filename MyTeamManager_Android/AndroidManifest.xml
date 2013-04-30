@@ -20,7 +20,7 @@
         android:label="@string/app_name"
         android:theme="@style/Theme.MyTeamManager" >
         <activity
-            android:name=".MyTeamManagerActivity"
+            android:name="com.myteammanager.MyTeamManagerActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait" >
             <intent-filter>
@@ -30,132 +30,142 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.phone.WizardEnterTeamNameActivity"
+            android:name="com.myteammanager.ui.phone.WizardEnterTeamNameActivity"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name=".ui.phone.WizardEnterPlayersInfoActivity"
+            android:name="com.myteammanager.ui.phone.WizardEnterPlayersInfoActivity"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name=".ui.phone.AddPlayerInfoActivity"
+            android:name="com.myteammanager.ui.phone.AddPlayerInfoActivity"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name=".ui.phone.HomePageActivity"
+            android:name="com.myteammanager.ui.phone.HomePageActivity"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name=".ui.phone.RosterActivity"
+            android:name="com.myteammanager.ui.phone.RosterActivity"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name=".ui.phone.EditPlayerInfoActivity"
+            android:name="com.myteammanager.ui.phone.EditPlayerInfoActivity"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name=".ui.phone.AddPlayerInfoFromRosterActivity"
+            android:name="com.myteammanager.ui.phone.AddPlayerInfoFromRosterActivity"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name=".ui.phone.AddPlayerDetailsActivity"
+            android:name="com.myteammanager.ui.phone.AddPlayerDetailsActivity"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name=".ui.phone.AddEventInfoActivity"
+            android:name="com.myteammanager.ui.phone.AddEventInfoActivity"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden" >
         </activity>
         <activity
-            android:name=".ui.phone.EditMatchInfoActivity"
+            android:name="com.myteammanager.ui.phone.EditMatchInfoActivity"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name=".ui.phone.EventsListActivity"
+            android:name="com.myteammanager.ui.phone.EventsListActivity"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name=".ui.phone.MatchesListActivity"
+            android:name="com.myteammanager.ui.phone.MatchesListActivity"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name=".ui.phone.EventDetailActivity"
+            android:name="com.myteammanager.ui.phone.EventDetailActivity"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name=".ui.phone.MatchDetailActivity"
+            android:name="com.myteammanager.ui.phone.MatchDetailActivity"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name=".ui.phone.EditConvocationActivity"
+            android:name="com.myteammanager.ui.phone.EditConvocationActivity"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name=".ui.phone.EditTeamLineUpActivity"
+            android:name="com.myteammanager.ui.phone.EditTeamLineUpActivity"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name=".ui.phone.PlayerListForTeamLineupActivity"
+            android:name="com.myteammanager.ui.phone.PlayerListForTeamLineupActivity"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name=".ui.phone.EditSubstitutesActivity"
+            android:name="com.myteammanager.ui.phone.EditSubstitutesActivity"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name=".ui.phone.ScorersActivity"
+            android:name="com.myteammanager.ui.phone.ScorersActivity"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name=".ui.phone.PreferenceActvity"
+            android:name="com.myteammanager.ui.phone.PreferenceActvity"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name=".ui.phone.PostMatchDetailActivity"
+            android:name="com.myteammanager.ui.phone.PostMatchDetailActivity"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name=".ui.phone.MatchSubstitutionsActivity"
+            android:name="com.myteammanager.ui.phone.MatchSubstitutionsActivity"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name=".ui.phone.ChoosePlayerFromContactsActivity"
+            android:name="com.myteammanager.ui.phone.ChoosePlayerFromContactsActivity"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name=".ui.phone.SendMessageActivity"
+            android:name="com.myteammanager.ui.phone.SendMessageActivity"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name=".ui.phone.SendMessageFacebookActivity"
+            android:name="com.myteammanager.ui.phone.SendMessageFacebookActivity"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait" >
         </activity>
+        <activity
+            android:name="com.myteammanager.ui.phone.ContactUsActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:label="@string/title_activity_contact_us"
+            android:screenOrientation="portrait" >
+            <intent-filter>
+                <action android:name="com.myteammanager.CONTACTUS" />
 
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
 
         <service
             android:name="com.ubikod.capptain.android.service.CapptainService"
@@ -175,14 +185,17 @@
             <meta-data
                 android:name="capptain:api:id"
                 android:value="b6a5b1113175bf391e442a8653876b84" />
-            
-            <meta-data android:name="capptain:log:test" android:value="true" />
+            <meta-data
+                android:name="capptain:log:test"
+                android:value="true" />
         </service>
 
-        <activity android:name=".ui.phone.ChooseSinglePlayerFromContactsActivity" >
+        <activity android:name="com.myteammanager.ui.phone.ChooseSinglePlayerFromContactsActivity" >
         </activity>
-        
-        <meta-data android:name="capptain:appId" android:value="myt000002"/>
+
+        <meta-data
+            android:name="capptain:appId"
+            android:value="myt000002" />
     </application>
 
 </manifest>

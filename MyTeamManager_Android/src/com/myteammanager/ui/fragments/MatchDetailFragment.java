@@ -383,7 +383,11 @@ public class MatchDetailFragment extends BaseFragment implements TextWatcher {
 			m_textViewResult.setText(m_match.getMatchResult());
 
 			DBManager.getInstance().updateBean(m_match);
+			
 		}
+		
+		MyTeamManagerActivity.getBus().post(new EventOrMatchChanged(m_match));
+		updateButtons();
 	}
 
 	@Subscribe

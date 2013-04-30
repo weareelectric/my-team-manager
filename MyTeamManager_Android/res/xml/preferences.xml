@@ -1,19 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
 
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
-
-    <PreferenceCategory 
-        android:title="@string/settings_title_facebook"
-        android:key="facebook">
-        
-        <CheckBoxPreference 
+    <PreferenceCategory
+        android:key="facebook"
+        android:title="@string/settings_title_facebook" >
+        <CheckBoxPreference
+            android:defaultValue="false"
             android:key="FACEBOOK_ACTIVATION"
             android:summary="@string/settings_facebook_activation_summary"
-            android:title="@string/settings_facebook_activation_label" 
-            android:defaultValue="false"
-        />
-        
-            
+            android:title="@string/settings_facebook_activation_label" />
+    </PreferenceCategory>
+    <PreferenceCategory
+        android:key="about"
+        android:title="@string/settings_title_about" >
+        <Preference
+            android:summary="@string/settings_contact_us_summary"
+            android:title="@string/settings_contact_us_label" >
+            <intent android:action="com.myteammanager.CONTACTUS" />
+        </Preference>
+         <Preference
+            android:title="@string/settings_title_version"
+            android:summary="@string/settings_version_summary" >
+        </Preference>
     </PreferenceCategory>
 
 </PreferenceScreen>
