@@ -132,7 +132,7 @@ public class SendMessageFragment extends BaseFragment {
 					k++;
 				}
 				Intent intent = new Intent(Intent.ACTION_SEND);
-				intent.setType("plain/text");
+				intent.setType("text/plain");
 				intent.putExtra(Intent.EXTRA_EMAIL, emails);
 				intent.putExtra(Intent.EXTRA_SUBJECT, getResources().getString(R.string.title_subject_free_text_email, SettingsManager.getInstance(getActivity()).getTeamName()));
 				intent.putExtra(Intent.EXTRA_TEXT, editTextMessage.getText().toString());

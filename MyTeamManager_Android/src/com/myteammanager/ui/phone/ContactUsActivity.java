@@ -16,7 +16,7 @@ public class ContactUsActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		Intent intent = new Intent(Intent.ACTION_SEND);
-		intent.setType("plain/text");
+		intent.setType("text/plain");
 		intent.putExtra(Intent.EXTRA_EMAIL, new String[]{"myteammanagerservice@gmail.com"});
 		intent.putExtra(Intent.EXTRA_SUBJECT, getResources().getString(R.string.title_subject_contactus_email));
 		startActivity(Intent.createChooser(intent, ""));

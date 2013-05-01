@@ -64,7 +64,7 @@ public class DBManager {
 		TableBeansMappingManager.init(context);
 
 	}
-
+	
 	public static DBManager getInstance() {
 		if (instance == null) {
 			instance = new DBManager();

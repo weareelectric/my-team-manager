@@ -122,7 +122,7 @@ public class MyTeamManagerActivity extends BaseActivity {
 	private void startHomePage() {
 		Intent intent = new Intent(MyTeamManagerActivity.this, HomePageActivity.class);
 		startActivity(intent);
-		// finish();
+		finish();
 	}
 
 	public static Bus getBus() {

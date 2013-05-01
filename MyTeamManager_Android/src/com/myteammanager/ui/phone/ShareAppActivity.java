@@ -16,11 +16,14 @@ public class ShareAppActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		Intent intent = new Intent(Intent.ACTION_SEND);
-		intent.setType("plain/text");
+		intent.setType("text/plain");
 		
 		intent.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.label_share_app_subject));
-		intent.putExtra(android.content.Intent.EXTRA_TEXT, getString(R.string.message_share_the_application));
+		intent.putExtra(Intent.EXTRA_TEXT, getString(R.string.message_share_the_application));
+		intent.putExtra(android.content.Intent.EXTRA_TITLE,getString(R.string.app_name));
 		startActivity(Intent.createChooser(intent, ""));
+		
+				
 		finish();
 	}
 
