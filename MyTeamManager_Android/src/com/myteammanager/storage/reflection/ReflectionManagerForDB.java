@@ -9,7 +9,7 @@ import java.util.Date;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.DatabaseUtils.InsertHelper;
-import android.util.Log;
+import com.myteammanager.util.Log;
 
 import com.myteammanager.beans.BaseBean;
 import com.myteammanager.storage.MethodStructure;

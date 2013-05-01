@@ -46,12 +46,12 @@
                 android:layout_marginTop="5dp"
                 android:text="@string/label_time_semicoloumn" />
 
-            <TextView
+          <!--   <TextView
                 android:id="@+id/textViewLocation"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:text="@string/label_location_semicoloumn" />
+                android:text="@string/label_location_semicoloumn" />  -->
 
 
             <TextView

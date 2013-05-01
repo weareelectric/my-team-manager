@@ -9,7 +9,7 @@ import android.os.Bundle;
 import android.app.FragmentTransaction;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
+import com.myteammanager.util.Log;
 import org.holoeverywhere.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -56,7 +56,7 @@ public class EventDetailFragment extends BaseFragment implements TextWatcher {
 
 	private TextView m_textViewEventDate;
 	private TextView m_textViewEventTime;
-	private TextView m_textViewEventLocation;
+	// private TextView m_textViewEventLocation;
 	// private TextView m_textViewEventArrivalTime;
 	private TextView m_textViewEventNote;
 	// private CheckBox m_eventCanceledCheckBox;
@@ -84,7 +84,7 @@ public class EventDetailFragment extends BaseFragment implements TextWatcher {
 		// Event
 		// m_textViewEventArrivalTime = (TextView) m_root.findViewById(R.id.textViewArrivalTime);
 		m_textViewEventTime = (TextView) m_root.findViewById(R.id.textViewTime);
-		m_textViewEventLocation = (TextView) m_root.findViewById(R.id.textViewLocation);
+		// m_textViewEventLocation = (TextView) m_root.findViewById(R.id.textViewLocation);
 		m_textViewEventDate = (TextView) m_root.findViewById(R.id.textViewDate);
 		m_textViewEventNote = (TextView) m_root.findViewById(R.id.textViewNote);
 		// m_eventCanceledCheckBox = (CheckBox) m_root.findViewById(R.id.checkBoxCanceled);
@@ -107,7 +107,7 @@ public class EventDetailFragment extends BaseFragment implements TextWatcher {
 				// DateTimeUtil.getTimeStringFrom(m_event.getArrivalTime())));
 		m_textViewEventTime.setText(m_res.getString(R.string.label_time_semicoloumn,
 				DateTimeUtil.getTimeStringFrom(m_event.getTimestamp())));
-		m_textViewEventLocation.setText(m_res.getString(R.string.label_location_semicoloumn, m_event.getLocation()));
+		// m_textViewEventLocation.setText(m_res.getString(R.string.label_location_semicoloumn, m_event.getLocation()));
 		m_textViewEventNote.setText(m_res.getString(R.string.label_note_semicoloumn, m_event.getNote()));
 		// m_eventCanceledCheckBox.setChecked(m_event.getCanceled() == 1);
 

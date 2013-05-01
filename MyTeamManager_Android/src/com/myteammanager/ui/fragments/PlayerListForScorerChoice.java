@@ -10,7 +10,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.app.FragmentTransaction;
-import android.util.Log;
+import com.myteammanager.util.Log;
 import org.holoeverywhere.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;

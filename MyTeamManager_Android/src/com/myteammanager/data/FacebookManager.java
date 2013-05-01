@@ -10,7 +10,7 @@ import org.json.JSONException;
 import android.content.Context;
 import android.content.res.Resources.NotFoundException;
 import android.os.Bundle;
-import android.util.Log;
+import com.myteammanager.util.Log;
 
 import com.facebook.android.AsyncFacebookRunner;
 import com.facebook.android.AsyncFacebookRunner.RequestListener;

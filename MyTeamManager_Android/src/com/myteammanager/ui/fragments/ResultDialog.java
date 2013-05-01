@@ -7,7 +7,7 @@ import android.os.Bundle;
 import org.holoeverywhere.app.AlertDialog;
 import org.holoeverywhere.app.Dialog;
 import org.holoeverywhere.app.DialogFragment;
-import android.util.Log;
+import com.myteammanager.util.Log;
 import org.holoeverywhere.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;

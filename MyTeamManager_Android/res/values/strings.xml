@@ -245,4 +245,8 @@
 	<string name="title_help_facebook"><b>Facebook</b></string>
 	<string name="text_help_facebook">Post your message on your team Facebook page to share whatever you want with your players</string>
 	<string name="title_dialog_facebook_pages">Your team\'s Facebook page is:</string>
+	<string name="settings_title_share">Share the application</string>
+	<string name="settings_share_summary">Share MyTeamManager with your friends</string>
+	<string name="message_share_the_application">Hi, I suggest you the mobile application MyTeamManager to manage your football team. Download it here https://play.google.com/store/apps/details?id=com.myteammanager</string>
+	<string name="label_share_app_subject">Try this mobile application!</string>
 </resources>

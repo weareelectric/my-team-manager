@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
+import com.myteammanager.util.Log;
 
 import com.myteammanager.beans.BaseBean;
 import com.myteammanager.beans.ContactBean;
@@ -53,7 +53,7 @@ public class MyTeamManagerActivity extends BaseActivity {
 			startHomePage();
 		}
 
-		m_bus = new Bus();
+		
 
 	}
 
@@ -122,10 +122,13 @@ public class MyTeamManagerActivity extends BaseActivity {
 	private void startHomePage() {
 		Intent intent = new Intent(MyTeamManagerActivity.this, HomePageActivity.class);
 		startActivity(intent);
-		finish();
+		// finish();
 	}
 
 	public static Bus getBus() {
+		if ( m_bus == null ) {
+			m_bus = new Bus();
+		}
 		return m_bus;
 	}
 

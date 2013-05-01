@@ -11,7 +11,7 @@ import android.database.Cursor;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.provider.BaseColumns;
-import android.util.Log;
+import com.myteammanager.util.Log;
 
 public class EventBean extends BaseBean implements Parcelable {
 

@@ -4,7 +4,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 import android.text.InputType;
-import android.util.Log;
+import com.myteammanager.util.Log;
 import android.view.View;
 import org.holoeverywhere.widget.CheckBox;
 import android.widget.CompoundButton;

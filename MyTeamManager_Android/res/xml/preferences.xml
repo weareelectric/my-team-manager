@@ -18,9 +18,14 @@
             android:title="@string/settings_contact_us_label" >
             <intent android:action="com.myteammanager.CONTACTUS" />
         </Preference>
-         <Preference
-            android:title="@string/settings_title_version"
-            android:summary="@string/settings_version_summary" >
+        <Preference
+            android:summary="@string/settings_share_summary"
+            android:title="@string/settings_title_share" >
+            <intent android:action="com.myteammanager.SHAREAPP" />
+        </Preference>
+        <Preference
+            android:summary="@string/settings_version_summary"
+            android:title="@string/settings_title_version" >
         </Preference>
     </PreferenceCategory>
 

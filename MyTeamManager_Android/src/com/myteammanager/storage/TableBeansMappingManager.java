@@ -14,7 +14,7 @@ import com.myteammanager.util.StringUtil;
 
 import android.content.Context;
 import android.location.GpsStatus.NmeaListener;
-import android.util.Log;
+import com.myteammanager.util.Log;
 
 public class TableBeansMappingManager {
 

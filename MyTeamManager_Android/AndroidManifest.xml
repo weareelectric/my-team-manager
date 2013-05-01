@@ -166,6 +166,18 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
+        
+        <activity
+            android:name="com.myteammanager.ui.phone.ShareAppActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait" >
+            <intent-filter>
+                <action android:name="com.myteammanager.SHAREAPP" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        
 		<activity
             android:name="com.myteammanager.ui.phone.HelpActivity"
             android:configChanges="orientation|keyboardHidden"

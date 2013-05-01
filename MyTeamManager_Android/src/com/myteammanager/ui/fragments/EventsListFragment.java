@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
-import android.util.Log;
+import com.myteammanager.util.Log;
 import android.view.View;
 import org.holoeverywhere.widget.AdapterView;
 import org.holoeverywhere.widget.ListView;

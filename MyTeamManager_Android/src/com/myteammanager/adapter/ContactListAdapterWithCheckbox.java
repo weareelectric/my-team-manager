@@ -3,7 +3,7 @@ package com.myteammanager.adapter;
 import java.util.ArrayList;
 
 import android.content.Context;
-import android.util.Log;
+import com.myteammanager.util.Log;
 
 import com.myteammanager.adapter.holders.BaseHolder;
 import com.myteammanager.adapter.holders.ContactListWithCheckboxRowHolder;

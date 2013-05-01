@@ -3,7 +3,7 @@ package com.myteammanager.adapter;
 import java.util.ArrayList;
 
 import android.content.Context;
-import android.util.Log;
+import com.myteammanager.util.Log;
 import android.widget.ArrayAdapter;
 
 import com.myteammanager.R;

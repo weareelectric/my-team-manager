@@ -1,7 +1,7 @@
 package com.myteammanager.ui.fragments;
 
 import android.os.Bundle;
-import android.util.Log;
+import com.myteammanager.util.Log;
 import org.holoeverywhere.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;

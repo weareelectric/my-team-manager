@@ -6,7 +6,7 @@ import java.util.Iterator;
 import java.util.Vector;
 
 import android.content.Context;
-import android.util.Log;
+import com.myteammanager.util.Log;
 import org.holoeverywhere.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;

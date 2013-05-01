@@ -3,7 +3,7 @@ package com.myteammanager.beans.comparators;
 import java.util.Comparator;
 import java.util.Date;
 
-import android.util.Log;
+import com.myteammanager.util.Log;
 
 import com.myteammanager.beans.BaseBean;
 import com.myteammanager.beans.EventBean;

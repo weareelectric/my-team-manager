@@ -18,7 +18,7 @@ import android.preference.PreferenceManager;
 import org.holoeverywhere.app.Activity;
 import org.holoeverywhere.app.AlertDialog;
 import org.holoeverywhere.app.Fragment;
-import android.util.Log;
+import com.myteammanager.util.Log;
 import org.holoeverywhere.widget.Toast;
 
 import com.actionbarsherlock.view.Menu;

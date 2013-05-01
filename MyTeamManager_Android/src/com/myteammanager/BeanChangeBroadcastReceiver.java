@@ -6,7 +6,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
+import com.myteammanager.util.Log;
 
 import com.myteammanager.beans.BaseBean;
 import com.myteammanager.ui.fragments.BaseListFragment;

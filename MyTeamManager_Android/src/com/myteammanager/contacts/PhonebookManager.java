@@ -9,7 +9,7 @@ import android.provider.ContactsContract;
 import android.provider.ContactsContract.CommonDataKinds.Email;
 import android.provider.ContactsContract.CommonDataKinds.Phone;
 import android.provider.ContactsContract.Data;
-import android.util.Log;
+import com.myteammanager.util.Log;
 
 import com.myteammanager.beans.ContactBean;
 import com.myteammanager.exceptions.NoDataException;

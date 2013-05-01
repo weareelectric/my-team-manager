@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import android.content.Intent;
 import android.content.res.Resources;
-import android.util.Log;
+import com.myteammanager.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;

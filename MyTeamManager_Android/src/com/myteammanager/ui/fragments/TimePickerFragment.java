@@ -14,7 +14,7 @@ import org.holoeverywhere.app.TimePickerDialog;
 import android.os.Bundle;
 import org.holoeverywhere.app.DialogFragment;
 import android.text.format.DateFormat;
-import android.util.Log;
+import com.myteammanager.util.Log;
 import android.view.View;
 
 import org.holoeverywhere.widget.TimePicker;
