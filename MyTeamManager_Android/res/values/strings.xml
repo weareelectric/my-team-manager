@@ -10,7 +10,7 @@
     <string name="last_name">Last name</string>
     <string name="save_and_next">Save and next</string>
     <string name="done">Done</string>
-    <string name="enter_player_info">Enter your players list. Do you have some of them already in your phonebook?</string>
+    <string name="enter_player_info">Add the team players. Are any of them already present in your phonebook?</string>
     <string name="start">Start</string>
 
     <string-array name="positions">
@@ -27,7 +27,7 @@
 
     <string name="label_roster">Roster</string>
     <string name="label_matches">Matches</string>
-    <string name="label_training">Training</string>
+    <string name="label_training">Trainings</string>
     <string name="save">Save</string>
     <string name="cancel">Cancel</string>
     <string name="add">Add</string>
@@ -60,10 +60,10 @@
     <string name="title_add_match">Add new match</string>
     <string name="hint_time_field">hh:mm</string>
     <string name="label_match">Match</string>
-    <string name="label_practice">Practice</string>
+    <string name="label_practice">Training</string>
 
     <string-array name="repeat_event">
-        <item>Doesn\'t repeat</item>
+        <item>Don\'t repeat</item>
         <item>Daily</item>
         <item>Weekly</item>
     </string-array>
@@ -88,21 +88,21 @@
     <string name="label_note_semicoloumn">Note: %1$s</string>
     <string name="enter_result">Enter the result</string>
     <string name="edit">Edit</string>
-    <string name="alert_event_confirmation_msg">Would you like to delete only this event or this and all future events in the series?</string>
+    <string name="alert_event_confirmation_msg">Would you like to delete only this event or all future events in the series also?</string>
     <string name="alert_delete_event_conf_btn1">Only this</string>
     <string name="alert_delete_event_conf_btn2">All in the series</string>
     <string name="alert_delete_event_conf_btn3">Cancel</string>
     <string name="tab_convocation_roster_list_title">Choose player</string>
-    <string name="btn_convocation">Convocations (%1$s) </string>
-    <string name="tab_convocation_convocated_player_title">Convocated</string>
-    <string name="title_convocations">Convocations (%1$d)</string>
+    <string name="btn_convocation">Calls-up (%1$s) </string>
+    <string name="tab_convocation_convocated_player_title">Called</string>
+    <string name="title_convocations">Calls-up (%1$d)</string>
     <string name="title_convocations_with_numbers">%1$dTOT - %2$dG - %3$dD - %4$dM - %5$dA</string>
-    <string name="btn_total_convocations">Tot convocated: %1$d</string>
+    <string name="btn_total_convocations">Tot called up: %1$d</string>
     <string name="btn_gk">Gk: %1$d</string>
     <string name="btn_def">Def: %1$d</string>
     <string name="btn_mid">Mid: %1$d</string>
     <string name="btn_att">Att: %1$d</string>
-    <string name="btn_lineup">Choose your team lineup</string>
+    <string name="btn_lineup">Choose your team line-up</string>
     <string name="btn_click_to_choose_player">Click to choose</string>
     <string name="btn_configure_substitutes">Edit substitutes</string>
     <string name="label_on_the_bench"><b>On the bench:</b></string>
@@ -112,11 +112,11 @@
     <string name="abbr_def">Def</string>
     <string name="abbr_mid">Mid</string>
     <string name="abbr_att">Att</string>
-    <string name="msg_no_players_to_select_for_lineup">No players to select. Add players to your roster or to your list of convocated</string>
+    <string name="msg_no_players_to_select_for_lineup">No players to select. Add players to your roster or to your calls-up</string>
     <string name="dialog_please_wait_loading_data">Loading data. Please wait...</string>
     <string name=" dialog_please_wait_writing_data">Writing data. Please wait...</string>
     <string name="delete_all">Delete all</string>
-    <string name="alert_delete_all_events_confirmation_msg">All the events will be deleted: Do you confirm?</string>
+    <string name="alert_delete_all_events_confirmation_msg">All the events will be deleted: do you confirm?</string>
     <string name="label_players_not_selected"></string>
     <string name="label_not_selected">Players not selected:</string>
     <string name="title_substitutes">On the bench</string>
@@ -124,7 +124,7 @@
     <string name="label_next_training">Next training</string>
     <string name="label_stats">Stats</string>
     <string name="msg_no_next_match_available">Go to &quot;Matches&quot; to add it</string>
-    <string name="msg_no_next_training_available">Go to &quot;Training&quot; to add it</string>
+    <string name="msg_no_next_training_available">Go to &quot;Trainings&quot; to add it</string>
     <string name="label_points_short">Pts</string>
     <string name="label_played_short">P</string>
     <string name="label_won_short">W</string>
@@ -136,11 +136,11 @@
     <string name="btn_add_match">Add match</string>
     <string name="title_match">Match</string>
     <string name="alert_enter_valid_result">You must enter a valid result for the match</string>
-    <string name="label_string_conovcated_semicoloumn">Player convocated:</string>
-    <string name="dialog_facebook_activation">Would you like to post match, convocations, result and other team activities on Facebook? You need to be admin of a page to do that.</string>
+    <string name="label_string_conovcated_semicoloumn">Player called:</string>
+    <string name="dialog_facebook_activation">Would you like to post matches, calls-up, results and other team news on Facebook? You need to be admin of the Facebook page to do that.</string>
     <string name="dialog_facebook_choose_your_page_title">Choose your team page</string>
     <string name="settings_title_facebook">Facebook</string>
-    <string name="settings_facebook_activation_summary">Enable posting messages, match and convocations on your team Facebook page</string>
+    <string name="settings_facebook_activation_summary">Enable posting news, match and calls-up on your team Facebook page</string>
     <string name="settings_facebook_activation_label">Post on Facebook</string>
     <string name="label_menu_settings">Settings</string>
     <string name="btn_scorer">Edit scorers</string>
@@ -173,7 +173,7 @@
     <string name="label_scorer">Goals:</string>
     <string name="label_unknown_player">Unknown player</string>
     <string name="share">Share</string>
-    <string name="hint_post_match">The message about the match</string>
+    <string name="hint_post_match">Message about the match</string>
     <string name="send">Send</string>
     <string name="title_post_match_facebook">Share on Facebook</string>
     <string name="toast_facebook_status_posted">The message has been sent</string>
@@ -182,7 +182,7 @@
     <string name="toast_facebook_error_post_status">An error occurred posting the match to Facebook</string>
     <string name="label_hangout_place_and_time_optional"> Where and when we meet (optional)</string>
     <string name="label_hangout_place_and_time">Where and when we meet: %1$s</string>
-    <string name="dialog_facebook_post_convocation">Would you like also to post the convocations on your Facebook page?</string>
+    <string name="dialog_facebook_post_convocation">Would you like to post the convocations on your Facebook page?</string>
     <string name="btn_edit_substitutions">Match substitutions</string>
     <string name="label_substitutions_in">In</string>
     <string name="label_substitutions_out">Out</string>
@@ -208,21 +208,21 @@
     <string name="title_subject_free_text_email">Message from %s</string>
     <string name="msg_no_players_with_address">To send a message you must enter the email or the phone number in your players\' info</string>
     <string name="label_to_all_players">To all players</string>
-    <string name="label_to_only_convocated">To convocated</string>
-    <string name="title_send_convocations">Send convocations to</string>
+    <string name="label_to_only_convocated">To called-up</string>
+    <string name="title_send_convocations">Send calls-up</string>
     <string name="label_send_to_all_players">To all players</string>
-    <string name="label_send_to_convocated">To convocated</string>
+    <string name="label_send_to_convocated">To called-up</string>
     <string name="title_send_free_text_facebook">Send on Facebook</string>
     <string name="msg_post_message_on_facebook">Share your message on Facebook:</string>
-    <string name="msg_no_players_in_roster">No player in your roster. Start compose your list clicking on the button</string>
-    <string name="msg_no_match_in_list">No match in your calendar. Start to add them clicking on the button.</string>
-    <string name="msg_no_events_in_list">No training session in your calendar. Start to add them clicking on the button.</string>
+    <string name="msg_no_players_in_roster">No players in your roster. Start compose your list clicking on the button</string>
+    <string name="msg_no_match_in_list">No matches in your calendar. Start to add them clicking on the button.</string>
+    <string name="msg_no_events_in_list">No training sessions in your calendar. Start to add them clicking on the button.</string>
     <string name="btn_add_player">Add player</string>
     <string name="btn_add_match">Add match</string>
-    <string name="btn_add_events">Add practice</string>
+    <string name="btn_add_events">Add training</string>
     <string name="msg_team_name_is_mandatory">You need to enter a valid name for your team</string>
     <string name="msg_player_lastname_is_mandatory">You need to enter the lastname</string>
-    <string name="msg_date_needed_for_event">You need to specify the date of the event</string>
+    <string name="msg_date_needed_for_event">You need to specify the date</string>
     <string name="label_deleted_player">Deleted player</string>
     <string name="msg_suggest_activate_facebook_from_settings">Ops..., you need to activate the \'Post on Facebook\' option in the settings and retry</string>
     <string name="settings_title_about">About MyTeamManager</string>
@@ -231,13 +231,13 @@
     <string name="hello_world">Hello world!</string>
     <string name="menu_settings">Settings</string>
     <string name="title_activity_contact_us">ContactUsActivity</string>
-    <string name="title_subject_contactus_email">Suggestion or problem</string>
+    <string name="title_subject_contactus_email">Suggestions or problems</string>
     <string name="settings_title_version">Version 1.0</string>
     <string name="settings_version_summary">Copyright 2013 Emanuele Pecorari</string>
 	<string name="title_help_roster"><b>Roster</b></string>
 	<string name="text_help_roster">In this section you can manage your players: add them, edit their profile, see their statistics</string>
 	<string name="title_help_matches"><b>Matches</b></string>
-	<string name="text_help_matches">Configure the list of your team\'s matches, the dates and time. Add your personal notes, the convocations, where to meet, the lineup and the substitutions, the result and the scorers. Share the convocations and the details of the match with your players on Facebook, or send them an email or a SMS</string>
+	<string name="text_help_matches">Configure the list of your team\'s matches, the dates and time. Add your personal notes, the calls-up, where to meet, the lineup and the substitutions, the result and the scorers. Share the calls-up and the details of the match with your players on Facebook, or send them an email or a SMS</string>
 	<string name="title_help_training"><b>Training</b></string>
 	<string name="text_help_training">Manage your training sessions, the date and the time. Save your note for each session</string>
 	<string name="title_help_message"><b>Message</b></string>

@@ -338,12 +338,6 @@
             android:visibility="gone" />
     </RelativeLayout>
 
-    <!--
-    <View
-    android:layout_width="fill_parent"
-    android:layout_height="1dip"
-    android:background="@color/HomePageLine" />
-    -->
 
     <TextView
         android:id="@+id/textViewNextTraining"

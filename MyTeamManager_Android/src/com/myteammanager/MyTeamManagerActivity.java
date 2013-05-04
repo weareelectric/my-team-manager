@@ -101,17 +101,17 @@ public class MyTeamManagerActivity extends BaseActivity {
 				}
 				startActivityForResult(intent, KeyConstants.WIZARD_ENTER_PLAYERS_PROCESS_COMPLETED_CODE);
 				break;
+				
+				default:
+					intent = new Intent(MyTeamManagerActivity.this, WizardEnterPlayersInfoActivity.class);
+					startActivityForResult(intent, KeyConstants.WIZARD_ENTER_PLAYERS_INFO_CODE);
+					break;
 
 			}
 			break;
 
 		case KeyConstants.WIZARD_ENTER_PLAYERS_PROCESS_COMPLETED_CODE:
-			if (resultCode == RESULT_ENTER_PLAYERS_LIST_DONE) {
-				startHomePage();
-			} else {
-				DBManager.getInstance().closeDB();
-				finish();
-			}
+			startHomePage();
 			break;
 
 		}

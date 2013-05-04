@@ -69,9 +69,9 @@ public class EditPlayerInfoFragment extends AddPlayerInfoFromRosterFragment {
 
 		case R.id.menu_delete_player:
 			showDeleteConfirmation();
-			break;
+			return true;
 		}
-		return true;
+		return super.onOptionsItemSelected(item);
 	}
 
 	@Override

@@ -273,6 +273,7 @@ public class AddPlayerInfoFragment extends BaseTwoButtonActionsFormFragment  {
 	
 	@Override
 	protected void clickOnMenuItem1() {
+		Log.d(LOG_TAG, "clickOnMenuItem1");
 		if( !StringUtil.isNotEmpty(m_playerLastName.getText().toString()) ) {
 			m_playerLastName.setError(getString(R.string.msg_player_lastname_is_mandatory));
 			return;
