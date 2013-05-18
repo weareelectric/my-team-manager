@@ -136,7 +136,7 @@
     <string name="btn_add_match">Add match</string>
     <string name="title_match">Match</string>
     <string name="alert_enter_valid_result">You must enter a valid result for the match</string>
-    <string name="label_string_conovcated_semicoloumn">Player called:</string>
+    <string name="label_string_conovcated_semicoloumn">Called players:</string>
     <string name="dialog_facebook_activation">Would you like to post matches, calls-up, results and other team news on Facebook? You need to be admin of the Facebook page to do that.</string>
     <string name="dialog_facebook_choose_your_page_title">Choose your team page</string>
     <string name="settings_title_facebook">Facebook</string>
@@ -182,7 +182,7 @@
     <string name="toast_facebook_error_post_status">An error occurred posting the match to Facebook</string>
     <string name="label_hangout_place_and_time_optional"> Where and when we meet (optional)</string>
     <string name="label_hangout_place_and_time">Where and when we meet: %1$s</string>
-    <string name="dialog_facebook_post_convocation">Would you like to post the convocations on your Facebook page?</string>
+    <string name="dialog_facebook_post_convocation">Would you like to post the calls-up on your Facebook page?</string>
     <string name="btn_edit_substitutions">Match substitutions</string>
     <string name="label_substitutions_in">In</string>
     <string name="label_substitutions_out">Out</string>
@@ -201,7 +201,7 @@
     <string name="label_number_of_recipient_single">%d recipient</string>
     <string name="label_number_of_recipient_plural">%d recipients</string>
     <string name="message_recipient_with_no_address_singular">You haven\'t entered email and phone for %d player</string>
-    <string name="message_recipient_with_no_address_plural">You haven\'t entered email and phone for %d player</string>
+    <string name="message_recipient_with_no_address_plural">You haven\'t entered email and phone for %d players</string>
     <string name="title_send_message">Send message</string>
     <string name="label_select_all">Select all</string>
     <string name="title_players_no_address">Players with no address</string>
@@ -215,8 +215,8 @@
     <string name="title_send_free_text_facebook">Send on Facebook</string>
     <string name="msg_post_message_on_facebook">Share your message on Facebook:</string>
     <string name="msg_no_players_in_roster">No players in your roster. Start compose your list clicking on the button</string>
-    <string name="msg_no_match_in_list">No matches in your calendar. Start to add them clicking on the button.</string>
-    <string name="msg_no_events_in_list">No training sessions in your calendar. Start to add them clicking on the button.</string>
+    <string name="msg_no_match_in_list">No matches in your schedule. Start to add them clicking on the button.</string>
+    <string name="msg_no_events_in_list">No training sessions in your schedule. Start to add them clicking on the button.</string>
     <string name="btn_add_player">Add player</string>
     <string name="btn_add_match">Add match</string>
     <string name="btn_add_events">Add training</string>
@@ -243,7 +243,7 @@
 	<string name="title_help_message"><b>Message</b></string>
 	<string name="text_help_message">Communicate with your players via SMS or email.</string>
 	<string name="title_help_facebook"><b>Facebook</b></string>
-	<string name="text_help_facebook">Post your message on your team Facebook page to share whatever you want with your players</string>
+	<string name="text_help_facebook">Post your messages on your team Facebook page to share whatever you want with your players</string>
 	<string name="title_dialog_facebook_pages">Your team\'s Facebook page is:</string>
 	<string name="settings_title_share">Share the application</string>
 	<string name="settings_share_summary">Share MyTeamManager with your friends</string>

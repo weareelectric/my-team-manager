@@ -325,7 +325,7 @@
         <Button
             android:id="@+id/nextMatchButton"
             android:layout_width="150dp"
-            android:layout_height="50dp"
+            android:layout_height="55dp"
             android:layout_below="@+id/textViewNextMatch"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
@@ -384,7 +384,7 @@
         <Button
             android:id="@+id/nextEventButton"
             android:layout_width="150dp"
-            android:layout_height="50dp"
+            android:layout_height="55dp"
             android:layout_below="@+id/textViewNextTraining"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"

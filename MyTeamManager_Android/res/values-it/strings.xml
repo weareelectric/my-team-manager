@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="hello">Hello World, MyTeamManagerActivity!</string>
+    <string name="app_name">My Team Manager</string>
+    <string name="enter_team_name_message">La tua squadra</string>
+    <string name="next">Avanti</string>
+    <string name="player_file_title">Nuovo giocatore</string>
+    <string name="name">Nome</string>
+    <string name="last_name">Cognome</string>
+    <string name="save_and_next">Salva e continua</string>
+    <string name="done">Fatto</string>
+    <string name="enter_player_info">Aggiungi i tuoi giocatori. Ne hai qualcuno già presente nella rubrica del tuo telefono?</string>
+    <string name="start">Start</string>
+
+    <string-array name="positions">
+        <item>Portiere</item>
+        <item>Difensopre</item>
+        <item>Centrocampista</item>
+        <item>Attaccante</item>
+    </string-array>
+    <string-array name="home_page_list">
+        <item>Rosa</item>
+        <item>Calendario e risultati</item>
+        <item>Appuntamenti</item>
+    </string-array>
+
+    <string name="label_roster">Rosa</string>
+    <string name="label_matches">Partite</string>
+    <string name="label_training">Allenamenti</string>
+    <string name="save">Salva</string>
+    <string name="cancel">Annulla</string>
+    <string name="add">Aggiungi</string>
+    <string name="delete">Cancella</string>
+    <string name="title_add_player">Nuovo giocatore</string>
+    <string name="title_team_roster">Rosa squadra</string>
+    <string name="email">Email</string>
+    <string name="email_optional">Email (opzionale)</string>
+    <string name="phone">Numero di telefono</string>
+    <string name="phone_optional">Numero di telefono (opzionale)</string>
+    <string name="additional_info">Altre informazioni</string>
+    <string name="birth_date_label">Data di nascita</string>
+    <string name="birth_date_label_optional">Data di nascita (opzionale)</string>
+    <string name="label_shirt_number">Numero maglia</string>
+    <string name="label_opponent">Avversario</string>
+
+    <string-array name="array_home_away">
+        <item>In casa</item>
+        <item>Fuori</item>
+    </string-array>
+
+    <string name="label_date">Data</string>
+    <string name="label_date_optional">Data (opzionale)</string>
+    <string name="label_time_optional">Ora (Opzionale)</string>
+    <string name="label_location">Luogo</string>
+    <string name="label_day">Giorno</string>
+    <string name="label_time">Ora</string>
+    <string name="label_arrival_time">Ora di arrivo</string>
+    <string name="label_note_optional">Note (opzionali)</string>
+    <string name="title_add_match">Nuova partita</string>
+    <string name="hint_time_field">hh:mm</string>
+    <string name="label_match">Partita</string>
+    <string name="label_practice">Allenamento</string>
+
+    <string-array name="repeat_event">
+        <item>Non ripetere</item>
+        <item>Ogni giorno</item>
+        <item>Ogni settiamana</item>
+    </string-array>
+
+    <string name="label_checkbox_canceled">Cancellata</string>
+    <string name="label_match_canceled">Cancellata (la partita é considerata cancellata )</string>
+    <string name="label_event_canceled">Canceled (l\'evento é considerato cancellato)</string>
+    <string name="label_event">Evento</string>
+    <string name="label_repeat">Ripeti evento</string>
+    <string name="label_end_repeat_date">Fino al</string>
+    <string name="title_events">Allenamenti squadra</string>
+    <string name="title_matches">Partite</string>
+    <string name="title_add_event">Nuovo allenamento</string>
+    <string name="label_yes">Si</string>
+    <string name="label_no">No</string>
+    <string name="alert_general_confirmation_msg">Vuoi cancellare l\'informazione?</string>
+    <string name="alert_general_confirmation_title">Info</string>
+    <string name="label_date_semicoloumn">Data: %1$s</string>
+    <string name="label_location_semicoloumn">Luogo: %1$s</string>
+    <string name="label_arrival_time_semicoloumn">Data di arrivo: %1$s</string>
+    <string name="label_time_semicoloumn">Ora: %1$s</string>
+    <string name="label_note_semicoloumn">Note: %1$s</string>
+    <string name="enter_result">Inserisci risultato</string>
+    <string name="edit">Modifica</string>
+    <string name="alert_event_confirmation_msg">Vuoi cancellare solo questo evento o anche quelli futuri nella serie?</string>
+    <string name="alert_delete_event_conf_btn1">Solo questo</string>
+    <string name="alert_delete_event_conf_btn2">Tutti nella serie</string>
+    <string name="alert_delete_event_conf_btn3">Annulla</string>
+    <string name="tab_convocation_roster_list_title">Scegli giocatore</string>
+    <string name="btn_convocation">Convocazioni (%1$s) </string>
+    <string name="tab_convocation_convocated_player_title">Convocati</string>
+    <string name="title_convocations">Convocazioni (%1$d)</string>
+    <string name="title_convocations_with_numbers">%1$dTOT - %2$dG - %3$dD - %4$dC - %5$dA</string>
+    <string name="btn_total_convocations">Totale convocati: %1$d</string>
+    <string name="btn_gk">Por: %1$d</string>
+    <string name="btn_def">Dif: %1$d</string>
+    <string name="btn_mid">Cen: %1$d</string>
+    <string name="btn_att">Att: %1$d</string>
+    <string name="btn_lineup">Scegli la formazione</string>
+    <string name="btn_click_to_choose_player">Clicca e scegli</string>
+    <string name="btn_configure_substitutes">Modifica panchina</string>
+    <string name="label_on_the_bench"><b>In panchina:</b></string>
+    <string name="label_played_game">Giocate:</string>
+    <string name="label_scored_goals">Goal:</string>
+    <string name="abbr_gk">Por</string>
+    <string name="abbr_def">Dif</string>
+    <string name="abbr_mid">Cen</string>
+    <string name="abbr_att">Att</string>
+    <string name="msg_no_players_to_select_for_lineup">Nessun giocatore da scegliere. Aggiungine alla rosa o alle convocazioni</string>
+    <string name="dialog_please_wait_loading_data">Attendere prego...</string>
+    <string name=" dialog_please_wait_writing_data">Salvataggio dati, attendre...</string>
+    <string name="delete_all">Cancella tutto</string>
+    <string name="alert_delete_all_events_confirmation_msg">Tutti gli eventi saranno cancellati. Confermi?</string>
+    <string name="label_players_not_selected"></string>
+    <string name="label_not_selected">Giocatori non selezionati:</string>
+    <string name="title_substitutes">In panchina</string>
+    <string name="label_next_match">Prossima partita</string>
+    <string name="label_next_training">Prossimo allenamento</string>
+    <string name="label_stats">Statistiche</string>
+    <string name="msg_no_next_match_available">Vai in &quot;Partite&quot; per aggiungerla</string>
+    <string name="msg_no_next_training_available">Vai in &quot;Allenamenti&quot; per aggiungerlo</string>
+    <string name="label_points_short">P</string>
+    <string name="label_played_short">G</string>
+    <string name="label_won_short">V</string>
+    <string name="label_draw_short">N</string>
+    <string name="label_lost_short">P</string>
+    <string name="label_goal_scored_short">F</string>
+    <string name="label_goal_against_short">S</string>
+    <string name="btn_add_event">Aggiungi allenamento</string>
+    <string name="btn_add_match">Aggiungi partita</string>
+    <string name="title_match">Partita</string>
+    <string name="alert_enter_valid_result">Devi inserire un risultato per il match</string>
+    <string name="label_string_conovcated_semicoloumn">Giocatori convocati:</string>
+    <string name="dialog_facebook_activation">Vuoi postare le partite, le convocazioni, i risultati e altre notizie sulla tua squadra su Facebook? Devi essere amministratore di una pagina Facebook per farlo.</string>
+    <string name="dialog_facebook_choose_your_page_title">Scegli la pagina della squadra</string>
+    <string name="settings_title_facebook">Facebook</string>
+    <string name="settings_facebook_activation_summary">Attiva il post di notizie, partite e convocazioni sulla pagina Facebook della tua squadra.</string>
+    <string name="settings_facebook_activation_label">Posta su Facebook</string>
+    <string name="label_menu_settings">Impostazioni</string>
+    <string name="btn_scorer">Inserisci marcatori</string>
+
+    <string-array name="goals">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+        <item>9</item>
+        <item>10</item>
+        <item>11</item>
+        <item>12</item>
+        <item>13</item>
+        <item>14</item>
+        <item>15</item>
+        <item>16</item>
+        <item>17</item>
+        <item>18</item>
+        <item>19</item>
+        <item>20</item>
+    </string-array>
+
+    <string name="title_scorers">Marcatori</string>
+    <string name="label_scorer">Goal:</string>
+    <string name="label_unknown_player">Giocatore sconosciuto</string>
+    <string name="share">Condivid</string>
+    <string name="hint_post_match">Messaggio:</string>
+    <string name="send">Invia</string>
+    <string name="title_post_match_facebook">Condividi su Facebook</string>
+    <string name="toast_facebook_status_posted">Messaggio inviato</string>
+    <string name="dialog_waiting_sending_data">Attendere prego...</string>
+    <string name="toast_facebook_pages_error">Errore nella connessione con Facebook</string>
+    <string name="toast_facebook_error_post_status">Errore durante la condivisione su Facebook</string>
+    <string name="label_hangout_place_and_time_optional">Luogo e data ritrovo (opzionale)</string>
+    <string name="label_hangout_place_and_time">Luogo e data ritrovo: %1$s</string>
+    <string name="dialog_facebook_post_convocation">Vuoi postare le convocazioni su facebook?</string>
+    <string name="btn_edit_substitutions">Sostituzioni</string>
+    <string name="label_substitutions_in">Entra</string>
+    <string name="label_substitutions_out">Esce</string>
+    <string name="title_substitutions">Sostituzioni</string>
+    <string name="label_replace">&lt; &gt;</string>
+    <string name="label_from_contacts">Contatti</string>
+    <string name="title_import_from_contacts">Importa da contatti</string>
+    <string name="label_send_msg">Messaggio</string>
+    <string name="label_facebook">Facebook</string>
+    <string name="label_help">Aiuto</string>
+    <string name="title_select_recipients">Seleziona destinatari</string>
+    <string name="label_ok">Ok</string>
+    <string name="label_send_email">Invia email</string>
+    <string name="label_send_via_message">Invia SMS</string>
+    <string name="label_write_message">Scrivi il messaggio</string>
+    <string name="label_number_of_recipient_single">%d destinatario</string>
+    <string name="label_number_of_recipient_plural">%d destinatari</string>
+    <string name="message_recipient_with_no_address_singular">Non ha inserito né email né numero di telefono per %d giocatore</string>
+    <string name="message_recipient_with_no_address_plural">Non hai inserito né email né numero di telefono per %d giocatori</string>
+    <string name="title_send_message">Invia messaggio</string>
+    <string name="label_select_all">Seleziona tutti</string>
+    <string name="title_players_no_address">Giocatori senza indirizzo</string>
+    <string name="title_subject_free_text_email">Messaggio da %s</string>
+    <string name="msg_no_players_with_address">Per inviare un messaggio devi inserire l\'email o il numero di telefono nella scheda dei tuoi giocatori</string>
+    <string name="label_to_all_players">A tutti</string>
+    <string name="label_to_only_convocated">Ai convocati</string>
+    <string name="title_send_convocations">Invia convocazioni</string>
+    <string name="label_send_to_all_players">A tutti i giocatori</string>
+    <string name="label_send_to_convocated">Ai convocati</string>
+    <string name="title_send_free_text_facebook">Invia su Facebook</string>
+    <string name="msg_post_message_on_facebook">Condividi messaggio su Facebook:</string>
+    <string name="msg_no_players_in_roster">Nessun giocatore in rosa. Inizia ad aggiungerli cliccando sul bottone</string>
+    <string name="msg_no_match_in_list">Nessuna partita nel tuo calendario. Inizia ad aggiungerle cliccando sul bottone.</string>
+    <string name="msg_no_events_in_list">Nessun allenamento nel tuo calendario. Inizia ad aggiungerli cliccando sul bottone</string>
+    <string name="btn_add_player">Aggiungi giocatore</string>
+    <string name="btn_add_match">Aggiungi partita</string>
+    <string name="btn_add_events">Aggiungi allenamento </string>
+    <string name="msg_team_name_is_mandatory">Inserisci un nome per la tua squadra</string>
+    <string name="msg_player_lastname_is_mandatory">Devi inserire il cognome</string>
+    <string name="msg_date_needed_for_event">Devi specificare la data</string>
+    <string name="label_deleted_player">Giocatore cancellato</string>
+    <string name="msg_suggest_activate_facebook_from_settings">Ops..., Devi attivare l\'opzione \'Posta su Facebook\' nelle impostazione e riprovare</string>
+    <string name="settings_title_about">Su MyTeamManager</string>
+    <string name="settings_contact_us_label">Contattaci</string>
+    <string name="settings_contact_us_summary">Inviaci un email per segnalare un problema, dei miglioramenti o per suggerire nuove funzionalità </string>
+    <string name="hello_world">Hello world!</string>
+    <string name="menu_settings">Impostazioni</string>
+    <string name="title_activity_contact_us">ContactUsActivity</string>
+    <string name="title_subject_contactus_email">Suggerimenti o problemi</string>
+    <string name="settings_title_version">Versione 1.0</string>
+    <string name="settings_version_summary">Copyright 2013 Emanuele Pecorari</string>
+	<string name="title_help_roster"><b>Rosa</b></string>
+	<string name="text_help_roster">In questa sezione puoi gestire le schede dei tuoi giocatori: aggiungerle, modificarle, vedere le loro statistiche</string>
+	<string name="title_help_matches"><b>Partite</b></string>
+	<string name="text_help_matches">Configura la lista delle partite della tua squadra, le date e gli orari. Aggiungi le tue note personali, le convocazioni, dove incontrarsi, la formazione, la panchina, il risultato, le sostituzioni e i marcatori e condividi tutto con i tuoi giocatori tramite SMS, email o Facebook </string>
+	<string name="title_help_training"><b>Allenamenti</b></string>
+	<string name="text_help_training">Gestisci i tuoi allenamenti, le date e gli orari. Salva le tue note per ciascuna sessione</string>
+	<string name="title_help_message"><b>Messaggi</b></string>
+	<string name="text_help_message">Comunica con i tuoi giocatori tramite SMS e email.</string>
+	<string name="title_help_facebook"><b>Facebook</b></string>
+	<string name="text_help_facebook">Condividi i tuoi messaggi sulla pagina Facebook della tua squadra per condividere tutte le informazioni</string>
+	<string name="title_dialog_facebook_pages">La pagina Facebook della tua squadra é:</string>
+	<string name="settings_title_share">Condividi applicazione</string>
+	<string name="settings_share_summary">Condividi MyTeamManager con i tuoi amici</string>
+	<string name="message_share_the_application">Ciao, ti suggerisco di scaricare l\'applicazione "My Team Manager" per gestire la tua squadra di calcio. Scaricala qui http://play.google.com/store/apps/details?id=com.myteammanager</string>
+	<string name="label_share_app_subject">Prova questa applicazione!</string>
+</resources>

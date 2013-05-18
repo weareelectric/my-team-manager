@@ -316,15 +316,15 @@
             android:layout_centerVertical="true"
             android:background="@drawable/homepage_button"
             android:gravity="center|center_vertical"
-            android:minHeight="65dp"
+            android:minHeight="70dp"
             android:textColor="#555555"
             android:textSize="22dp"
             android:visibility="gone" />
 
         <Button
             android:id="@+id/nextMatchButton"
-            android:layout_width="150dp"
-            android:layout_height="50dp"
+            android:layout_width="250dp"
+            android:layout_height="70dp"
             android:layout_below="@+id/textViewNextMatch"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
@@ -372,7 +372,7 @@
             android:layout_below="@+id/textViewNextTraining"
             android:background="@drawable/homepage_button"
             android:gravity="center|center_vertical"
-            android:minHeight="65dp"
+            android:minHeight="70dp"
             android:text="@string/msg_no_next_training_available"
             android:textColor="#555555"
             android:textSize="22dp"
@@ -380,8 +380,8 @@
 
         <Button
             android:id="@+id/nextEventButton"
-            android:layout_width="150dp"
-            android:layout_height="50dp"
+            android:layout_width="250dp"
+            android:layout_height="70dp"
             android:layout_below="@+id/textViewNextTraining"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
