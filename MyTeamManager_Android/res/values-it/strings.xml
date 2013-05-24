@@ -15,7 +15,7 @@
 
     <string-array name="positions">
         <item>Portiere</item>
-        <item>Difensopre</item>
+        <item>Difensore</item>
         <item>Centrocampista</item>
         <item>Attaccante</item>
     </string-array>

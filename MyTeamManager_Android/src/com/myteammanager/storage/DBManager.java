@@ -24,6 +24,7 @@ import com.myteammanager.ui.fragments.BaseFragment;
 import com.myteammanager.util.StringUtil;
 
 public class DBManager {
+	
 
 	private static String LOG_TAG = DBManager.class.getName();
 
@@ -53,6 +54,10 @@ public class DBManager {
 	private static ArrayList<MethodStructure> m_mappingToStore;
 
 	public void init(Context context, BaseBean[] beans, String dbName, int version) {
+		if ( m_db != null ) {
+			return;
+		}
+		
 		m_dbName = dbName;
 		m_dbVersion = version;
 		m_beans = beans;

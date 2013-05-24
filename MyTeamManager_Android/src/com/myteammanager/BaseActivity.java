@@ -7,6 +7,8 @@ import android.graphics.PixelFormat;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+
+import com.myteammanager.specializedStorage.MyTeamManagerDBManager;
 import com.myteammanager.util.Log;
 
 import com.ubikod.capptain.android.sdk.CapptainAgent;
@@ -20,6 +22,8 @@ public abstract class BaseActivity extends Activity {
 		if (Build.VERSION.SDK_INT > 13) {
 			// new HomeButtonEnabledWrapper().setHomeButtonEnabled(true);
 		}
+		
+		MyTeamManagerDBManager.getInstance().init(this, MyTeamManagerDBManager.BEANS, MyTeamManagerDBManager.MYTEAMMANAGER_DB, MyTeamManagerDBManager.DB_VERSION);
 	}
 
 	/**
