@@ -6,16 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import com.myteammanager.util.Log;
 
-import com.myteammanager.beans.BaseBean;
 import com.myteammanager.beans.ContactBean;
-import com.myteammanager.beans.ConvocationBean;
-import com.myteammanager.beans.EventBean;
-import com.myteammanager.beans.LineupBean;
-import com.myteammanager.beans.MatchBean;
-import com.myteammanager.beans.PlayerBean;
-import com.myteammanager.beans.ScorerBean;
-import com.myteammanager.beans.SubstitutionBean;
-import com.myteammanager.beans.TeamBean;
 import com.myteammanager.specializedStorage.MyTeamManagerDBManager;
 import com.myteammanager.storage.DBManager;
 import com.myteammanager.storage.SettingsManager;
@@ -33,16 +24,13 @@ public class MyTeamManagerActivity extends BaseActivity {
 	public static final int RESULT_ENTER_PLAYERS_INFO_START = 3824;
 	public static final int RESULT_ENTER_PLAYERS_LIST_DONE = 3825;
 
-	private static final BaseBean[] BEANS = { new PlayerBean(), new TeamBean(), new EventBean(), new MatchBean(),
-			new ConvocationBean(), new LineupBean(), new ScorerBean(), new SubstitutionBean() };
-
 	private static Bus m_bus;
 
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		MyTeamManagerDBManager.getInstance().init(this, BEANS, "myteammanager.db", 2);
+		MyTeamManagerDBManager.getInstance().init(this, MyTeamManagerDBManager.BEANS, MyTeamManagerDBManager.MYTEAMMANAGER_DB, MyTeamManagerDBManager.DB_VERSION);
 
 		setContentView(R.layout.main);
 

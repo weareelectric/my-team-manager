@@ -24,6 +24,7 @@ import com.myteammanager.ui.fragments.BaseFragment;
 import com.myteammanager.util.StringUtil;
 
 public class DBManager {
+	
 
 	private static String LOG_TAG = DBManager.class.getName();
 
