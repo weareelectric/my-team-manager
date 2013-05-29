@@ -267,7 +267,13 @@ public class MatchBean extends BaseBean implements Parcelable {
 	}
 
 	public String getMatchResult() {
-		return getGoalHome() + " - " + getGoalAway();
+		if ( getGoalHome() >= 0 && getGoalAway() >= 0 ) {
+			return getGoalHome() + " - " + getGoalAway();
+		}
+		else {
+			return "";
+		}
+		
 	}
 
 	public int[] getChangeInStatsForDelete() {
