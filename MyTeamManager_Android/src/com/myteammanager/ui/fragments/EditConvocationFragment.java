@@ -2,9 +2,11 @@ package com.myteammanager.ui.fragments;
 
 import java.util.ArrayList;
 
+import org.holoeverywhere.app.Activity;
 import org.holoeverywhere.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -37,6 +39,7 @@ import com.myteammanager.specializedStorage.MyTeamManagerDBManager;
 import com.myteammanager.storage.DBManager;
 import com.myteammanager.storage.SettingsManager;
 import com.myteammanager.ui.CheckboxListener;
+import com.myteammanager.ui.phone.HomePageActivity;
 import com.myteammanager.ui.phone.SendMessageActivity;
 import com.myteammanager.ui.phone.SendMessageFacebookActivity;
 import com.myteammanager.util.DateTimeUtil;
@@ -243,10 +246,17 @@ public class EditConvocationFragment extends RosterFragment implements CheckboxL
 			
 		case R.id.menu_share_convocations:
 			if ( SettingsManager.getInstance(getSupportActivity()).isFacebookActivated()) {
-				updateMatchObjectAndSaveConvocations(false);
-				Intent intent = new Intent(getActivity(), SendMessageFacebookActivity.class);
-				intent.putExtra(KeyConstants.KEY_MSG_TEXT, getTextForConvocationMessage(m_finalConvocations));
-				startActivity(intent);
+				SharedPreferences m_prefs = getSupportActivity().getSharedPreferences(HomePageActivity.SHARED_PREFERENCES_NAME, Activity.MODE_PRIVATE);
+				if ( StringUtil.isNotEmpty(m_prefs.getString("access_token", null))) {
+					updateMatchObjectAndSaveConvocations(false);
+					Intent intent = new Intent(getActivity(), SendMessageFacebookActivity.class);
+					intent.putExtra(KeyConstants.KEY_MSG_TEXT, getTextForConvocationMessage(m_finalConvocations));
+					startActivity(intent);
+				}
+				else {
+					builder = new AlertDialog.Builder(getActivity()).setMessage(getString(R.string.msg_facebook_auth_required));
+					builder.show();
+				}
 			}
 			else {
 				builder = new AlertDialog.Builder(getActivity()).setMessage(getString(R.string.msg_suggest_activate_facebook_from_settings));

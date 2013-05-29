@@ -249,4 +249,5 @@
 	<string name="settings_share_summary">Condividi MyTeamManager con i tuoi amici</string>
 	<string name="message_share_the_application">Ciao, ti suggerisco di scaricare l\'applicazione "My Team Manager" per gestire la tua squadra di calcio. Scaricala qui http://play.google.com/store/apps/details?id=com.myteammanager</string>
 	<string name="label_share_app_subject">Prova questa applicazione!</string>
+	<string name="msg_facebook_auth_required">Per postare su Facebook devi autorizzare My Team Manager a scrivere sul tuo muro. Riavvia l\'applicazione: il processo inizierà automaticamente.</string>
 </resources>

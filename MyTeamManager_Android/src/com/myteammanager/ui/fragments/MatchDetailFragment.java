@@ -3,6 +3,7 @@ package com.myteammanager.ui.fragments;
 import java.util.ArrayList;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
@@ -14,6 +15,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 
+import org.holoeverywhere.app.Activity;
 import org.holoeverywhere.app.AlertDialog;
 import org.holoeverywhere.widget.Button;
 import org.holoeverywhere.widget.CheckBox;
@@ -37,12 +39,14 @@ import com.myteammanager.storage.SettingsManager;
 import com.myteammanager.ui.phone.AddEventInfoActivity;
 import com.myteammanager.ui.phone.EditConvocationActivity;
 import com.myteammanager.ui.phone.EditTeamLineUpActivity;
+import com.myteammanager.ui.phone.HomePageActivity;
 import com.myteammanager.ui.phone.MatchSubstitutionsActivity;
 import com.myteammanager.ui.phone.PostMatchDetailActivity;
 import com.myteammanager.ui.phone.ScorersActivity;
 import com.myteammanager.util.DateTimeUtil;
 import com.myteammanager.util.DeleteMatchManager;
 import com.myteammanager.util.KeyConstants;
+import com.myteammanager.util.StringUtil;
 import com.squareup.otto.Subscribe;
 
 public class MatchDetailFragment extends BaseFragment implements TextWatcher {
@@ -304,24 +308,32 @@ public class MatchDetailFragment extends BaseFragment implements TextWatcher {
 
 		case R.id.menu_share_match:
 			if ( SettingsManager.getInstance(getSupportActivity()).isFacebookActivated()) {
-				intent = new Intent(getActivity(), PostMatchDetailActivity.class);
-				StringBuffer sb = new StringBuffer();
-				sb.append(m_match.getMatchString(getActivity()));
-				if (m_match.getResultEntered() > 0) {
-					sb.append(" ");
-					sb.append(m_match.getMatchResult());
+				SharedPreferences m_prefs = getSupportActivity().getSharedPreferences(HomePageActivity.SHARED_PREFERENCES_NAME, Activity.MODE_PRIVATE);
+				if ( StringUtil.isNotEmpty(m_prefs.getString("access_token", null))) {
+					intent = new Intent(getActivity(), PostMatchDetailActivity.class);
+					StringBuffer sb = new StringBuffer();
+					sb.append(m_match.getMatchString(getActivity()));
+					if (m_match.getResultEntered() > 0) {
+						sb.append(" ");
+						sb.append(m_match.getMatchResult());
+					}
+
+					if (null != m_scorers && m_scorers.size() > 0) {
+						sb.append("\n\n");
+						sb.append(m_res.getString(R.string.label_scorer));
+						sb.append(" ");
+						sb.append(getScorersString(m_scorers));
+					}
+
+					intent.putExtra(KeyConstants.KEY_MSG_TEXT, sb.toString());
+
+					startActivity(intent);
 				}
-
-				if (null != m_scorers && m_scorers.size() > 0) {
-					sb.append("\n\n");
-					sb.append(m_res.getString(R.string.label_scorer));
-					sb.append(" ");
-					sb.append(getScorersString(m_scorers));
+				else {
+					AlertDialog.Builder builder = new AlertDialog.Builder(getActivity()).setMessage(getString(R.string.msg_facebook_auth_required));
+					builder.show();
 				}
-
-				intent.putExtra(KeyConstants.KEY_MSG_TEXT, sb.toString());
-
-				startActivity(intent);
+				
 			}
 			else {
 				AlertDialog.Builder builder = new AlertDialog.Builder(getActivity()).setMessage(getString(R.string.msg_suggest_activate_facebook_from_settings));

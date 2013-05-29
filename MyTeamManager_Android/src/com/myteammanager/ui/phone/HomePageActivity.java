@@ -49,6 +49,8 @@ import com.myteammanager.util.StringUtil;
 
 public class HomePageActivity extends BaseSinglePaneActivity implements FacebookResponseListener,
 		ButtonsAlertDialogListener, DialogInterface.OnClickListener {
+	
+	public static final String SHARED_PREFERENCES_NAME = "myTeamManagerPref";
 
 	private static Facebook m_facebook = new Facebook("365945950147624");
 	private SharedPreferences m_prefs;
@@ -77,7 +79,7 @@ public class HomePageActivity extends BaseSinglePaneActivity implements Facebook
 	}
 
 	public void facebookAuth() {
-		m_prefs = getPreferences(MODE_PRIVATE);
+		m_prefs = getSharedPreferences(SHARED_PREFERENCES_NAME, MODE_PRIVATE);
 		String access_token = m_prefs.getString("access_token", null);
 		long expires = m_prefs.getLong("access_expires", 0);
 		if (access_token != null) {

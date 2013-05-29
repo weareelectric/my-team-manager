@@ -3,9 +3,11 @@ package com.myteammanager.ui.fragments;
 import java.util.ArrayList;
 import java.util.Date;
 
+import org.holoeverywhere.app.Activity;
 import org.holoeverywhere.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import org.holoeverywhere.app.DialogFragment;
@@ -39,6 +41,7 @@ import com.myteammanager.ui.phone.AddEventInfoActivity;
 import com.myteammanager.ui.phone.EventDetailActivity;
 import com.myteammanager.ui.phone.EventsListActivity;
 import com.myteammanager.ui.phone.HelpActivity;
+import com.myteammanager.ui.phone.HomePageActivity;
 import com.myteammanager.ui.phone.MatchDetailActivity;
 import com.myteammanager.ui.phone.MatchesListActivity;
 import com.myteammanager.ui.phone.RosterActivity;
@@ -46,6 +49,7 @@ import com.myteammanager.ui.phone.SendMessageActivity;
 import com.myteammanager.ui.phone.SendMessageFacebookActivity;
 import com.myteammanager.util.DateTimeUtil;
 import com.myteammanager.util.KeyConstants;
+import com.myteammanager.util.StringUtil;
 import com.squareup.otto.Subscribe;
 
 public class NewHomeFragment extends BaseFragment implements CheckboxListener,
@@ -165,9 +169,17 @@ public class NewHomeFragment extends BaseFragment implements CheckboxListener,
 			@Override
 			public void onClick(View arg0) {
 				if ( SettingsManager.getInstance(getSupportActivity()).isFacebookActivated()) {
-					Intent intent = new Intent(getActivity(),
-							SendMessageFacebookActivity.class);
-					startActivity(intent);
+					SharedPreferences m_prefs = getSupportActivity().getSharedPreferences(HomePageActivity.SHARED_PREFERENCES_NAME, Activity.MODE_PRIVATE);
+					if ( StringUtil.isNotEmpty(m_prefs.getString("access_token", null))) {
+						Intent intent = new Intent(getActivity(),
+								SendMessageFacebookActivity.class);
+						startActivity(intent);
+					}
+					else {
+						AlertDialog.Builder builder = new AlertDialog.Builder(getActivity()).setMessage(getString(R.string.msg_facebook_auth_required));
+						builder.show();
+					}
+
 				}
 				else {
 					AlertDialog.Builder builder = new AlertDialog.Builder(getActivity()).setMessage(getString(R.string.msg_suggest_activate_facebook_from_settings));
