@@ -71,15 +71,7 @@ public class ResultDialog extends DialogFragment {
 				@Override
 				public void onClick(DialogInterface dialog, int which) {
 
-					int[] variations = m_match.getChangeInStatsAfterNewResult(-1, -1);
-
-					m_match.setGoalHome(-1);
-					m_match.setGoalAway(-1);
-					m_match.setResultEntered(0);
-					ResultEnteredEvent event = new ResultEnteredEvent(m_match, true, -1, -1);
-					event.setVariationsForStats(variations);
-					MyTeamManagerActivity.getBus().post(event);
-					dismiss();
+					resetMatchResult();
 				}
 			});
 	    	
@@ -110,14 +102,17 @@ public class ResultDialog extends DialogFragment {
 		String goalAway = m_goalAway.getText().toString();
 
 		Log.d("ResultDialog", "goalHome: " + goalHome + " goalAway: " + goalAway);
+		
 
-		int[] variations = m_match.getChangeInStatsAfterNewResult(Integer.parseInt(goalHome), Integer.parseInt(goalAway));
-
-		m_match.setGoalHome(Integer.parseInt(goalHome));
-		m_match.setGoalAway(Integer.parseInt(goalAway));
-		m_match.setResultEntered(1);
+		
 
 		if (StringUtil.isNotEmpty(goalHome) && StringUtil.isNotEmpty(goalAway)) {
+			int[] variations = m_match.getChangeInStatsAfterNewResult(Integer.parseInt(goalHome), Integer.parseInt(goalAway));
+
+			m_match.setGoalHome(Integer.parseInt(goalHome));
+			m_match.setGoalAway(Integer.parseInt(goalAway));
+			m_match.setResultEntered(1);
+			
 			ResultEnteredEvent event = new ResultEnteredEvent(m_match, false, Integer.parseInt(goalHome),
 					Integer.parseInt(goalAway));
 			event.setVariationsForStats(variations);
@@ -127,6 +122,21 @@ public class ResultDialog extends DialogFragment {
 			}
 
 		}
+		else {
+			resetMatchResult();
+		}
+	}
+
+	protected void resetMatchResult() {
+		int[] variations = m_match.getChangeInStatsAfterNewResult(-1, -1);
+
+		m_match.setGoalHome(-1);
+		m_match.setGoalAway(-1);
+		m_match.setResultEntered(0);
+		ResultEnteredEvent event = new ResultEnteredEvent(m_match, true, -1, -1);
+		event.setVariationsForStats(variations);
+		MyTeamManagerActivity.getBus().post(event);
+		dismiss();
 	}
 
 }
