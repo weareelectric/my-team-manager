@@ -17,13 +17,14 @@ import android.content.IntentFilter;
 import android.content.res.Resources;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import com.myteammanager.util.Log;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AbsListView.OnScrollListener;
+import android.widget.AdapterView;
 import android.widget.AdapterView.AdapterContextMenuInfo;
+import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.ArrayAdapter;
 
 import com.myteammanager.BeanChangeBroadcastReceiver;
@@ -34,6 +35,7 @@ import com.myteammanager.storage.DBManager;
 import com.myteammanager.ui.ButtonsAlertDialogListener;
 import com.myteammanager.ui.quickaction.QuickAction;
 import com.myteammanager.util.KeyConstants;
+import com.myteammanager.util.Log;
 
 public abstract class BaseListFragment extends ListFragment implements OnScrollListener,
 		ButtonsAlertDialogListener {
@@ -125,6 +127,7 @@ public abstract class BaseListFragment extends ListFragment implements OnScrollL
 			}
 		});
 		
+
 		return root;
 
 	}
@@ -151,6 +154,19 @@ public abstract class BaseListFragment extends ListFragment implements OnScrollL
 		init();
 
 		m_listView.setAdapter(m_adapter);
+		
+		m_listView.setOnItemLongClickListener(new OnItemLongClickListener() {
+
+			@Override
+			public boolean onItemLongClick(AdapterView<?> arg0, View v,
+					int i, long arg3) {
+	          	if ( m_quickAction != null ) {
+	          		m_itemSelectedForContextMenu = i;
+            		m_quickAction.show(v);
+            	}
+				return true;
+			}
+		});
 		
 		requestData();
 	}
@@ -245,6 +261,8 @@ public abstract class BaseListFragment extends ListFragment implements OnScrollL
 			}
 		}
 	}
+	
+	
 
 	@Override
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
