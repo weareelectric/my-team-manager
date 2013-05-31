@@ -204,6 +204,7 @@ public class AddEventInfoFragment extends BaseTwoButtonActionsFormFragment {
 		m_eventRepeatSpinner.setOnItemSelectedListener(new OnItemSelectedListener() {
 			@Override
 			public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+				final int chosenPos = position;
 				if (position == SPINNER_REPEAT_NONE_POSITION) {
 					// Fix for a Holoeverywhere bug: the spinner refresh its viezw only after the onItemSelected method is called
 					Handler han = new Handler();
@@ -308,8 +309,11 @@ public class AddEventInfoFragment extends BaseTwoButtonActionsFormFragment {
 				DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_SHOW_YEAR));
 		m_eventTimeEditText.setText(DateUtils.formatDateTime(m_context, m_event.getTimestamp(),
 				DateUtils.FORMAT_SHOW_TIME));
-		m_eventEndRepeatDateEditText.setText(DateUtils.formatDateTime(m_context,
-				m_event.getRepeatEndDateLong(), DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_SHOW_YEAR));
+		if ( m_event.getRepeatEndDateLong() > 0 ) {
+			m_eventEndRepeatDateEditText.setText(DateUtils.formatDateTime(m_context,
+					m_event.getRepeatEndDateLong(), DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_SHOW_YEAR));
+		}
+		
 	}
 
 
@@ -617,6 +621,13 @@ public class AddEventInfoFragment extends BaseTwoButtonActionsFormFragment {
 				AlertDialog.Builder builder = new AlertDialog.Builder(getActivity()).setMessage(getString(R.string.msg_date_needed_for_event));
 				builder.show();
 				canSave = false;
+			}
+			else if (m_eventRepeatSpinner.getSelectedItemPosition() != SPINNER_REPEAT_NONE_POSITION) {
+				if (!StringUtil.isNotEmpty(m_eventEndRepeatDateEditText.getText().toString())) {
+					AlertDialog.Builder builder = new AlertDialog.Builder(getActivity()).setMessage(getString(R.string.msg_end_repead_date_needed_for_event));
+					builder.show();
+					canSave = false;
+				}
 			}
 		}
 		return canSave;

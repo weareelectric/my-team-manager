@@ -250,4 +250,5 @@
 	<string name="message_share_the_application">Hi, I suggest you the mobile application MyTeamManager to manage your football team. Download it here http://play.google.com/store/apps/details?id=com.myteammanager</string>
 	<string name="label_share_app_subject">Try this mobile application!</string>
 	<string name="msg_facebook_auth_required">To post on Facebook you need to authorize My Team Manager to write on your team\'s page. Restart the application: the process will start automatically.</string>
+	<string name="msg_end_repead_date_needed_for_event">You need to specify the end date for the event repetition</string>
 </resources>
