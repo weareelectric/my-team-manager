@@ -66,4 +66,9 @@ public class SubstitutionsListAdapter extends BaseAdapterWithSectionHeaders {
 		return getItem(i);
 	}
 
+	@Override
+	protected boolean selectedByTheFilter(CharSequence constraint, BaseBean bean) {
+		return false;
+	}
+
 }

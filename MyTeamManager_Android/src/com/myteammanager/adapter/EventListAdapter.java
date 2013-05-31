@@ -63,4 +63,8 @@ public class EventListAdapter extends BaseAdapterWithSectionHeaders implements S
 		return new EventRowHolder();
 	}
 
+	@Override
+	protected boolean selectedByTheFilter(CharSequence constraint, BaseBean bean) {
+		return false;
+	}
 }

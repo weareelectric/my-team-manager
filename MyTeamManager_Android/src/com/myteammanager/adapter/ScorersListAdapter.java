@@ -47,5 +47,10 @@ public class ScorersListAdapter extends BaseAdapterWithSectionHeaders {
 	protected BaseBean getBean(int i) {
 		return getItem(i);
 	}
+	
+	@Override
+	protected boolean selectedByTheFilter(CharSequence constraint, BaseBean bean) {
+		return false;
+	}
 
 }

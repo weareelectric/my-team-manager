@@ -11,6 +11,7 @@ import org.holoeverywhere.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Filter;
 import android.widget.SectionIndexer;
 
 import com.myteammanager.R;
@@ -18,6 +19,7 @@ import com.myteammanager.adapter.holders.BaseHolder;
 import com.myteammanager.adapter.holders.SeparatorHolder;
 import com.myteammanager.adapter.sectionindexes.SectionIndex;
 import com.myteammanager.beans.BaseBean;
+import com.myteammanager.beans.ContactBean;
 import com.myteammanager.beans.SeparatorBean;
 
 public abstract class BaseAdapterWithSectionHeaders extends ArrayAdapter<BaseBean> implements SectionIndexer {
@@ -31,6 +33,7 @@ public abstract class BaseAdapterWithSectionHeaders extends ArrayAdapter<BaseBea
 
 	protected LayoutInflater m_inflater;
 	protected ArrayList<BaseBean> m_items;
+	protected ArrayList<BaseBean> m_originalItems;
 	protected int m_layoutResourceId;
 	protected Context m_context;
 
@@ -147,6 +150,7 @@ public abstract class BaseAdapterWithSectionHeaders extends ArrayAdapter<BaseBea
 		}
 
 		if (m_items != null) {
+			
 
 			int size = m_items.size();
 
@@ -182,9 +186,78 @@ public abstract class BaseAdapterWithSectionHeaders extends ArrayAdapter<BaseBea
 	protected BaseBean getBean(int i) {
 		return getItem(i);
 	}
+	
+	public Filter getFilter() {
+	    return new Filter() {
+
+	        @Override
+	        protected FilterResults performFiltering(CharSequence constraint) {
+	            final FilterResults oReturn = new FilterResults();
+	            final ArrayList<BaseBean> results = new ArrayList<BaseBean>();
+	            
+	            if ( m_originalItems == null ) {
+	            	m_originalItems = new ArrayList<BaseBean>(m_items);
+	            }
+	            
+	            if (constraint == null || constraint.length() == 0) { 
+	            	oReturn.values = m_originalItems;
+	            	oReturn.count = m_originalItems.size();
+	            }
+	            else {
+	            	BaseBean bean = null;
+	                if (m_items != null && m_items.size() > 0) {
+	                    for (final BaseBean g : m_items) {
+	                    		if (selectedByTheFilter(constraint, g))
+		                            results.add(g);
+	                        
+	                    }
+	                }
+	                oReturn.values = results;
+	                oReturn.count = results.size();
+	            }
+	            	
+	            return oReturn;
+	        }
+
+	        @SuppressWarnings("unchecked")
+			@Override
+			protected void publishResults(CharSequence constraint,
+					FilterResults results) {
+
+				if (results.count == 0) {
+					m_items.clear();
+					notifyDataSetInvalidated();
+				}
+				else {
+					m_items.clear();
+					 for (final BaseBean bean : (ArrayList<BaseBean>)results.values) {
+						 m_items.add(bean);
+					 }
+					notifyDataSetChanged();
+				}
+			}
+	    };
+	}
+	
+	
+	public void resetData() {
+		
+		m_items.clear();
+		Log.d(LOG_TAG, "Reset data. originalItems: " + m_originalItems.size());
+		 for (BaseBean bean : m_originalItems) {
+			 m_items.add(bean);
+		 }
+		 m_originalItems = null;
+	}
+	
+	public ArrayList<BaseBean> getOriginalList() {
+		return m_originalItems;
+	}
 
 	protected abstract BaseHolder getHolder();
 
 	protected abstract void populateHolder(BaseHolder holder, BaseBean bean);
+	
+	protected abstract boolean selectedByTheFilter(CharSequence constraint, BaseBean bean);
 
 }

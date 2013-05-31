@@ -8,6 +8,7 @@ import org.holoeverywhere.LayoutInflater;
 import org.holoeverywhere.app.ListFragment;
 import org.holoeverywhere.app.ProgressDialog;
 import org.holoeverywhere.widget.Button;
+import org.holoeverywhere.widget.EditText;
 import org.holoeverywhere.widget.LinearLayout;
 import org.holoeverywhere.widget.ListView;
 import org.holoeverywhere.widget.TextView;
@@ -17,6 +18,8 @@ import android.content.IntentFilter;
 import android.content.res.Resources;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.View;
 import android.view.ViewGroup;
@@ -48,6 +51,7 @@ public abstract class BaseListFragment extends ListFragment implements OnScrollL
 	protected ListView m_listView;
 	protected boolean m_isGettingData = false;
 	protected boolean m_showNoDataMessage = false;
+	protected boolean m_showSearchEditText = false;
 
 	protected boolean m_isFastScrolledEnabled = false;
 	protected QuickAction m_quickAction;
@@ -55,8 +59,35 @@ public abstract class BaseListFragment extends ListFragment implements OnScrollL
 	protected LinearLayout m_layoutNoData;
 	protected TextView m_textViewNoData;
 	protected Button m_buttonNoData;
+	protected EditText m_searchEditText;
 	protected ProgressDialog pd;
 	protected BeanChangeBroadcastReceiver m_beanChangeReceiver;
+	
+	private TextWatcher m_filterTextWatcher = new TextWatcher() {
+
+	    public void afterTextChanged(Editable s) {
+	    }
+
+	    public void beforeTextChanged(CharSequence s, int start, int count,
+	            int after) {
+	    }
+
+	    public void onTextChanged(CharSequence s, int start, int before,
+	            int count) {
+	    	Log.d(LOG_TAG, "onTextChanged: " + s );
+	    	if (count < before) {
+                // We're deleting char so we need to reset the adapter data
+                resetAdapterData();
+            }
+
+	        m_adapter.getFilter().filter(s);
+	    }
+
+	};
+	
+	protected void resetAdapterData() {
+		
+	}
 
 	protected abstract void init();
 
@@ -69,7 +100,7 @@ public abstract class BaseListFragment extends ListFragment implements OnScrollL
 	public abstract void button2Pressed(int alertId);
 
 	public abstract void button3Pressed(int alertId);
-
+	
 	public String getDeleteConfirmationMsg() {
 		Resources res = getActivity().getResources();
 		return res.getString(R.string.alert_general_confirmation_msg);
@@ -117,6 +148,8 @@ public abstract class BaseListFragment extends ListFragment implements OnScrollL
 		m_layoutNoData = (LinearLayout)root.findViewById(R.id.layoutNoData);
 		m_textViewNoData = (TextView)root.findViewById(R.id.textViewMessageNoData);
 		m_textViewNoData.setText(getMessageForNoData());
+		m_searchEditText = (EditText)root.findViewById(R.id.search_box);
+		m_searchEditText.addTextChangedListener(m_filterTextWatcher);
 		m_buttonNoData = (Button)root.findViewById(R.id.buttonAddItem);
 		m_buttonNoData.setText(getMessageForNoDataButton());
 		m_buttonNoData.setOnClickListener(new View.OnClickListener() {
@@ -369,6 +402,10 @@ public abstract class BaseListFragment extends ListFragment implements OnScrollL
 		if (m_beanChangeReceiver != null) {
 			getActivity().unregisterReceiver(m_beanChangeReceiver);
 		}
+		
+		if ( m_searchEditText != null ) {
+			m_searchEditText.removeTextChangedListener(m_filterTextWatcher);
+		}
 
 		super.onDestroy();
 	}
@@ -418,13 +455,29 @@ public abstract class BaseListFragment extends ListFragment implements OnScrollL
 			if ( m_itemsList.size() == 0 ) {
 				m_layoutNoData.setVisibility(View.VISIBLE);
 				m_listView.setVisibility(View.GONE);
+				
 			}
 			else {
 				m_layoutNoData.setVisibility(View.GONE);
 				m_listView.setVisibility(View.VISIBLE);
+				
+			}
+		}
+		
+		if ( m_itemsList.size() == 0 ) {
+			m_searchEditText.setVisibility(View.GONE);
+		}
+		else {
+			
+			
+			Log.d(LOG_TAG, "m_showSearchEditText: " + m_showSearchEditText);
+			if ( m_showSearchEditText ) {
+				m_searchEditText.setVisibility(View.VISIBLE);
 			}
 		}
 
 	}
+	
+
 
 }

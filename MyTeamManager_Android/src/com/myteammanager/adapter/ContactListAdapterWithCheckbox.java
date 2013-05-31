@@ -30,6 +30,7 @@ public class ContactListAdapterWithCheckbox extends BaseAdapterWithCheckbox {
 
 	@Override
 	protected void populateHolder(BaseHolder holder, BaseBean baseBean) {
+		// Log.d(LOG_TAG, "Populate holder");
 		super.populateHolder(holder, baseBean);
 		ContactBean contact = (ContactBean)baseBean;
 		ContactListWithCheckboxRowHolder realHolder = (ContactListWithCheckboxRowHolder)holder;
@@ -47,7 +48,9 @@ public class ContactListAdapterWithCheckbox extends BaseAdapterWithCheckbox {
 			return false;
 		}
 		else {
+			
 			ContactBean contact = (ContactBean)bean;
+			// Log.d(LOG_TAG, "Contact " + contact.getDisplayName() + " isChosen: " + contact.isChosen());
 			return contact.isChosen();
 		}
 	}
@@ -55,6 +58,17 @@ public class ContactListAdapterWithCheckbox extends BaseAdapterWithCheckbox {
 	@Override
 	protected BaseHolder getHolder() {
 		return new ContactListWithCheckboxRowHolder();
+	}
+	
+	@Override
+	protected boolean selectedByTheFilter(CharSequence constraint, BaseBean bean) {
+		if ( !(bean instanceof ContactBean) ) {
+			return false;
+		}
+		
+		ContactBean contact = (ContactBean)bean;
+		return contact.getDisplayName().toLowerCase()
+                .contains(constraint.toString().toLowerCase());
 	}
 
 }

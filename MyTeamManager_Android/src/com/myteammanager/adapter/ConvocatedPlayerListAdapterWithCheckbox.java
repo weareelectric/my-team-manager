@@ -53,5 +53,8 @@ public class ConvocatedPlayerListAdapterWithCheckbox extends BaseAdapterWithChec
 		return false;
 	}
 
-
+	@Override
+	protected boolean selectedByTheFilter(CharSequence constraint, BaseBean bean) {
+		return false;
+	}
 }

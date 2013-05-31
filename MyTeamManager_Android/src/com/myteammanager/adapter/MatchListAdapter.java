@@ -68,4 +68,8 @@ public class MatchListAdapter extends BaseAdapterWithSectionHeaders implements S
 		return new MatchRowHolder();
 	}
 
+	@Override
+	protected boolean selectedByTheFilter(CharSequence constraint, BaseBean bean) {
+		return false;
+	}
 }

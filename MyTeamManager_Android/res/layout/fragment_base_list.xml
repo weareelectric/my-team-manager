@@ -5,7 +5,7 @@
     android:layout_height="fill_parent" >
 
     <LinearLayout
-         android:id="@+id/layoutNoData"
+        android:id="@+id/layoutNoData"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:gravity="center"
@@ -16,31 +16,50 @@
             android:id="@+id/textViewMessageNoData"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="4dp"
             android:layout_marginLeft="8dp"
-       		android:layout_marginRight="8dp"
-       		android:layout_marginBottom="4dp"
-       		android:text="@string/msg_no_players_in_roster"
-             />
+            android:layout_marginRight="8dp"
+            android:text="@string/msg_no_players_in_roster" />
+
         <Button
             android:id="@+id/buttonAddItem"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/homepage_button"
-            android:text="@string/msg_no_next_training_available"
-            android:textColor="#555555"
             android:paddingLeft="4dp"
             android:paddingRight="4dp"
-            android:textSize="16dp"
-             />
+            android:text="@string/msg_no_next_training_available"
+            android:textColor="#555555"
+            android:textSize="16dp" />
     </LinearLayout>
 
-    <ListView
-        android:id="@android:id/list"
+    <LinearLayout
+        android:id="@+id/layoutList"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:background="#ffffffff"
-        android:cacheColorHint="#ffffffff"
-        android:dividerHeight="4dp"
-        android:visibility="visible" />
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="visible" >
+
+        <EditText
+            android:id="@+id/search_box"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/label_enter_text_to_search"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:inputType="text"
+            android:maxLines="1"
+            android:visibility="gone" />
+
+        <ListView
+            android:id="@android:id/list"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:background="#ffffffff"
+            android:cacheColorHint="#ffffffff"
+            android:dividerHeight="4dp"
+            android:visibility="visible" />
+    </LinearLayout>
 
 </RelativeLayout>
