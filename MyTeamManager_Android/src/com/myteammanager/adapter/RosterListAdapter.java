@@ -47,5 +47,9 @@ public class RosterListAdapter extends BaseAdapterWithSectionHeaders  {
 		return getItem(i);
 	}
 
+	@Override
+	protected boolean selectedByTheFilter(CharSequence constraint, BaseBean bean) {
+		return false;
+	}
 
 }

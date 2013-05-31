@@ -35,6 +35,7 @@ public class ChooseSinglePlayerFromContactsFragment extends BaseListFragment imp
 
 	@Override
 	protected void init() {
+		m_showSearchEditText = true;
 	}
 
 	@Override
@@ -82,6 +83,11 @@ public class ChooseSinglePlayerFromContactsFragment extends BaseListFragment imp
 	@Override
 	public void checkboxChanged(boolean isSelectAll) {
 		
+	}
+	
+	@Override
+	protected void resetAdapterData() {
+		((SimpleContactAdapter)m_adapter).resetData();
 	}
 	
 }

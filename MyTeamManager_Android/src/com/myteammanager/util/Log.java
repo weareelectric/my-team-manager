@@ -3,7 +3,7 @@ package com.myteammanager.util;
 
 public class Log {
 
-    public static final boolean ENABLE_LOG = false;
+    public static final boolean ENABLE_LOG = true;
 
     private static final boolean DEBUG = true & ENABLE_LOG;
 

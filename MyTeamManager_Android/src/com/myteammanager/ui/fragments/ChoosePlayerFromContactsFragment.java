@@ -30,6 +30,7 @@ public class ChoosePlayerFromContactsFragment extends BaseListFragment implement
 
 	@Override
 	protected void init() {
+		m_showSearchEditText = true;
 	}
 
 	@Override
@@ -103,6 +104,13 @@ public class ChoosePlayerFromContactsFragment extends BaseListFragment implement
 	public void checkboxChanged(boolean isSelectAll) {
 		
 	}
+
+	@Override
+	protected void resetAdapterData() {
+		((ContactListAdapterWithCheckbox)m_adapter).resetData();
+	}
+	
+	
 
 
 	

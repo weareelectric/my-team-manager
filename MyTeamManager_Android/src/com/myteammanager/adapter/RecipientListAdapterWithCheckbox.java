@@ -54,5 +54,8 @@ public class RecipientListAdapterWithCheckbox extends BaseAdapterWithCheckbox {
 		return false;
 	}
 
-
+	@Override
+	protected boolean selectedByTheFilter(CharSequence constraint, BaseBean bean) {
+		return false;
+	}
 }

@@ -56,5 +56,16 @@ public class ContactListAdapterWithCheckbox extends BaseAdapterWithCheckbox {
 	protected BaseHolder getHolder() {
 		return new ContactListWithCheckboxRowHolder();
 	}
+	
+	@Override
+	protected boolean selectedByTheFilter(CharSequence constraint, BaseBean bean) {
+		if ( !(bean instanceof ContactBean) ) {
+			return false;
+		}
+		
+		ContactBean contact = (ContactBean)bean;
+		return contact.getDisplayName().toLowerCase()
+                .contains(constraint.toString());
+	}
 
 }
