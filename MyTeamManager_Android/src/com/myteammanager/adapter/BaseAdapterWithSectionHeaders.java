@@ -207,9 +207,8 @@ public abstract class BaseAdapterWithSectionHeaders extends ArrayAdapter<BaseBea
 	            	BaseBean bean = null;
 	                if (m_items != null && m_items.size() > 0) {
 	                    for (final BaseBean g : m_items) {
-	                    		bean = g;
-	                    		if (selectedByTheFilter(constraint, bean))
-		                            results.add(bean);
+	                    		if (selectedByTheFilter(constraint, g))
+		                            results.add(g);
 	                        
 	                    }
 	                }
@@ -248,6 +247,11 @@ public abstract class BaseAdapterWithSectionHeaders extends ArrayAdapter<BaseBea
 		 for (BaseBean bean : m_originalItems) {
 			 m_items.add(bean);
 		 }
+		 m_originalItems = null;
+	}
+	
+	public ArrayList<BaseBean> getOriginalList() {
+		return m_originalItems;
 	}
 
 	protected abstract BaseHolder getHolder();

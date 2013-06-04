@@ -39,7 +39,7 @@ public class SimpleContactAdapter extends BaseAdapterWithSectionHeaders {
 		
 		ContactBean contact = (ContactBean)bean;
 		return contact.getDisplayName().toLowerCase()
-                .contains(constraint.toString());
+                .contains(constraint.toString().toLowerCase());
 		
 	}
 

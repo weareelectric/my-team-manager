@@ -13,6 +13,7 @@ import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 import com.myteammanager.R;
+import com.myteammanager.adapter.BaseAdapterWithSectionHeaders;
 import com.myteammanager.adapter.ContactListAdapterWithCheckbox;
 import com.myteammanager.beans.BaseBean;
 import com.myteammanager.beans.ContactBean;
@@ -62,10 +63,19 @@ public class ChoosePlayerFromContactsFragment extends BaseListFragment implement
 			
 			ContactBean contact = null;
 			Object obj = null;
-			int size = m_itemsList.size();
+			
+			ArrayList<BaseBean> items = null;
+			if ( m_showSearchEditText && ((BaseAdapterWithSectionHeaders)m_adapter).getOriginalList() != null ) {
+				items = ((BaseAdapterWithSectionHeaders)m_adapter).getOriginalList();
+			}
+			else {
+				items = m_itemsList;
+			}
+			
+			int size = items.size();
 			
 			for (int i = 0; i < size; i++) {
-				obj = m_itemsList.get(i);
+				obj = items.get(i);
 				if (obj instanceof ContactBean) {
 					contact = (ContactBean) obj;
 

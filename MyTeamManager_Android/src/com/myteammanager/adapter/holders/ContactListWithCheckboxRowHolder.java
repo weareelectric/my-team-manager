@@ -1,5 +1,7 @@
 package com.myteammanager.adapter.holders;
 
+import android.util.Log;
+
 import com.myteammanager.beans.ContactBean;
 
 public class ContactListWithCheckboxRowHolder extends
@@ -17,6 +19,9 @@ public class ContactListWithCheckboxRowHolder extends
 
 	@Override
 	protected void actionOnCheckboxChange(boolean isChecked) {
+		if ( m_contact == null ) {
+			return;
+		}
 		if (isChecked) {
 			m_contact.setChosen(true);
 		}
