@@ -31,6 +31,7 @@ public class ChoosePlayerFromContactsFragment extends BaseListFragment implement
 
 	@Override
 	protected void init() {
+		m_showSearchEditText = true;
 	}
 
 	@Override
