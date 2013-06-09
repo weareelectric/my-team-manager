@@ -10,13 +10,18 @@
         <item name="android:textColor">#555555</item>
     </style>
 
-    <style name="MyTeamManagerButton" parent="android:style/Widget.Button">
+    <style name="MyTeamManagerButton" parent="@android:style/Widget.Button">
         <item name="android:layout_width">fill_parent</item>
         <item name="android:layout_height">40dp</item>
         <item name="android:gravity">center</item>
         <item name="android:background">@drawable/nice_button</item>
         <item name="android:textColor">#555555</item>
         <item name="android:textSize">16sp</item>
+    </style>
+    
+    <style name="MyTeamManagerEditText" parent="@android:style/Widget.EditText" >
+        <item name="android:background">@drawable/edittext_bkg</item>
+        <item name="android:textSize">24sp</item>
     </style>
     
     <style name="MyTeamManagerListAdapter">

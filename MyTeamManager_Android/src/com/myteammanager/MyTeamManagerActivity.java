@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import android.content.Intent;
 import android.os.Bundle;
-import com.myteammanager.util.Log;
 
 import com.myteammanager.beans.ContactBean;
 import com.myteammanager.specializedStorage.MyTeamManagerDBManager;
@@ -13,13 +12,18 @@ import com.myteammanager.storage.SettingsManager;
 import com.myteammanager.ui.phone.AddPlayerInfoActivity;
 import com.myteammanager.ui.phone.ChoosePlayerFromContactsActivity;
 import com.myteammanager.ui.phone.HomePageActivity;
+import com.myteammanager.ui.phone.SignupActivity;
 import com.myteammanager.ui.phone.WizardEnterPlayersInfoActivity;
 import com.myteammanager.ui.phone.WizardEnterTeamNameActivity;
 import com.myteammanager.util.KeyConstants;
+import com.myteammanager.util.Log;
+import com.parse.Parse;
+import com.parse.ParseUser;
 import com.squareup.otto.Bus;
 
 public class MyTeamManagerActivity extends BaseActivity {
 
+	public static final int RESULT_SIGNUP_DONE = 3822;
 	public static final int RESULT_WIZARD_TEAM_NAME_ENTERED = 3823;
 	public static final int RESULT_ENTER_PLAYERS_INFO_START = 3824;
 	public static final int RESULT_ENTER_PLAYERS_LIST_DONE = 3825;
@@ -33,13 +37,24 @@ public class MyTeamManagerActivity extends BaseActivity {
 		MyTeamManagerDBManager.getInstance().init(this, MyTeamManagerDBManager.BEANS, MyTeamManagerDBManager.MYTEAMMANAGER_DB, MyTeamManagerDBManager.DB_VERSION);
 
 		setContentView(R.layout.main);
-
-		if (SettingsManager.getInstance(this).getTeamName() == null) {
-			Intent intent = new Intent(MyTeamManagerActivity.this, WizardEnterTeamNameActivity.class);
-			startActivityForResult(intent, KeyConstants.WIZARD_TEAM_NAME_CODE);
-		} else {
-			startHomePage();
+		
+		Parse.initialize(this, "MXUjHyEvzPLiBGg7GZEIXWOH9eHSqaPFcpU6WVVP", "4zJtdWSkSnpDMuyLIRUJ0jIaLnwLKFRMtdrMKq7g");
+		
+		ParseUser currentUser = ParseUser.getCurrentUser();
+		if ( currentUser == null ) {
+				Intent intent = new Intent(MyTeamManagerActivity.this, SignupActivity.class);
+				startActivityForResult(intent, KeyConstants.CODE_SIGNUP_ACTIVITY);
 		}
+		else {
+			if (SettingsManager.getInstance(this).getTeamName() == null) {
+				Intent intent = new Intent(MyTeamManagerActivity.this, WizardEnterTeamNameActivity.class);
+				startActivityForResult(intent, KeyConstants.WIZARD_TEAM_NAME_CODE);
+			} else {
+				startHomePage();
+			}
+		}
+
+
 
 		
 
@@ -49,6 +64,23 @@ public class MyTeamManagerActivity extends BaseActivity {
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		Log.d(MyTeamManagerActivity.class.getName(), "requestCode: " + requestCode + " responseCode: " + resultCode);
 		switch (requestCode) {
+		
+		case KeyConstants.CODE_SIGNUP_ACTIVITY:
+			if ( resultCode == RESULT_SIGNUP_DONE ) {
+				if (SettingsManager.getInstance(this).getTeamName() == null) {
+					Intent intent = new Intent(MyTeamManagerActivity.this, WizardEnterTeamNameActivity.class);
+					startActivityForResult(intent, KeyConstants.WIZARD_TEAM_NAME_CODE);
+				}
+				else {
+					startHomePage();
+				}
+			}
+			else {
+				DBManager.getInstance().closeDB();
+				finish();
+			}
+			break;
+		
 		case KeyConstants.WIZARD_TEAM_NAME_CODE:
 			if (resultCode == RESULT_WIZARD_TEAM_NAME_ENTERED) {
 				Intent intent = new Intent(MyTeamManagerActivity.this, WizardEnterPlayersInfoActivity.class);

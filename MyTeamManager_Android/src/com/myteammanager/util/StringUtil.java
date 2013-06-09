@@ -1,5 +1,9 @@
 package com.myteammanager.util;
 
+import java.util.regex.Pattern;
+
+import android.util.Patterns;
+
 public class StringUtil {
 
 	public static boolean isNotEmpty(CharSequence string) {
@@ -16,5 +20,10 @@ public class StringUtil {
 	public static String getStringAfterUnderscore(String name) {
 		int indexOfLastUnderscore = name.lastIndexOf("_");
 		return name.substring(indexOfLastUnderscore + 1);
+	}
+	
+	public static boolean validEmail(String email) {
+	    Pattern pattern = Patterns.EMAIL_ADDRESS;
+	    return pattern.matcher(email).matches();
 	}
 }

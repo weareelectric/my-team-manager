@@ -185,6 +185,12 @@
             android:screenOrientation="portrait" >
         </activity>
         
+		<activity
+            android:name="com.myteammanager.ui.phone.SignupActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait" >
+        </activity>
+        
         <service
             android:name="com.ubikod.capptain.android.service.CapptainService"
             android:label="MyTeamManagerService"

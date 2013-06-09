@@ -65,7 +65,7 @@
     <string-array name="repeat_event">
         <item>Non ripetere</item>
         <item>Ogni giorno</item>
-        <item>Ogni settiamana</item>
+        <item>Ogni settimana</item>
     </string-array>
 
     <string name="label_checkbox_canceled">Cancellata</string>
@@ -252,4 +252,13 @@
 	<string name="msg_facebook_auth_required">Per postare su Facebook devi autorizzare My Team Manager a scrivere sul tuo muro. Riavvia l\'applicazione: il processo inizierà automaticamente.</string>
 	<string name="msg_end_repead_date_needed_for_event">Devi specificare la data di fine ripetizione evento</string>
 	<string name="label_enter_text_to_search">Cerca</string>
+	
+	<string name="label_signup_full_name">Nome e cognome</string>
+	<string name="label_signup_email">Email</string>
+	<string name="label_signup_pasword">Password</string>
+	<string name="label_signup_button_register">Iscriviti</string>
+	
+	<string name="msg_full_name_is_mandatory">Ops...devi inserire nome e cognome (almeno 3 lettere)</string>
+	<string name="msg_email_is_mandatory">Ops...devi inserire un indirizzo email valido (esempio: xyz@gmail.com)</string>
+	<string name="msg_password_is_mandatory">Ops...devi inserire una password (almeno 4 caratteri alfanumerici)</string><string name="msg_full_name_is_mandatory">Ops...you need to enter a full name (at least 3 characters)</string>
 </resources>

@@ -252,4 +252,13 @@
 	<string name="msg_facebook_auth_required">To post on Facebook you need to authorize My Team Manager to write on your team\'s page. Restart the application: the process will start automatically.</string>
 	<string name="msg_end_repead_date_needed_for_event">You need to specify the end date for the event repetition</string>
 	<string name="label_enter_text_to_search">Type to search</string>
+	
+	<string name="label_signup_full_name">Full name</string>
+	<string name="label_signup_email">Email</string>
+	<string name="label_signup_pasword">Password</string>
+	<string name="label_signup_button_register">Register new account</string>
+	
+	<string name="msg_full_name_is_mandatory">Ops...you need to enter a full name (at least 3 characters)</string>
+	<string name="msg_email_is_mandatory">Ops...you need to enter a valid email address (ie: xyzaz123@gmail.com)</string>
+	<string name="msg_password_is_mandatory">Ops...you need to enter a password (at least 4 characters)</string><string name="msg_full_name_is_mandatory">Ops...you need to enter a full name (at least 3 characters)</string>
 </resources>
