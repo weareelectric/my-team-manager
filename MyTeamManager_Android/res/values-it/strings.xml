@@ -232,7 +232,7 @@
     <string name="menu_settings">Impostazioni</string>
     <string name="title_activity_contact_us">ContactUsActivity</string>
     <string name="title_subject_contactus_email">Suggerimenti o problemi</string>
-    <string name="settings_title_version">Versione 1.0</string>
+    <string name="settings_title_version">Versione 1.1</string>
     <string name="settings_version_summary">Copyright 2013 Emanuele Pecorari</string>
 	<string name="title_help_roster"><b>Rosa</b></string>
 	<string name="text_help_roster">In questa sezione puoi gestire le schede dei tuoi giocatori: aggiungerle, modificarle, vedere le loro statistiche</string>

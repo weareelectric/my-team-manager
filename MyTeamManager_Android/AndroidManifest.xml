@@ -2,8 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.myteammanager"
     android:installLocation="auto"
-    android:versionCode="1"
-    android:versionName="1.0" >
+    android:versionCode="2"
+    android:versionName="1.1" >
 
     <uses-sdk
         android:minSdkVersion="10"
@@ -202,10 +202,10 @@
                 android:value="19" />
             <meta-data
                 android:name="capptain:api:id"
-                android:value="be0552c408d44c7dbcb63c640d1ce120" />
+                android:value="b6a5b1113175bf391e442a8653876b84" />
             <meta-data
                 android:name="capptain:log:test"
-                android:value="false" />
+                android:value="true" />
         </service>
 
         <activity android:name="com.myteammanager.ui.phone.ChooseSinglePlayerFromContactsActivity" >
