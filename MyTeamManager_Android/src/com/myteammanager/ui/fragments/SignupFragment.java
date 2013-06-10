@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 
 import com.myteammanager.MyTeamManagerActivity;
 import com.myteammanager.R;
+import com.myteammanager.util.KeyConstants;
 import com.myteammanager.util.StringUtil;
 import com.parse.ParseException;
 import com.parse.ParseUser;
@@ -95,7 +96,7 @@ public class SignupFragment extends BaseFragment {
 			  public void done(ParseException e) {
 				  cancelProgressDialog();
 			    if (e == null) {
-			    	getActivity().setResult(MyTeamManagerActivity.RESULT_SIGNUP_DONE);
+			    	getActivity().setResult(KeyConstants.RESULT_SIGNUP_DONE);
 			    	getActivity().finish();
 			    } else {
 					AlertDialog.Builder builder = new AlertDialog.Builder(getActivity()).setMessage(e.getMessage());

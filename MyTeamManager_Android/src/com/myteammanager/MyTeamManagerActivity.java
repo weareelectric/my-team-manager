@@ -12,21 +12,23 @@ import com.myteammanager.storage.SettingsManager;
 import com.myteammanager.ui.phone.AddPlayerInfoActivity;
 import com.myteammanager.ui.phone.ChoosePlayerFromContactsActivity;
 import com.myteammanager.ui.phone.HomePageActivity;
+import com.myteammanager.ui.phone.LoginActivity;
 import com.myteammanager.ui.phone.SignupActivity;
 import com.myteammanager.ui.phone.WizardEnterPlayersInfoActivity;
 import com.myteammanager.ui.phone.WizardEnterTeamNameActivity;
 import com.myteammanager.util.KeyConstants;
 import com.myteammanager.util.Log;
 import com.parse.Parse;
+import com.parse.ParseFacebookUtils;
 import com.parse.ParseUser;
 import com.squareup.otto.Bus;
 
 public class MyTeamManagerActivity extends BaseActivity {
 
-	public static final int RESULT_SIGNUP_DONE = 3822;
-	public static final int RESULT_WIZARD_TEAM_NAME_ENTERED = 3823;
-	public static final int RESULT_ENTER_PLAYERS_INFO_START = 3824;
-	public static final int RESULT_ENTER_PLAYERS_LIST_DONE = 3825;
+	public static final int RESULT_LOGIN_DONE = 3821;
+	public static final int RESULT_WIZARD_TEAM_NAME_ENTERED = 3822;
+	public static final int RESULT_ENTER_PLAYERS_INFO_START = 3823;
+	public static final int RESULT_ENTER_PLAYERS_LIST_DONE = 3824;
 
 	private static Bus m_bus;
 
@@ -39,11 +41,12 @@ public class MyTeamManagerActivity extends BaseActivity {
 		setContentView(R.layout.main);
 		
 		Parse.initialize(this, "MXUjHyEvzPLiBGg7GZEIXWOH9eHSqaPFcpU6WVVP", "4zJtdWSkSnpDMuyLIRUJ0jIaLnwLKFRMtdrMKq7g");
+		ParseFacebookUtils.initialize(KeyConstants.FACEBOOK_APP_ID);
 		
 		ParseUser currentUser = ParseUser.getCurrentUser();
 		if ( currentUser == null ) {
-				Intent intent = new Intent(MyTeamManagerActivity.this, SignupActivity.class);
-				startActivityForResult(intent, KeyConstants.CODE_SIGNUP_ACTIVITY);
+				Intent intent = new Intent(MyTeamManagerActivity.this, LoginActivity.class);
+				startActivityForResult(intent, KeyConstants.CODE_LOGIN_ACTIVITY);
 		}
 		else {
 			if (SettingsManager.getInstance(this).getTeamName() == null) {
@@ -65,8 +68,8 @@ public class MyTeamManagerActivity extends BaseActivity {
 		Log.d(MyTeamManagerActivity.class.getName(), "requestCode: " + requestCode + " responseCode: " + resultCode);
 		switch (requestCode) {
 		
-		case KeyConstants.CODE_SIGNUP_ACTIVITY:
-			if ( resultCode == RESULT_SIGNUP_DONE ) {
+		case KeyConstants.CODE_LOGIN_ACTIVITY:
+			if ( resultCode == RESULT_LOGIN_DONE ) {
 				if (SettingsManager.getInstance(this).getTeamName() == null) {
 					Intent intent = new Intent(MyTeamManagerActivity.this, WizardEnterTeamNameActivity.class);
 					startActivityForResult(intent, KeyConstants.WIZARD_TEAM_NAME_CODE);
@@ -80,6 +83,8 @@ public class MyTeamManagerActivity extends BaseActivity {
 				finish();
 			}
 			break;
+		
+		
 		
 		case KeyConstants.WIZARD_TEAM_NAME_CODE:
 			if (resultCode == RESULT_WIZARD_TEAM_NAME_ENTERED) {
