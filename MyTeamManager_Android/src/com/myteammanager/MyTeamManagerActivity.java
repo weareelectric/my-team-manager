@@ -23,6 +23,7 @@ import com.squareup.otto.Bus;
 
 public class MyTeamManagerActivity extends BaseActivity {
 
+	public static final int RESULT_LOGIN_DONE = 3821;
 	public static final int RESULT_SIGNUP_DONE = 3822;
 	public static final int RESULT_WIZARD_TEAM_NAME_ENTERED = 3823;
 	public static final int RESULT_ENTER_PLAYERS_INFO_START = 3824;
@@ -64,6 +65,22 @@ public class MyTeamManagerActivity extends BaseActivity {
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		Log.d(MyTeamManagerActivity.class.getName(), "requestCode: " + requestCode + " responseCode: " + resultCode);
 		switch (requestCode) {
+		
+		case KeyConstants.CODE_LOGIN_ACTIVITY:
+			if ( resultCode == RESULT_LOGIN_DONE ) {
+				if (SettingsManager.getInstance(this).getTeamName() == null) {
+					Intent intent = new Intent(MyTeamManagerActivity.this, WizardEnterTeamNameActivity.class);
+					startActivityForResult(intent, KeyConstants.WIZARD_TEAM_NAME_CODE);
+				}
+				else {
+					startHomePage();
+				}
+			}
+			else {
+				DBManager.getInstance().closeDB();
+				finish();
+			}
+			break;
 		
 		case KeyConstants.CODE_SIGNUP_ACTIVITY:
 			if ( resultCode == RESULT_SIGNUP_DONE ) {

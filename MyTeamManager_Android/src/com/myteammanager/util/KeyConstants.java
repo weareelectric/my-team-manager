@@ -33,6 +33,7 @@ public class KeyConstants {
 	public static final int WIZARD_START_CHOOSE_CONTACTS = 10;
 	public static final int CODE_CONTACT_CHOSEN = 11;
 	public static final int CODE_SIGNUP_ACTIVITY = 12;
+	public static final int CODE_LOGIN_ACTIVITY = 13;
 
 	public static final int RESULT_BEAN_ADDED = 1;
 	public static final int RESULT_BEAN_EDITED = 2;
