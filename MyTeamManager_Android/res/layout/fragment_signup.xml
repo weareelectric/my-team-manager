@@ -19,21 +19,21 @@
           android:layout_height="wrap_content"
           android:padding="10dip"
           >
-          <EditText android:id="@+id/editTextFullname"
+          <EditText android:id="@+id/editTextFullnameSignup"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dip"
                 android:singleLine="true"
                 android:hint="@string/label_signup_full_name"
                 android:layout_marginBottom="5dip"/>
-          <EditText android:id="@+id/editTextEmail"
+          <EditText android:id="@+id/editTextEmailSignup"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dip"
                 android:hint="@string/label_signup_email"
                 android:singleLine="true"
                 android:layout_marginBottom="5dip"/>
-          <EditText android:id="@+id/editTextPassword"
+          <EditText android:id="@+id/editTextPasswordSignup"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/label_signup_pasword"
@@ -41,7 +41,7 @@
                 android:singleLine="true"
                 android:layout_marginTop="5dip"/>
           <!-- Register Button -->
-          <Button android:id="@+id/btnRegister"
+          <Button android:id="@+id/btnSignup"
                 style="@style/MyTeamManagerButton"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"

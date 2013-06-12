@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 
 import com.myteammanager.MyTeamManagerActivity;
 import com.myteammanager.R;
+import com.myteammanager.ui.phone.LoginActivity;
 import com.myteammanager.ui.phone.SignupActivity;
 import com.myteammanager.util.KeyConstants;
 import com.myteammanager.util.StringUtil;
@@ -39,6 +40,8 @@ public class LoginFragment extends BaseFragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
+		
+		
 		m_root = inflater.inflate(R.layout.fragment_login, null);
 		m_emailEditText = (EditText) m_root.findViewById(R.id.editTextEmail);
 		m_passwordEditText = (EditText) m_root
@@ -58,8 +61,7 @@ public class LoginFragment extends BaseFragment {
 
 			@Override
 			public void onClick(View arg0) {
-				Intent intent = new Intent(getActivity(), SignupActivity.class);
-				startActivityForResult(intent, KeyConstants.CODE_SIGNUP_ACTIVITY);
+				startSignup(false);
 			}
 		});
 		
@@ -75,8 +77,14 @@ public class LoginFragment extends BaseFragment {
 					    if (user == null) {
 					      Log.d("MyApp", "Uh oh. The user cancelled the Facebook login.");
 					    } else if (user.isNew()) {
+					    	Log.d("MyApp", "user.isNew(): " + user.isNew());
+					    	Log.d("MyApp", "user.user.getEmail(): " + user.getEmail());
+					    	Log.d("MyApp", "user.getUsername(): " + user.getUsername());
 					      setResultAndEnd();
 					    } else {
+					    	Log.d("MyApp", "user.isNew(): " + user.isNew());
+					    	Log.d("MyApp", "user.user.getEmail(): " + user.getEmail());
+					    	Log.d("MyApp", "user.getUsername(): " + user.getUsername());
 					      setResultAndEnd();
 					    }
 					  }
@@ -90,7 +98,13 @@ public class LoginFragment extends BaseFragment {
 	@Override
 	public void onAttach(Activity activity) {
 		super.onAttach(activity);
-
+		Bundle extra = getActivity().getIntent().getExtras(); 
+		if ( extra != null ) {
+			boolean startSignup = extra.getBoolean(LoginActivity.EXTRA_SHOW_MESSAGE_FOR_OLD_USERS_AND_START_SIGNUP);
+			if ( startSignup ) {
+				startSignup(startSignup);
+			}
+		}
 	}
 
 	private void login() {
@@ -142,7 +156,6 @@ public class LoginFragment extends BaseFragment {
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
 
-		Log.d(LOG_TAG, "Facebook onActivityResult called: " +requestCode);
 		
 		switch (requestCode) {
 		case KeyConstants.CODE_SIGNUP_ACTIVITY:
@@ -160,6 +173,7 @@ public class LoginFragment extends BaseFragment {
 		getActivity()
 				.setResult(MyTeamManagerActivity.RESULT_LOGIN_DONE);
 		getActivity().finish();
+
 	}
 
 	@Override
@@ -175,6 +189,12 @@ public class LoginFragment extends BaseFragment {
 	@Override
 	public void button1Pressed(int alertId) {
 
+	}
+
+	protected void startSignup(boolean showOldUserMessage) {
+		Intent intent = new Intent(getActivity(), SignupActivity.class);
+		intent.putExtra(SignupActivity.EXTRA_SHOW_MESSAGE_FOR_OLD_USERS, showOldUserMessage);
+		startActivityForResult(intent, KeyConstants.CODE_SIGNUP_ACTIVITY);
 	}
 
 }

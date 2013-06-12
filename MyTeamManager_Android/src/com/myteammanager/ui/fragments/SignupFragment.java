@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 
 import com.myteammanager.MyTeamManagerActivity;
 import com.myteammanager.R;
+import com.myteammanager.ui.phone.SignupActivity;
 import com.myteammanager.util.KeyConstants;
 import com.myteammanager.util.StringUtil;
 import com.parse.ParseException;
@@ -35,11 +36,11 @@ public class SignupFragment extends BaseFragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		m_root = inflater.inflate(R.layout.fragment_signup, null);
-		m_fullNameEditText = (EditText)m_root.findViewById(R.id.editTextFullname);
-		m_emailEditText = (EditText)m_root.findViewById(R.id.editTextEmail);
-		m_passwordEditText = (EditText)m_root.findViewById(R.id.editTextPassword);
+		m_fullNameEditText = (EditText)m_root.findViewById(R.id.editTextFullnameSignup);
+		m_emailEditText = (EditText)m_root.findViewById(R.id.editTextEmailSignup);
+		m_passwordEditText = (EditText)m_root.findViewById(R.id.editTextPasswordSignup);
 		
-		m_registerNewAccountBtn = (Button)m_root.findViewById(R.id.btnRegister);
+		m_registerNewAccountBtn = (Button)m_root.findViewById(R.id.btnSignup);
 		m_registerNewAccountBtn.setOnClickListener(new OnClickListener() {
 			
 			@Override
@@ -48,6 +49,17 @@ public class SignupFragment extends BaseFragment {
 			}
 		});
 		
+		Bundle extra = getActivity().getIntent().getExtras();
+		if ( extra != null ) {
+			boolean showOldUserMsg = extra.getBoolean(SignupActivity.EXTRA_SHOW_MESSAGE_FOR_OLD_USERS);
+			
+			if (showOldUserMsg) {
+				AlertDialog.Builder builder = new AlertDialog.Builder(
+						getActivity()).setMessage(getString(R.string.message_ask_registration_for_existent));
+				builder.setPositiveButton(getString(R.string.label_ok), null);
+				builder.show();
+			}
+		}
 		
 		return m_root;
 	}
@@ -94,7 +106,7 @@ public class SignupFragment extends BaseFragment {
 		
 		user.signUpInBackground(new SignUpCallback() {
 			  public void done(ParseException e) {
-				  cancelProgressDialog();
+				 cancelProgressDialog();
 			    if (e == null) {
 			    	getActivity().setResult(KeyConstants.RESULT_SIGNUP_DONE);
 			    	getActivity().finish();

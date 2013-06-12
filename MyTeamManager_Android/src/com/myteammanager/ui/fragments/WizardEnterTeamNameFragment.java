@@ -13,8 +13,12 @@ import org.holoeverywhere.widget.EditText;
 import org.holoeverywhere.app.Fragment;
 import com.myteammanager.MyTeamManagerActivity;
 import com.myteammanager.R;
+import com.myteammanager.beans.TeamBean;
 import com.myteammanager.storage.SettingsManager;
+import com.myteammanager.util.KeyConstants;
 import com.myteammanager.util.StringUtil;
+import com.parse.ParseObject;
+import com.parse.ParseUser;
 
 public class WizardEnterTeamNameFragment extends Fragment implements OnClickListener {
 	
@@ -60,6 +64,11 @@ public class WizardEnterTeamNameFragment extends Fragment implements OnClickList
 			return;
 		}
 		SettingsManager.getInstance(getActivity()).setTeamName(m_teamName.getText().toString());
+		
+		ParseObject myTeam = new TeamBean(-1, SettingsManager.getInstance(getActivity()).getTeamName() ).getMyTeamParseObject();
+		myTeam.put(KeyConstants.FIELD_MYTEAM_USER, ParseUser.getCurrentUser());
+		myTeam.saveEventually();
+		
 		getActivity().setResult(MyTeamManagerActivity.RESULT_WIZARD_TEAM_NAME_ENTERED);
 		getActivity().finish();
 	}

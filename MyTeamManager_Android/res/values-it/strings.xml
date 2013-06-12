@@ -264,4 +264,6 @@
 	<string name="label_login">Accedi</string>
 	<string name="label_create_new_account">Iscriversi</string>
 	<string name="label_login_facebook">Accedi con Facebook</string>
+	
+	<string name="message_ask_registration_for_existent">Questa nuova versione richiede la creazione di un profilo. Questo permetterà di memorizzare in maniera protetta i tuoi dati sul server. Per esempio, potrai recuperare i dati se cambi telefono. Tutti i dati salvati saranno usati esclusivamente per permettere l\'esecuzione della tua applicazione "My Team Manager". Non sarà fatto nessun altro utilizzo senza il tuo consenso esplicito.</string>
 </resources>

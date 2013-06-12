@@ -2,6 +2,8 @@
 
 import java.util.Comparator;
 
+import com.parse.ParseObject;
+
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -87,6 +89,12 @@ public class TeamBean extends BaseBean implements Parcelable {
 	public Comparator getComparator() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+	
+	public ParseObject getMyTeamParseObject() {
+		ParseObject teamObj = new ParseObject("UserTeam");
+		teamObj.put("name", getName());
+		return teamObj;
 	}
 
 }

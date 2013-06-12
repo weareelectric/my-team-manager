@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.myteammanager.beans.ContactBean;
+import com.myteammanager.beans.TeamBean;
 import com.myteammanager.specializedStorage.MyTeamManagerDBManager;
 import com.myteammanager.storage.DBManager;
 import com.myteammanager.storage.SettingsManager;
@@ -20,6 +21,7 @@ import com.myteammanager.util.KeyConstants;
 import com.myteammanager.util.Log;
 import com.parse.Parse;
 import com.parse.ParseFacebookUtils;
+import com.parse.ParseObject;
 import com.parse.ParseUser;
 import com.squareup.otto.Bus;
 
@@ -45,8 +47,15 @@ public class MyTeamManagerActivity extends BaseActivity {
 		
 		ParseUser currentUser = ParseUser.getCurrentUser();
 		if ( currentUser == null ) {
+			if (SettingsManager.getInstance(this).getTeamName() == null) {
 				Intent intent = new Intent(MyTeamManagerActivity.this, LoginActivity.class);
 				startActivityForResult(intent, KeyConstants.CODE_LOGIN_ACTIVITY);
+			}
+			else {
+				Intent intent = new Intent(MyTeamManagerActivity.this, LoginActivity.class);
+				intent.putExtra(LoginActivity.EXTRA_SHOW_MESSAGE_FOR_OLD_USERS_AND_START_SIGNUP, true);
+				startActivityForResult(intent, KeyConstants.CODE_LOGIN_ACTIVITY);
+			}
 		}
 		else {
 			if (SettingsManager.getInstance(this).getTeamName() == null) {
@@ -71,10 +80,13 @@ public class MyTeamManagerActivity extends BaseActivity {
 		case KeyConstants.CODE_LOGIN_ACTIVITY:
 			if ( resultCode == RESULT_LOGIN_DONE ) {
 				if (SettingsManager.getInstance(this).getTeamName() == null) {
-					Intent intent = new Intent(MyTeamManagerActivity.this, WizardEnterTeamNameActivity.class);
+					Intent intent = new Intent(this, WizardEnterTeamNameActivity.class);
 					startActivityForResult(intent, KeyConstants.WIZARD_TEAM_NAME_CODE);
 				}
 				else {
+					ParseObject myTeam = new TeamBean(-1, SettingsManager.getInstance(this).getTeamName() ).getMyTeamParseObject();
+					myTeam.put(KeyConstants.FIELD_MYTEAM_USER, ParseUser.getCurrentUser());
+					myTeam.saveEventually();
 					startHomePage();
 				}
 			}
