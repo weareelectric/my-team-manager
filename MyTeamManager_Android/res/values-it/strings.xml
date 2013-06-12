@@ -262,4 +262,6 @@
 	<string name="msg_email_is_mandatory">Ops...devi inserire un indirizzo email valido (esempio: xyz@gmail.com)</string>
 	<string name="msg_password_is_mandatory">Ops...devi inserire una password (almeno 4 caratteri alfanumerici)</string><string name="msg_full_name_is_mandatory">Ops...you need to enter a full name (at least 3 characters)</string>
 	<string name="label_login">Accedi</string>
+	<string name="label_create_new_account">Iscriversi</string>
+	<string name="label_login_facebook">Accedi con Facebook</string>
 </resources>

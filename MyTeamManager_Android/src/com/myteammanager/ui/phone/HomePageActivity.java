@@ -52,7 +52,7 @@ public class HomePageActivity extends BaseSinglePaneActivity implements Facebook
 	
 	public static final String SHARED_PREFERENCES_NAME = "myTeamManagerPref";
 
-	private static Facebook m_facebook = new Facebook("365945950147624");
+	private static Facebook m_facebook = new Facebook(KeyConstants.FACEBOOK_APP_ID);
 	private SharedPreferences m_prefs;
 	private ListDialogFragment m_listDialogFragment;
 	private ArrayList<PageBean> m_fbPageList;
