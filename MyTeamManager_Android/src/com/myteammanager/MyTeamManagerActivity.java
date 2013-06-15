@@ -85,8 +85,8 @@ public class MyTeamManagerActivity extends BaseActivity {
 				}
 				else {
 					ParseObject myTeam = new TeamBean(-1, SettingsManager.getInstance(this).getTeamName() ).getMyTeamParseObject();
-					myTeam.put(KeyConstants.FIELD_MYTEAM_USER, ParseUser.getCurrentUser());
-					myTeam.saveEventually();
+					ParseUser.getCurrentUser().put(KeyConstants.FIELD_MYTEAM_USER, myTeam);
+					ParseUser.getCurrentUser().saveEventually();
 					startHomePage();
 				}
 			}

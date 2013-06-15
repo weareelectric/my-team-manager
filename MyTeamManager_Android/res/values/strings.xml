@@ -264,6 +264,8 @@
 	<string name="label_login">Login</string>
 	<string name="label_create_new_account">Create a new account</string>
 	<string name="label_login_facebook">Login with Facebook</string>
+	<string name="msg_login_facebook_error">Login with Facebook failed. If you have already authorized ""My Team Manager" go to Facebook, remove it from the settings and try again. Otherwise create an account My Team Manager clicking the button at the bottom</string>
+	
 	
 	<string name="message_ask_registration_for_existent">This new version requires you to create your account. This will allow you to safely store all your team\'s information on the server. For example, you won\'t lost your data in case of phone change. All the stored data will be used strictly inside your "My Team Manager" application, no other use will be done without your permissions.</string>
 </resources>

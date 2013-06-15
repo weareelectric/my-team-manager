@@ -64,6 +64,12 @@ public class FacebookManager implements RequestListener {
 		AsyncFacebookRunner asyncRunner = new AsyncFacebookRunner(HomePageActivity.getFacebook());
 		asyncRunner.request("/me/accounts", params, method, this, responseEvent);
 	}
+	
+	public void removeApp(FacebookResponseEvent responseEvent) {
+		String method = "GET";
+		AsyncFacebookRunner asyncRunner = new AsyncFacebookRunner(HomePageActivity.getFacebook());
+		asyncRunner.request("/me/permissions", null, method, this, responseEvent);
+	}
 
 	@Override
 	public void onComplete(String response, Object state) {

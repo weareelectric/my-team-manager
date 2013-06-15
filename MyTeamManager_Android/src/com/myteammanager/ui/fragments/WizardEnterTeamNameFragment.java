@@ -66,8 +66,8 @@ public class WizardEnterTeamNameFragment extends Fragment implements OnClickList
 		SettingsManager.getInstance(getActivity()).setTeamName(m_teamName.getText().toString());
 		
 		ParseObject myTeam = new TeamBean(-1, SettingsManager.getInstance(getActivity()).getTeamName() ).getMyTeamParseObject();
-		myTeam.put(KeyConstants.FIELD_MYTEAM_USER, ParseUser.getCurrentUser());
-		myTeam.saveEventually();
+		ParseUser.getCurrentUser().put(KeyConstants.FIELD_MYTEAM_USER, myTeam);
+		ParseUser.getCurrentUser().saveEventually();
 		
 		getActivity().setResult(MyTeamManagerActivity.RESULT_WIZARD_TEAM_NAME_ENTERED);
 		getActivity().finish();

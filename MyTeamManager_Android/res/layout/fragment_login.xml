@@ -45,14 +45,12 @@
                 android:layout_marginTop="10dip"
                 android:text="@string/label_login" />
             
-             <Button
+             <com.myteammanager.ui.views.LoginButton
                 android:id="@+id/btnLoginFacebook"
-                style="@style/MyTeamManagerButton"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dip"
-                android:visibility="gone"
-                android:text="@string/label_login_facebook" />
+                />
             
             <View
                 android:layout_width="fill_parent"

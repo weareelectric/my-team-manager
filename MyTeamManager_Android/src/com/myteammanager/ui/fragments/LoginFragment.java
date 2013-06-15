@@ -1,5 +1,7 @@
 package com.myteammanager.ui.fragments;
 
+import java.util.Arrays;
+
 import org.holoeverywhere.LayoutInflater;
 import org.holoeverywhere.app.Activity;
 import org.holoeverywhere.app.AlertDialog;
@@ -7,6 +9,7 @@ import org.holoeverywhere.widget.Button;
 import org.holoeverywhere.widget.EditText;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -15,6 +18,11 @@ import android.view.ViewGroup;
 
 import com.myteammanager.MyTeamManagerActivity;
 import com.myteammanager.R;
+import com.myteammanager.data.FacebookManager;
+import com.myteammanager.events.FacebookResponseEvent;
+import com.myteammanager.listener.FacebookResponseListener;
+import com.myteammanager.storage.SettingsManager;
+import com.myteammanager.ui.phone.HomePageActivity;
 import com.myteammanager.ui.phone.LoginActivity;
 import com.myteammanager.ui.phone.SignupActivity;
 import com.myteammanager.util.KeyConstants;
@@ -22,6 +30,7 @@ import com.myteammanager.util.StringUtil;
 import com.parse.LogInCallback;
 import com.parse.ParseException;
 import com.parse.ParseFacebookUtils;
+import com.parse.ParseFacebookUtils.Permissions;
 import com.parse.ParseUser;
 
 public class LoginFragment extends BaseFragment {
@@ -61,7 +70,8 @@ public class LoginFragment extends BaseFragment {
 
 			@Override
 			public void onClick(View arg0) {
-				startSignup(false);
+				LoginActivity loginActivity = (LoginActivity)getActivity();
+				loginActivity.startSignup(false);
 			}
 		});
 		
@@ -70,25 +80,8 @@ public class LoginFragment extends BaseFragment {
 
 			@Override
 			public void onClick(View arg0) {
-				ParseFacebookUtils.logIn(getActivity(), KeyConstants.CODE_FACEBOOK_ACTIVITY, new LogInCallback() {
-					  @Override
-					  public void done(ParseUser user, ParseException err) {
-						  Log.d(LOG_TAG, "Facebook auth done: " + user);
-					    if (user == null) {
-					      Log.d("MyApp", "Uh oh. The user cancelled the Facebook login.");
-					    } else if (user.isNew()) {
-					    	Log.d("MyApp", "user.isNew(): " + user.isNew());
-					    	Log.d("MyApp", "user.user.getEmail(): " + user.getEmail());
-					    	Log.d("MyApp", "user.getUsername(): " + user.getUsername());
-					      setResultAndEnd();
-					    } else {
-					    	Log.d("MyApp", "user.isNew(): " + user.isNew());
-					    	Log.d("MyApp", "user.user.getEmail(): " + user.getEmail());
-					    	Log.d("MyApp", "user.getUsername(): " + user.getUsername());
-					      setResultAndEnd();
-					    }
-					  }
-					});
+				LoginActivity loginActivity = (LoginActivity)getActivity();
+				loginActivity.facebookLogin();
 			}
 		});
 
@@ -102,7 +95,8 @@ public class LoginFragment extends BaseFragment {
 		if ( extra != null ) {
 			boolean startSignup = extra.getBoolean(LoginActivity.EXTRA_SHOW_MESSAGE_FOR_OLD_USERS_AND_START_SIGNUP);
 			if ( startSignup ) {
-				startSignup(startSignup);
+				LoginActivity loginActivity = (LoginActivity)getActivity();
+				loginActivity.startSignup(startSignup);
 			}
 		}
 	}
@@ -150,24 +144,6 @@ public class LoginFragment extends BaseFragment {
 
 	}
 	
-	
-
-	@Override
-	public void onActivityResult(int requestCode, int resultCode, Intent data) {
-		super.onActivityResult(requestCode, resultCode, data);
-
-		
-		switch (requestCode) {
-		case KeyConstants.CODE_SIGNUP_ACTIVITY:
-			if (resultCode == KeyConstants.RESULT_SIGNUP_DONE) {
-				setResultAndEnd();
-			}
-			break;
-			
-			
-		}
-
-	}
 
 	protected void setResultAndEnd() {
 		getActivity()
@@ -191,10 +167,8 @@ public class LoginFragment extends BaseFragment {
 
 	}
 
-	protected void startSignup(boolean showOldUserMessage) {
-		Intent intent = new Intent(getActivity(), SignupActivity.class);
-		intent.putExtra(SignupActivity.EXTRA_SHOW_MESSAGE_FOR_OLD_USERS, showOldUserMessage);
-		startActivityForResult(intent, KeyConstants.CODE_SIGNUP_ACTIVITY);
-	}
+
+
+
 
 }
