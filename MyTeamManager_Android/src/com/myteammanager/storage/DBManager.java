@@ -508,9 +508,12 @@ public class DBManager {
 			Log.d(LOG_TAG, "Upgrading database from version " + oldVersion + " to " + newVersion);
 			for ( int k = oldVersion + 1; k <= newVersion; k++ ) {
 				ArrayList<String> sqlCommands = m_otherSQLCommandsToExecuteOnUpdate.get(k);
-				for ( String sqlCommand : sqlCommands ) {
-					db.execSQL(sqlCommand);
+				if ( sqlCommands != null ) {
+					for ( String sqlCommand : sqlCommands ) {
+						db.execSQL(sqlCommand);
+					}
 				}
+
 			}
 			
 		}

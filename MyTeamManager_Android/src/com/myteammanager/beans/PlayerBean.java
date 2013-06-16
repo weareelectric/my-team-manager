@@ -15,10 +15,24 @@ import com.myteammanager.R;
 import com.myteammanager.beans.comparators.RosterComparator;
 import com.myteammanager.util.DateTimeUtil;
 import com.myteammanager.util.StringUtil;
+import com.parse.ParseObject;
 
 public class PlayerBean extends BaseBean implements Parcelable {
 
 	public static final String TABLE = "players";
+	
+	public static final String KEY_NAME = "name";
+	public static final String KEY_LASTNAME = "last_name";
+	public static final String KEY_ROLE_ID = "role";
+	public static final String KEY_BIRTHDATE_ID = "birth_date";
+	public static final String KEY_EMAIL = "email";
+	public static final String KEY_PHONE = "phone";
+	public static final String KEY_SHIRT_NUMBER = "shirt_number";
+	public static final String KEY_GAME_PLAYED = "game_played";
+	public static final String KEY_GOAL_SCORED = "goal_scored";
+	public static final String KEY_IS_DELETED = "is_deleted";
+	public static final String KEY_TEAM = "team";
+	
 	
 	public static final int NOT_DELETED = 0;
 	public static final int DELETED = 1;
@@ -39,6 +53,7 @@ public class PlayerBean extends BaseBean implements Parcelable {
 	private int m_gamePlayed = 0;
 	private int m_goalScored = 0;
 	private int m_isDeleted = 0;
+	private String m_parseId;
 
 	private boolean _convocated = false;
 	private boolean _onTheBench = false;
@@ -63,6 +78,7 @@ public class PlayerBean extends BaseBean implements Parcelable {
 		m_gamePlayed = in.readInt();
 		m_goalScored = in.readInt();
 		m_isDeleted = in.readInt();
+		m_parseId = in.readString();
 
 		_convocated = in.readInt() == 1;
 		_onTheBench = in.readInt() == 1;
@@ -85,6 +101,7 @@ public class PlayerBean extends BaseBean implements Parcelable {
 		dest.writeInt(m_gamePlayed);
 		dest.writeInt(m_goalScored);
 		dest.writeInt(m_isDeleted);
+		dest.writeString(m_parseId);
 		dest.writeInt(_convocated ? 1 : 0);
 		dest.writeInt(_onTheBench ? 1 : 0);
 		dest.writeParcelable(_replacedPlayer, flags);
@@ -209,6 +226,14 @@ public class PlayerBean extends BaseBean implements Parcelable {
 	public void setIsDeleted(int isDeleted) {
 		m_isDeleted = isDeleted;
 	}
+	
+	public String getParseId() {
+		return m_parseId;
+	}
+
+	public void setParseId(String parseId) {
+		m_parseId = parseId;
+	}
 
 	public PlayerBean getReplacedPlayer() {
 		return _replacedPlayer;
@@ -254,6 +279,7 @@ public class PlayerBean extends BaseBean implements Parcelable {
 		this.m_gamePlayed = 0;
 		this.m_goalScored = 0;
 		this.m_isDeleted = 0;
+		this.m_parseId = null;
 		this._convocated = false;
 		this._onTheBench = false;
 		this._replacedPlayer = null;
@@ -342,6 +368,24 @@ public class PlayerBean extends BaseBean implements Parcelable {
 			return player.m_key_id == m_key_id;
 		} else
 			return false;
+	}
+	
+	public ParseObject getPlayerParseObject() {
+		ParseObject playerObj = new ParseObject("Player");
+		if (m_parseId !=null) {
+			playerObj.setObjectId(m_parseId);
+		}
+		playerObj.put(KEY_NAME, getName());
+		playerObj.put(KEY_LASTNAME, getLastName());
+		playerObj.put(KEY_ROLE_ID, getRole());
+		playerObj.put(KEY_BIRTHDATE_ID, getBirthDateLong());
+		playerObj.put(KEY_EMAIL, getEmail());
+		playerObj.put(KEY_PHONE, getPhone());
+		playerObj.put(KEY_SHIRT_NUMBER, getShirtNumber());
+		playerObj.put(KEY_GOAL_SCORED, getGoalScored());
+		playerObj.put(KEY_GAME_PLAYED, getGamePlayed());
+		playerObj.put(KEY_IS_DELETED, getIsDeleted());
+		return playerObj;
 	}
 
 }

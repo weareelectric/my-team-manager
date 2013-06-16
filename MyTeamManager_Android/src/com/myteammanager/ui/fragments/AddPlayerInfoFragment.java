@@ -28,6 +28,10 @@ import com.myteammanager.util.CheckboxWithViewGroupHelper;
 import com.myteammanager.util.KeyConstants;
 import com.myteammanager.util.PlayerAndroidUtil;
 import com.myteammanager.util.StringUtil;
+import com.parse.ParseException;
+import com.parse.ParseObject;
+import com.parse.ParseUser;
+import com.parse.SaveCallback;
 
 public class AddPlayerInfoFragment extends BaseTwoButtonActionsFormFragment  {
 
@@ -53,6 +57,8 @@ public class AddPlayerInfoFragment extends BaseTwoButtonActionsFormFragment  {
 	private String[] m_multipleEmails;
 
 	private String[] m_multiplePhones;
+
+	private ParseObject m_playerParseObject;
 
 
 
@@ -249,7 +255,25 @@ public class AddPlayerInfoFragment extends BaseTwoButtonActionsFormFragment  {
 
 	protected void storePlayerInfo() {
 		DBManager.getInstance().storeBean(m_player);
+		
+		storePlayerOnCloud();
 		Log.d(LOG_TAG, "Stored player: " + PlayerAndroidUtil.toString(getActivity(), m_player));
+	}
+
+	protected void storePlayerOnCloud() {
+		m_playerParseObject = m_player.getPlayerParseObject();
+		m_playerParseObject.put(PlayerBean.KEY_TEAM, ParseUser.getCurrentUser().get(KeyConstants.FIELD_MYTEAM_USER));
+		m_playerParseObject.saveEventually(new SaveCallback() {
+			
+			@Override
+			public void done(ParseException exception) {
+				Log.d(LOG_TAG, "ParseId: " + m_playerParseObject.getObjectId());
+				m_player.setParseId(m_playerParseObject.getObjectId());
+				DBManager.getInstance().updateBean(m_player);
+			}
+		});
+		
+		
 	}
 
 	@Override

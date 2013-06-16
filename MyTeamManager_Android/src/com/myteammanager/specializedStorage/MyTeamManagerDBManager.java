@@ -20,7 +20,7 @@ import com.myteammanager.util.DateTimeUtil;
 
 public class MyTeamManagerDBManager extends DBManager {
 	
-	public static final int DB_VERSION = 2;
+	public static final int DB_VERSION = 3;
 	
 	private static final String SQL_CREATE_VIEW_COMPLETE_PLAYER = "create view players_complete as select players.*, count(MatchSubstitutions.playerIn)+count(lineups.player)  as caps, sum(scorers.scoredgoal) as goals from players  left outer join matches on matches.resultEntered=1 left outer join MatchSubstitutions on MatchSubstitutions.playerIn=players.id and matches.id=MatchSubstitutions.match left outer join lineups on lineups.player=players.id and lineups.onTheBench=0 and lineups.match=matches.id left outer join scorers on scorers.player=players.id and scorers.match=matches.id group by players.id"; 
 	private static MyTeamManagerDBManager instance;
@@ -34,6 +34,10 @@ public class MyTeamManagerDBManager extends DBManager {
 		super();
 		
 		m_otherSQLCommandsToExecuteOnCreate.add(SQL_CREATE_VIEW_COMPLETE_PLAYER);
+		
+		ArrayList<String> updateVersion3 = new ArrayList<String>();
+		updateVersion3.add("alter table players add column parseId TEXT");
+		m_otherSQLCommandsToExecuteOnUpdate.put(3, updateVersion3);
 	}
 	
 	
