@@ -35,9 +35,6 @@ public class MyTeamManagerDBManager extends DBManager {
 		
 		m_otherSQLCommandsToExecuteOnCreate.add(SQL_CREATE_VIEW_COMPLETE_PLAYER);
 		
-		ArrayList<String> updateVersion3 = new ArrayList<String>();
-		updateVersion3.add("alter table players add column parseId TEXT");
-		m_otherSQLCommandsToExecuteOnUpdate.put(3, updateVersion3);
 	}
 	
 	

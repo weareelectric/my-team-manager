@@ -46,10 +46,9 @@ public class EditPlayerInfoFragment extends AddPlayerInfoFromRosterFragment {
 	}
 
 	@Override
-	protected void storePlayerInfo() {
-		DBManager.getInstance().updateBean(m_player);
+	protected void storePlayerInfo(boolean update) {
+		super.storePlayerInfo(true);
 		
-		storePlayerOnCloud();
 		Log.d(LOG_TAG, "Updated player: " + PlayerAndroidUtil.toString(getActivity(), m_player));
 		setResultForActivity();
 	}

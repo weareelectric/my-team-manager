@@ -11,6 +11,8 @@ import org.holoeverywhere.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+
+import org.holoeverywhere.app.AlertDialog;
 import org.holoeverywhere.widget.CheckBox;
 import org.holoeverywhere.widget.DatePicker;
 import org.holoeverywhere.widget.EditText;
@@ -192,7 +194,7 @@ public class AddPlayerInfoFragment extends BaseTwoButtonActionsFormFragment  {
 
 		populatePlayerObject();
 
-		storePlayerInfo();
+		storePlayerInfo(false);
 	}
 
 	protected void resetObjectAndInterface() {
@@ -253,28 +255,39 @@ public class AddPlayerInfoFragment extends BaseTwoButtonActionsFormFragment  {
 		m_player.setBirthDate(m_birthDateCompositeField.getDateValueFromView());
 	}
 
-	protected void storePlayerInfo() {
-		DBManager.getInstance().storeBean(m_player);
-		
-		storePlayerOnCloud();
-		Log.d(LOG_TAG, "Stored player: " + PlayerAndroidUtil.toString(getActivity(), m_player));
-	}
-
-	protected void storePlayerOnCloud() {
+	protected void storePlayerInfo(final boolean update) {
 		m_playerParseObject = m_player.getPlayerParseObject();
 		m_playerParseObject.put(PlayerBean.KEY_TEAM, ParseUser.getCurrentUser().get(KeyConstants.FIELD_MYTEAM_USER));
-		m_playerParseObject.saveEventually(new SaveCallback() {
+		m_playerParseObject.saveInBackground(new SaveCallback() {
 			
 			@Override
 			public void done(ParseException exception) {
-				Log.d(LOG_TAG, "ParseId: " + m_playerParseObject.getObjectId());
-				m_player.setParseId(m_playerParseObject.getObjectId());
-				DBManager.getInstance().updateBean(m_player);
+				if ( exception != null ) {
+					AlertDialog.Builder builder = new AlertDialog.Builder(getActivity()).setMessage(exception.getMessage());
+					builder.setPositiveButton(getString(R.string.label_ok), null);
+					builder.show();
+				}
+				else {
+					Log.d(LOG_TAG, "ParseId: " + m_playerParseObject.getObjectId());
+					Log.d(LOG_TAG, "playerId: " + m_player.getId());
+					m_player.setParseId(m_playerParseObject.getObjectId());
+					if ( update ) {
+						DBManager.getInstance().updateBean(m_player);
+					}
+					else {
+						DBManager.getInstance().storeBean(m_player);
+					}
+					
+				}
+
 			}
 		});
 		
 		
+		
+		Log.d(LOG_TAG, "Stored player: " + PlayerAndroidUtil.toString(getActivity(), m_player));
 	}
+
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {

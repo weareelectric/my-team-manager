@@ -52,6 +52,7 @@ public class DBManager {
 	
 
 	private static ArrayList<MethodStructure> m_mappingToStore;
+	private static ArrayList<MethodStructure> m_mappingOnUpdateToStore;
 
 	public void init(Context context, BaseBean[] beans, String dbName, int version) {
 		if ( m_db != null ) {
@@ -425,11 +426,20 @@ public class DBManager {
 	}
 
 	public ArrayList<MethodStructure> getBeansMapping() {
+		m_db = m_dbHelper.getWritableDatabase();
+		return getBeansMappingFor(null, m_db);
+	}
+	
+	public static ArrayList<MethodStructure> getBeansMappingFor(BaseBean bean, SQLiteDatabase database) {
 		ArrayList<MethodStructure> list = new ArrayList<MethodStructure>();
 
-		m_db = m_dbHelper.getWritableDatabase();
+		String whereClause = null;
+		
+		if (bean != null) {
+			whereClause = "beanName='"+bean.getClass().getSimpleName()+"'";
+		}
 
-		Cursor cursor = m_db.query(MAPPING_TABLE_NAME, MAPPING_TABLE_COLUMNS, null, null, null, null, null);
+		Cursor cursor = database.query(MAPPING_TABLE_NAME, MAPPING_TABLE_COLUMNS, whereClause, null, null, null, null);
 
 		if (cursor != null && cursor.moveToFirst()) {
 
@@ -514,10 +524,102 @@ public class DBManager {
 					}
 				}
 
+				
 			}
+			
+			int numberOfTables = m_beans.length;
+			for (int i = 0; i < numberOfTables; i++) {
+				String updateColumnsSQL = updateColumnsFor(m_beans[i], db);
+				if ( updateColumnsSQL != null ) {
+					db.execSQL(updateColumnsSQL);
+				}
+				
+			}
+			
+			insertBeanMapping(m_mappingOnUpdateToStore, db);
 			
 		}
 
+	}
+	
+	private static String updateColumnsFor(BaseBean bean, SQLiteDatabase db) {
+		if (m_mappingOnUpdateToStore == null) {
+			m_mappingOnUpdateToStore = new ArrayList<MethodStructure>();
+		}
+		
+		ArrayList<Field> fields = ReflectionManagerForDB.getSQLFields(bean);
+		
+		ArrayList<MethodStructure> mappingAlreadyPresent = getBeansMappingFor(bean, db);
+		int columnAlreadyPresent = mappingAlreadyPresent.size();
+		
+		ArrayList<Field> fieldsToAdd = new ArrayList<Field>();
+		
+		int size = fields.size();
+		MethodStructure methodStruct = null;
+		
+		Vector<String> uniqueColumn = new Vector<String>();
+		
+		// Find fields not present in the mapping
+		int added = 0;
+		for (int k = 0; k < size; k++) {
+			Field field = fields.get(k);
+			String sqlTypeForField = field.getType().getName();
+			String name = bean.getClass().getSimpleName();
+			
+			methodStruct = new MethodStructure(name, field.getName(), sqlTypeForField, columnAlreadyPresent + added + 1) ;
+			methodStruct.setUnique(SQLStringUtil.mustBeUnique(field.getName()) ? 1 : 0 );
+			
+			if (!mappingAlreadyPresent.contains(methodStruct)) {
+				if (TableBeansMappingManager.isUniqueColumn(field.getName())) {
+					uniqueColumn.add(TableBeansMappingManager.getColumnName(field.getName()));
+					methodStruct.setUnique(MethodStructure.UNIQUE);
+				}
+				m_mappingOnUpdateToStore.add(methodStruct);
+				fieldsToAdd.add(field);
+				added++;
+			}
+		}
+		
+		if ( fieldsToAdd.size() == 0 ) {
+			return null;
+		}
+		
+		String alterTable = "ALTER TABLE " + bean.getDatabaseTableName() + " ADD";
+		
+		size = fieldsToAdd.size();
+		StringBuffer sb = new StringBuffer();
+		sb.append(alterTable);
+		for (int k = 0; k < size; k++) {
+			
+			sb.append(TableBeansMappingManager.getSQLForColumn(fieldsToAdd.get(k)));
+			
+			
+			if (k != size - 1) {
+				sb.append(",");
+			}
+		}
+		
+		
+		int vectorSize = uniqueColumn.size();
+		if (vectorSize > 0) {
+			sb.append(", UNIQUE(");
+
+			for (int k = 0; k < vectorSize; k++) {
+				sb.append(uniqueColumn.get(k));
+
+				if (k != vectorSize - 1) {
+					sb.append(",");
+				}
+			}
+
+			// sb.append(") ON CONFLICT IGNORE");
+			sb.append(")");
+		}
+
+		
+		Log.d(LOG_TAG, "String: '"+sb.toString()+"'");
+		return sb.toString();
+		
 	}
 	
 	private static String createSQLCreateCommandFor(BaseBean bean) {

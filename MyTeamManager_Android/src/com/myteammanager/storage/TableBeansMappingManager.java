@@ -192,6 +192,7 @@ public class TableBeansMappingManager {
 			sb.append(" ");
 			sb.append("PRIMARY KEY AUTOINCREMENT");
 		}
+		Log.d(LOG_TAG, "getSQLForColumn: " + sb.toString());
 		return sb.toString();
 
 	}
@@ -204,9 +205,9 @@ public class TableBeansMappingManager {
 			return "INTEGER";
 		} else if (type.equals("long")) {
 			return "BIGINT";
-		} else if (type.equals("java.lang.String")) {
+		} else if (type.equals("java.lang.String") || type.equals("class java.lang.String")) {
 			return "TEXT";
-		} else if (type.equals("java.util.Date")) {
+		} else if (type.equals("java.util.Date") || type.equals("class java.util.Date")) {
 			return "TIMESTAMP";
 		} else if (type.endsWith("Bean")) {
 			return "INTEGER"; // in this case the column will contain the id that link to the object in the other table
