@@ -177,16 +177,14 @@ public class AddPlayerInfoFragment extends BaseTwoButtonActionsFormFragment  {
 		Log.d(LOG_TAG, "Entered players done");
 		// If the the lastname has been entered store the player object
 		if (StringUtil.isNotEmpty(m_playerLastName.getText().toString())) {
-			savePlayer();
+			savePlayer(true);
 		}
 
 
-		getActivity().setResult(
-				MyTeamManagerActivity.RESULT_ENTER_PLAYERS_LIST_DONE);
-		getActivity().finish();
+		
 	}
 
-	protected void savePlayer() {
+	protected void savePlayer(boolean exitAfter) {
 		if (m_player == null) {
 			m_player = new PlayerBean();
 
@@ -194,7 +192,7 @@ public class AddPlayerInfoFragment extends BaseTwoButtonActionsFormFragment  {
 
 		populatePlayerObject();
 
-		storePlayerInfo(false);
+		storePlayerInfo(false, exitAfter);
 	}
 
 	protected void resetObjectAndInterface() {
@@ -255,37 +253,50 @@ public class AddPlayerInfoFragment extends BaseTwoButtonActionsFormFragment  {
 		m_player.setBirthDate(m_birthDateCompositeField.getDateValueFromView());
 	}
 
-	protected void storePlayerInfo(final boolean update) {
+	protected void storePlayerInfo(final boolean update, final boolean exitAfter) {
+		showProgressDialog(getString(R.string.dialog_waiting_sending_data));
 		m_playerParseObject = m_player.getPlayerParseObject();
-		m_playerParseObject.put(PlayerBean.KEY_TEAM, ParseUser.getCurrentUser().get(KeyConstants.FIELD_MYTEAM_USER));
+		m_playerParseObject.put(PlayerBean.KEY_TEAM, ParseUser.getCurrentUser()
+				.get(KeyConstants.FIELD_MYTEAM_USER));
 		m_playerParseObject.saveInBackground(new SaveCallback() {
-			
+
 			@Override
-			public void done(ParseException exception) {
-				if ( exception != null ) {
-					AlertDialog.Builder builder = new AlertDialog.Builder(getActivity()).setMessage(exception.getMessage());
-					builder.setPositiveButton(getString(R.string.label_ok), null);
-					builder.show();
-				}
-				else {
-					Log.d(LOG_TAG, "ParseId: " + m_playerParseObject.getObjectId());
+			public void done(ParseException e) {
+				if (e == null) {
+					Log.d(LOG_TAG,
+							"ParseId: " + m_playerParseObject.getObjectId());
 					Log.d(LOG_TAG, "playerId: " + m_player.getId());
 					m_player.setParseId(m_playerParseObject.getObjectId());
-					if ( update ) {
+					if (update) {
 						DBManager.getInstance().updateBean(m_player);
-					}
-					else {
+					} else {
 						DBManager.getInstance().storeBean(m_player);
 					}
+					cancelProgressDialog();
+					Log.d(LOG_TAG,
+							"Stored player: "
+									+ PlayerAndroidUtil.toString(getActivity(),
+											m_player));
 					
+
+					if ( exitAfter ) {
+						getActivity().setResult(
+								MyTeamManagerActivity.RESULT_ENTER_PLAYERS_LIST_DONE);
+						getActivity().finish();
+					}
+					else {
+						nextActionAfterPlayerStoring();
+					}
+					
+					
+				} else {
+					cancelProgressDialog();
+					showMessageDialog(e.getMessage());
 				}
 
 			}
 		});
-		
-		
-		
-		Log.d(LOG_TAG, "Stored player: " + PlayerAndroidUtil.toString(getActivity(), m_player));
+
 	}
 
 
@@ -316,8 +327,11 @@ public class AddPlayerInfoFragment extends BaseTwoButtonActionsFormFragment  {
 			return;
 		}
 		
-		savePlayer();
+		savePlayer(false);
 
+	}
+
+	protected void nextActionAfterPlayerStoring() {
 		resetObjectAndInterface();
 		
 		if ( m_addFromContacts ) {

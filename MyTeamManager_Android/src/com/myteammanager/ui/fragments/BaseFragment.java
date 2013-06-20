@@ -2,6 +2,7 @@ package com.myteammanager.ui.fragments;
 
 import java.util.ArrayList;
 
+import org.holoeverywhere.app.AlertDialog;
 import org.holoeverywhere.app.ProgressDialog;
 import android.content.res.Resources;
 import android.os.AsyncTask;
@@ -22,6 +23,8 @@ public abstract class BaseFragment extends Fragment implements ButtonsAlertDialo
 
 	@Override
 	public abstract void button1Pressed(int alertId);
+	
+	
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -70,6 +73,14 @@ public abstract class BaseFragment extends Fragment implements ButtonsAlertDialo
 			}
 		});
 
+	}
+	
+	protected void showMessageDialog(String message) {
+		AlertDialog.Builder builder = new AlertDialog.Builder(
+				getActivity()).setMessage(message);
+		builder.setPositiveButton(getString(R.string.label_ok),
+				null);
+		builder.show();
 	}
 
 	protected void insertBeans(final ArrayList<? extends BaseBean> beans, final boolean isUpdate) {

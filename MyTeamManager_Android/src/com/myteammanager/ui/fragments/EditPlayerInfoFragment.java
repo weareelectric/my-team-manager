@@ -45,12 +45,8 @@ public class EditPlayerInfoFragment extends AddPlayerInfoFromRosterFragment {
 		return m_root;
 	}
 
-	@Override
-	protected void storePlayerInfo(boolean update) {
-		super.storePlayerInfo(true);
-		
-		Log.d(LOG_TAG, "Updated player: " + PlayerAndroidUtil.toString(getActivity(), m_player));
-		setResultForActivity();
+	protected void storePlayerInfo(final boolean update, final boolean exitAfter) {
+		super.storePlayerInfo(true, exitAfter);
 	}
 
 	protected void setResultForActivity() {

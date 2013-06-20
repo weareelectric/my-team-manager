@@ -19,6 +19,7 @@ import com.myteammanager.ui.phone.WizardEnterPlayersInfoActivity;
 import com.myteammanager.ui.phone.WizardEnterTeamNameActivity;
 import com.myteammanager.util.KeyConstants;
 import com.myteammanager.util.Log;
+import com.myteammanager.util.StringUtil;
 import com.parse.Parse;
 import com.parse.ParseFacebookUtils;
 import com.parse.ParseObject;
@@ -62,6 +63,7 @@ public class MyTeamManagerActivity extends BaseActivity {
 				Intent intent = new Intent(MyTeamManagerActivity.this, WizardEnterTeamNameActivity.class);
 				startActivityForResult(intent, KeyConstants.WIZARD_TEAM_NAME_CODE);
 			} else {
+				Log.d("My Team Manager", "Team Parse Id: " + SettingsManager.getInstance(this).getTeamParseId());
 				startHomePage();
 			}
 		}
@@ -84,9 +86,11 @@ public class MyTeamManagerActivity extends BaseActivity {
 					startActivityForResult(intent, KeyConstants.WIZARD_TEAM_NAME_CODE);
 				}
 				else {
-					ParseObject myTeam = new TeamBean(-1, SettingsManager.getInstance(this).getTeamName() ).getMyTeamParseObject();
-					ParseUser.getCurrentUser().put(KeyConstants.FIELD_MYTEAM_USER, myTeam);
-					ParseUser.getCurrentUser().saveEventually();
+					if ( !StringUtil.isNotEmpty(SettingsManager.getInstance(this).getTeamParseId()) ) {
+						ParseObject myTeam = new TeamBean(-1, SettingsManager.getInstance(this).getTeamName() ).getMyTeamParseObject();
+						ParseUser.getCurrentUser().put(KeyConstants.FIELD_MYTEAM_USER, myTeam);
+						ParseUser.getCurrentUser().saveEventually();
+					}
 					startHomePage();
 				}
 			}

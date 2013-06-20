@@ -12,6 +12,7 @@ public class SettingsManager {
 	private final static String SETTINGS_FILENAME = "myTeamManagerStorage";
 
 	private final static String TEAMNAME_ID = "TEAM_NAME";
+	private final static String TEAMNAME_PARSE_ID = "TEAM_PARSE_ID";
 	private final static String POINTS_ID = "POINTS";
 	private final static String PLAYED_ID = "PLAYED";
 	private final static String WON_ID = "WON";
@@ -76,6 +77,14 @@ public class SettingsManager {
 
 	public String getTeamName() {
 		return getSettings().getString(TEAMNAME_ID, null);
+	}
+	
+	public void setTeamParseId(String teamParseId) {
+		saveString(TEAMNAME_PARSE_ID, teamParseId);
+	}
+
+	public String getTeamParseId() {
+		return getSettings().getString(TEAMNAME_PARSE_ID, null);
 	}
 
 	public void deleteTeamname() {

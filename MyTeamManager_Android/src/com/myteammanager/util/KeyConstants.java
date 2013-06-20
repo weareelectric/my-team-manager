@@ -51,6 +51,6 @@ public class KeyConstants {
 	public static final String FACEBOOK_APP_ID = "365945950147624";
 	
 	// ParseUser fields
-	public static final String FIELD_MYTEAM_USER = "user";
+	public static final String FIELD_MYTEAM_USER = "myteam";
 
 }

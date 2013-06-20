@@ -18,6 +18,7 @@ import android.view.ViewGroup;
 
 import com.myteammanager.MyTeamManagerActivity;
 import com.myteammanager.R;
+import com.myteammanager.beans.TeamBean;
 import com.myteammanager.data.FacebookManager;
 import com.myteammanager.events.FacebookResponseEvent;
 import com.myteammanager.listener.FacebookResponseListener;
@@ -31,6 +32,7 @@ import com.parse.LogInCallback;
 import com.parse.ParseException;
 import com.parse.ParseFacebookUtils;
 import com.parse.ParseFacebookUtils.Permissions;
+import com.parse.ParseObject;
 import com.parse.ParseUser;
 
 public class LoginFragment extends BaseFragment {
@@ -129,14 +131,31 @@ public class LoginFragment extends BaseFragment {
 
 		ParseUser.logInInBackground(email, password, new LogInCallback() {
 			public void done(ParseUser user, ParseException e) {
-				cancelProgressDialog();
+				
 				if (user != null) {
+					Log.d(LOG_TAG, "user's team: " + user.get(KeyConstants.FIELD_MYTEAM_USER));
+					ParseObject teamObj;
+					try {
+						teamObj = user.getParseObject(KeyConstants.FIELD_MYTEAM_USER).fetchIfNeeded();
+						if ( teamObj != null ) {
+							TeamBean team = TeamBean.getTeamBeanFor(teamObj.fetchIfNeeded());
+							cancelProgressDialog();
+							SettingsManager.getInstance(getActivity()).setTeamName(team.getName());
+							SettingsManager.getInstance(getActivity()).setTeamParseId(teamObj.getObjectId());
+						}
+						else {
+							cancelProgressDialog();
+						}
+					} catch (ParseException e1) {
+						cancelProgressDialog();
+						showMessageDialog(e1.getMessage());
+					}
+
 					setResultAndEnd();
 
 				} else {
-					AlertDialog.Builder builder = new AlertDialog.Builder(
-							getActivity()).setMessage(e.getMessage());
-					builder.show();
+					cancelProgressDialog();
+					showMessageDialog(e.getMessage());
 				}
 			}
 		});
@@ -166,6 +185,8 @@ public class LoginFragment extends BaseFragment {
 	public void button1Pressed(int alertId) {
 
 	}
+
+
 
 
 

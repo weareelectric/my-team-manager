@@ -12,10 +12,11 @@ public class TeamBean extends BaseBean implements Parcelable {
 	
 	public static final String TABLE = "teams";
 	
-	public static final String TEAM_NAME = "TEAM_NAME";
-
 	private int m_key_id;
 	private String m_unique_name;
+
+	// ParseUser TeamBean
+	public static final String FIELD_TEAMBEAN_NAME = "name";
 	
 	public TeamBean() {
 		super();
@@ -93,8 +94,13 @@ public class TeamBean extends BaseBean implements Parcelable {
 	
 	public ParseObject getMyTeamParseObject() {
 		ParseObject teamObj = new ParseObject("UserTeam");
-		teamObj.put("name", getName());
+		teamObj.put(TeamBean.FIELD_TEAMBEAN_NAME, getName());
 		return teamObj;
+	}
+	
+	public static TeamBean getTeamBeanFor(ParseObject object) {
+		TeamBean team = new TeamBean(-1, object.getString(TeamBean.FIELD_TEAMBEAN_NAME));
+		return team;
 	}
 
 }
