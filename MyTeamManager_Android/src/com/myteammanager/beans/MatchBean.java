@@ -14,6 +14,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.provider.BaseColumns;
 import com.myteammanager.util.Log;
+import com.parse.ParseObject;
 
 public class MatchBean extends BaseBean implements Parcelable {
 
@@ -21,6 +22,20 @@ public class MatchBean extends BaseBean implements Parcelable {
 
 	public static final int TYPE_HOME = 0;
 	public static final int TYPE_AWAY = 1;
+	
+	public String KEY_TEAM1 = "team1";
+	public String KEY_TEAM2 = "team2";
+	public String KEY_TIMESTAMP = "timestamp";
+	public String KEY_LOCATION = "location";
+	public String KEY_NOTE = "note";
+	public String KEY_HOMEAWAYTYPE = "homeawaytype";
+	public String KEY_CANCELED = "canceled";
+	public String KEY_NUMBER_PLAYER_CONVOCATED = "numconvocated";
+	public String KEY_LINEUP_CONFIGURED = "lineup_configured";
+	public String KEY_RESULT_ENTERED = "result_entered";
+	public String KEY_GOALHOME = "goalhome";
+	public String KEY_GOALAWAY = "goalaway";
+	public String KEY_APPOINTEMENTPLACEANDTIME = "appointementplaceandtime";
 
 	private int m_key_id;
 	private TeamBean m_team1;
@@ -36,6 +51,7 @@ public class MatchBean extends BaseBean implements Parcelable {
 	private int m_goalHome = -1;
 	private int m_goalAway = -1;
 	private String m_appointmentPlaceAndTime;
+	private String m_parseId;
 
 	public MatchBean() {
 		super();
@@ -56,6 +72,7 @@ public class MatchBean extends BaseBean implements Parcelable {
 		m_goalHome = in.readInt();
 		m_goalAway = in.readInt();
 		m_appointmentPlaceAndTime = in.readString();
+		m_parseId = in.readString();
 	}
 
 	@Override
@@ -74,6 +91,7 @@ public class MatchBean extends BaseBean implements Parcelable {
 		dest.writeInt(m_goalHome);
 		dest.writeInt(m_goalAway);
 		dest.writeString(m_appointmentPlaceAndTime);
+		dest.writeString(m_parseId);
 	}
 
 	public int getId() {
@@ -199,6 +217,14 @@ public class MatchBean extends BaseBean implements Parcelable {
 	public void setAppointmentPlaceAndTime(String m_appointmentPlaceAndTime) {
 		this.m_appointmentPlaceAndTime = m_appointmentPlaceAndTime;
 	}
+	
+	public String getParseId() {
+		return m_parseId;
+	}
+
+	public void setParseId(String parseId) {
+		m_parseId = parseId;
+	}
 
 	@Override
 	public int describeContents() {
@@ -221,6 +247,7 @@ public class MatchBean extends BaseBean implements Parcelable {
 		m_goalHome = 0;
 		m_goalAway = 0;
 		m_appointmentPlaceAndTime = null;
+		m_parseId = null;
 	}
 
 	public static final Parcelable.Creator<MatchBean> CREATOR = new Parcelable.Creator<MatchBean>() {
@@ -274,6 +301,34 @@ public class MatchBean extends BaseBean implements Parcelable {
 			return "";
 		}
 		
+	}
+	
+	public ParseObject getMatchParseObject() {
+		ParseObject matchObj = new ParseObject("Match");
+		if (m_parseId !=null) {
+			matchObj.setObjectId(m_parseId);
+		}
+		matchObj.put(KEY_APPOINTEMENTPLACEANDTIME, getAppointmentPlaceAndTime());
+		matchObj.put(KEY_CANCELED, getCanceled());
+		matchObj.put(KEY_GOALAWAY, getGoalAway());
+		matchObj.put(KEY_GOALHOME, getGoalHome());
+		matchObj.put(KEY_HOMEAWAYTYPE, getHomeAwayType());
+		matchObj.put(KEY_LINEUP_CONFIGURED, getLineupConfigured());
+		matchObj.put(KEY_LOCATION, getLocation());
+		matchObj.put(KEY_NOTE, getNote());
+		matchObj.put(KEY_NUMBER_PLAYER_CONVOCATED, getNumberOfPlayerConvocated());
+		matchObj.put(KEY_RESULT_ENTERED, getResultEntered());
+		if ( getTeam1() != null )
+			matchObj.put(KEY_TEAM1, getTeam1());
+		else 
+			matchObj.put(KEY_TEAM1, null);
+		if ( getTeam2() != null )
+			matchObj.put(KEY_TEAM2, getTeam2());
+		else 
+			matchObj.put(KEY_TEAM2, null);
+		matchObj.put(KEY_TIMESTAMP, getTimestamp());
+		
+		return matchObj;
 	}
 
 	public int[] getChangeInStatsForDelete() {

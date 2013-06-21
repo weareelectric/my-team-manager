@@ -2,12 +2,19 @@ package com.myteammanager.beans;
 
 import java.util.Comparator;
 
+import com.parse.ParseObject;
+
 public class SubstitutionBean extends BaseBean {
+	
+	public final static String KEY_PLAYERIN = "playerIn";
+	public final static String KEY_PLAYEROUT = "playerOut";
+	public final static String KEY_MATCH = "match";
 	
 	protected int m_key_id;
 	private PlayerBean m_playerIn;
 	private PlayerBean m_playerOut;
 	private MatchBean m_match;
+	private String m_parseId;
 	
 	public SubstitutionBean() {
 	}
@@ -48,6 +55,14 @@ public class SubstitutionBean extends BaseBean {
 	public void setMatch(MatchBean m_match) {
 		this.m_match = m_match;
 	}
+	
+	public String getParseId() {
+		return m_parseId;
+	}
+
+	public void setParseId(String parseId) {
+		m_parseId = parseId;
+	}
 
 	@Override
 	public String getDatabaseTableName() {
@@ -67,6 +82,17 @@ public class SubstitutionBean extends BaseBean {
 	@Override
 	public Comparator getComparator() {
 		return null;
+	}
+	
+	public ParseObject getSubstitutionsParseObject() {
+		ParseObject substitutionsObj = new ParseObject("Substitutions");
+		if (m_parseId !=null) {
+			substitutionsObj.setObjectId(m_parseId);
+		}
+		substitutionsObj.put(KEY_PLAYERIN, getPlayerIn().getPlayerParseObject());
+		substitutionsObj.put(KEY_PLAYEROUT, getPlayerOut().getPlayerParseObject());
+		substitutionsObj.put(KEY_MATCH, getMatch().getMatchParseObject());
+		return substitutionsObj;
 	}
 
 }

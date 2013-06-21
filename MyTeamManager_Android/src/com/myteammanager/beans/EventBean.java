@@ -12,6 +12,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.provider.BaseColumns;
 import com.myteammanager.util.Log;
+import com.parse.ParseObject;
 
 public class EventBean extends BaseBean implements Parcelable {
 
@@ -20,6 +21,15 @@ public class EventBean extends BaseBean implements Parcelable {
 	public static final int TYPE_EVENT_NO_REPEAT = 0;
 	public static final int TYPE_EVENT_REPEAT_DAILY = 1;
 	public static final int TYPE_EVENT_REPEAT_WEEKLY = 2;
+	
+	public static final String KEY_TIMESTAMP = "timestamp";
+	public static final String KEY_LOCATION = "location";
+	public static final String KEY_ARRIVAL_TIME = "location";
+	public static final String KEY_NOTE = "note";
+	public static final String KEY_CANCELED = "canceled";
+	public static final String KEY_REPEAT = "repeat";
+	public static final String KEY_REPEAT_END_TIME = "repeat_end_time";
+	public static final String KEY_PARENT_EVENT = "parent_event";
 
 	private int m_key_id;
 	private long m_timestamp;
@@ -30,6 +40,7 @@ public class EventBean extends BaseBean implements Parcelable {
 	private int m_repeat;
 	private Date m_repeatEndDate;
 	private EventBean m_parentEvent;
+	private String m_parseId;
 
 	public EventBean() {
 		super();
@@ -45,6 +56,7 @@ public class EventBean extends BaseBean implements Parcelable {
 		m_repeat = in.readInt();
 		m_repeatEndDate = DateTimeUtil.getDateFromLong(in.readLong());
 		m_parentEvent = in.readParcelable(EventBean.class.getClassLoader());
+		m_parseId = in.readString();
 	}
 
 	@Override
@@ -58,6 +70,7 @@ public class EventBean extends BaseBean implements Parcelable {
 		dest.writeInt(m_repeat);
 		dest.writeLong(getRepeatEndDateLong());
 		dest.writeParcelable(m_parentEvent, flags);
+		dest.writeString(m_parseId);
 	}
 
 	public int getId() {
@@ -135,6 +148,14 @@ public class EventBean extends BaseBean implements Parcelable {
 	public void setParentEvent(EventBean m_parentEvent) {
 		this.m_parentEvent = m_parentEvent;
 	}
+	
+	public String getParseId() {
+		return m_parseId;
+	}
+
+	public void setParseId(String parseId) {
+		m_parseId = parseId;
+	}
 
 	@Override
 	public int describeContents() {
@@ -152,6 +173,7 @@ public class EventBean extends BaseBean implements Parcelable {
 		m_repeat = 0;
 		m_repeatEndDate = null;
 		m_parentEvent = null;
+		m_parseId = null;
 	}
 
 	public static final Parcelable.Creator<EventBean> CREATOR = new Parcelable.Creator<EventBean>() {
@@ -195,6 +217,22 @@ public class EventBean extends BaseBean implements Parcelable {
 
 	public boolean isEventLinkedToOthers() {
 		return getRepeat() != TYPE_EVENT_NO_REPEAT || getParentEvent() != null;
+	}
+	
+	
+	public ParseObject getEventParseObject() {
+		ParseObject eventObject = new ParseObject("Event");
+		if (m_parseId !=null) {
+			eventObject.setObjectId(m_parseId);
+		}
+		eventObject.put(KEY_ARRIVAL_TIME, getArrivalTime());
+		eventObject.put(KEY_CANCELED, getCanceled());
+		eventObject.put(KEY_LOCATION, getLocation());
+		eventObject.put(KEY_NOTE, getNote());
+		eventObject.put(KEY_PARENT_EVENT, getParentEvent().getEventParseObject());
+		eventObject.put(KEY_REPEAT, getRepeat());
+		eventObject.put(KEY_REPEAT_END_TIME, getRepeatEndDateLong());
+		return eventObject;
 	}
 
 }

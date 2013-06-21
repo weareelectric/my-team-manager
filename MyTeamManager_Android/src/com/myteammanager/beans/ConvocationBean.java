@@ -3,6 +3,7 @@ package com.myteammanager.beans;
 import java.util.Comparator;
 
 import com.myteammanager.util.DateTimeUtil;
+import com.parse.ParseObject;
 
 import android.content.Context;
 import android.os.Parcel;
@@ -11,10 +12,14 @@ import android.os.Parcelable;
 public class ConvocationBean extends BaseBean implements Parcelable {
 
 	public static final String TABLE = "convocations";
+	
+	public static String KEY_MATCH = "match";
+	public static String KEY_PLAYER = "player";
 
 	protected int m_key_id;
 	protected MatchBean m_match;
 	protected PlayerBean m_player;
+	protected String m_parseId;
 
 	public ConvocationBean() {
 		super();
@@ -24,6 +29,7 @@ public class ConvocationBean extends BaseBean implements Parcelable {
 		m_key_id = in.readInt();
 		m_match = in.readParcelable(MatchBean.class.getClassLoader());
 		m_player = in.readParcelable(PlayerBean.class.getClassLoader());
+		m_parseId = in.readString();
 	}
 
 	public int getId() {
@@ -48,6 +54,14 @@ public class ConvocationBean extends BaseBean implements Parcelable {
 
 	public void setPlayer(PlayerBean m_player) {
 		this.m_player = m_player;
+	}
+	
+	public String getParseId() {
+		return m_parseId;
+	}
+
+	public void setParseId(String parseId) {
+		m_parseId = parseId;
 	}
 
 	@Override
@@ -80,6 +94,7 @@ public class ConvocationBean extends BaseBean implements Parcelable {
 		dest.writeInt(this.m_key_id);
 		dest.writeParcelable(this.m_match, flags);
 		dest.writeParcelable(this.m_player, flags);
+		dest.writeString(this.m_parseId);
 	}
 
 	public static final Parcelable.Creator<ConvocationBean> CREATOR = new Parcelable.Creator<ConvocationBean>() {
@@ -91,4 +106,14 @@ public class ConvocationBean extends BaseBean implements Parcelable {
 			return new ConvocationBean[size];
 		}
 	};
+	
+	public ParseObject getConvocationParseObject() {
+		ParseObject convocationObject = new ParseObject("Convocation");
+		if (m_parseId !=null) {
+			convocationObject.setObjectId(m_parseId);
+		}
+		convocationObject.put(KEY_MATCH, getMatch().getMatchParseObject());
+		convocationObject.put(KEY_PLAYER, getPlayer().getPlayerParseObject());
+		return convocationObject;
+	}
 }
