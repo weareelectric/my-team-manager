@@ -50,6 +50,7 @@ import com.myteammanager.ui.phone.SendMessageFacebookActivity;
 import com.myteammanager.util.DateTimeUtil;
 import com.myteammanager.util.KeyConstants;
 import com.myteammanager.util.StringUtil;
+import com.parse.ParseUser;
 import com.squareup.otto.Subscribe;
 
 public class NewHomeFragment extends BaseFragment implements CheckboxListener,
@@ -64,7 +65,7 @@ public class NewHomeFragment extends BaseFragment implements CheckboxListener,
 	private Button m_buttonNextTrainingEntered;
 	private Button m_messageButton;
 	private Button m_facebookButton;
-	private Button m_helpButton;
+	private Button m_backupButton;
 
 	private TextView m_pointsTextView;
 	private TextView m_playedTextView;
@@ -135,8 +136,8 @@ public class NewHomeFragment extends BaseFragment implements CheckboxListener,
 								new PlayerBean(),
 								"((phone is not null and phone <> '') or (email is not null and email <> '')) and isDeleted=0",
 								true);
-				
-				if ( m_playersWithPhoneOrEmail.size() > 0 ) {
+
+				if (m_playersWithPhoneOrEmail.size() > 0) {
 					PlayerBean selectAllPlayer = new PlayerBean();
 					selectAllPlayer.setIsFakeSelectAll(true);
 					selectAllPlayer
@@ -152,37 +153,43 @@ public class NewHomeFragment extends BaseFragment implements CheckboxListener,
 					alert.setButton(AlertDialog.BUTTON_POSITIVE,
 							getString(R.string.label_ok), NewHomeFragment.this);
 					alert.show();
-				}
-				else {
+				} else {
 					AlertDialog alert = builder.create();
-					alert.setMessage(getResources().getString(R.string.msg_no_players_with_address));
+					alert.setMessage(getResources().getString(
+							R.string.msg_no_players_with_address));
 					alert.show();
 				}
 
-
 			}
 		});
-		
+
 		m_facebookButton = (Button) m_root.findViewById(R.id.buttonFacebook);
 		m_facebookButton.setOnClickListener(new OnClickListener() {
-			
+
 			@Override
 			public void onClick(View arg0) {
-				if ( SettingsManager.getInstance(getSupportActivity()).isFacebookActivated()) {
-					SharedPreferences m_prefs = getSupportActivity().getSharedPreferences(HomePageActivity.SHARED_PREFERENCES_NAME, Activity.MODE_PRIVATE);
-					if ( StringUtil.isNotEmpty(m_prefs.getString("access_token", null))) {
+				if (SettingsManager.getInstance(getSupportActivity())
+						.isFacebookActivated()) {
+					SharedPreferences m_prefs = getSupportActivity()
+							.getSharedPreferences(
+									HomePageActivity.SHARED_PREFERENCES_NAME,
+									Activity.MODE_PRIVATE);
+					if (StringUtil.isNotEmpty(m_prefs.getString("access_token",
+							null))) {
 						Intent intent = new Intent(getActivity(),
 								SendMessageFacebookActivity.class);
 						startActivity(intent);
-					}
-					else {
-						AlertDialog.Builder builder = new AlertDialog.Builder(getActivity()).setMessage(getString(R.string.msg_facebook_auth_required));
+					} else {
+						AlertDialog.Builder builder = new AlertDialog.Builder(
+								getActivity())
+								.setMessage(getString(R.string.msg_facebook_auth_required));
 						builder.show();
 					}
 
-				}
-				else {
-					AlertDialog.Builder builder = new AlertDialog.Builder(getActivity()).setMessage(getString(R.string.msg_suggest_activate_facebook_from_settings));
+				} else {
+					AlertDialog.Builder builder = new AlertDialog.Builder(
+							getActivity())
+							.setMessage(getString(R.string.msg_suggest_activate_facebook_from_settings));
 					builder.show();
 				}
 
@@ -233,8 +240,7 @@ public class NewHomeFragment extends BaseFragment implements CheckboxListener,
 
 			@Override
 			public void onClick(View v) {
-				Intent intent = new Intent(getActivity(),
-						RosterActivity.class);
+				Intent intent = new Intent(getActivity(), RosterActivity.class);
 				startActivity(intent);
 			}
 		});
@@ -254,17 +260,67 @@ public class NewHomeFragment extends BaseFragment implements CheckboxListener,
 				startAddEventListActivity();
 			}
 		});
-		
-		m_helpButton = (Button) m_root
-				.findViewById(R.id.buttonHelp);
-		m_helpButton.setOnClickListener(new OnClickListener() {
-			
+
+		m_backupButton = (Button) m_root.findViewById(R.id.buttonBackup);
+		m_backupButton.setOnClickListener(new OnClickListener() {
+
 			@Override
 			public void onClick(View arg0) {
-				Intent intent = new Intent(getActivity(),
-						HelpActivity.class);
-				startActivity(intent);
-				
+				if (ParseUser.getCurrentUser() == null) {
+					AlertDialog.Builder builder = new AlertDialog.Builder(
+							getActivity())
+							.setMessage(getString(R.string.msg_account_mandatory_for_backup));
+					builder.setPositiveButton(
+							getString(R.string.label_yes),
+							new DialogInterface.OnClickListener() {
+
+								@Override
+								public void onClick(DialogInterface dialog,
+										int which) {
+
+								}
+							});
+					builder.setNegativeButton(
+							getString(R.string.label_no),
+							new DialogInterface.OnClickListener() {
+
+								@Override
+								public void onClick(DialogInterface dialog,
+										int which) {
+
+								}
+							});
+					
+					builder.show();
+
+				} else {
+					AlertDialog.Builder builder = new AlertDialog.Builder(
+							getActivity())
+							.setMessage(getString(R.string.msg_question_backup_or_restore));
+					builder.setPositiveButton(
+							getString(R.string.label_popup_button_backup),
+							new DialogInterface.OnClickListener() {
+
+								@Override
+								public void onClick(DialogInterface dialog,
+										int which) {
+
+								}
+							});
+					builder.setNegativeButton(
+							getString(R.string.label_popup_button_restore),
+							new DialogInterface.OnClickListener() {
+
+								@Override
+								public void onClick(DialogInterface dialog,
+										int which) {
+
+								}
+							});
+					
+					builder.show();
+				}
+
 			}
 		});
 
@@ -275,11 +331,9 @@ public class NewHomeFragment extends BaseFragment implements CheckboxListener,
 
 	public void updateStatsTable() {
 		m_pointsTextView.setText(""
-				+ SettingsManager.getInstance(getActivity())
-						.getPoints());
+				+ SettingsManager.getInstance(getActivity()).getPoints());
 		m_playedTextView.setText(""
-				+ SettingsManager.getInstance(getActivity())
-						.getPlayed());
+				+ SettingsManager.getInstance(getActivity()).getPlayed());
 		m_wonTextView.setText(""
 				+ SettingsManager.getInstance(getActivity()).getWon());
 		m_drawTextView.setText(""
@@ -287,16 +341,13 @@ public class NewHomeFragment extends BaseFragment implements CheckboxListener,
 		m_lostTextView.setText(""
 				+ SettingsManager.getInstance(getActivity()).getLost());
 		m_scoredTextView.setText(""
-				+ SettingsManager.getInstance(getActivity())
-						.getScored());
+				+ SettingsManager.getInstance(getActivity()).getScored());
 		m_againstTextView.setText(""
-				+ SettingsManager.getInstance(getActivity())
-						.getAgainst());
+				+ SettingsManager.getInstance(getActivity()).getAgainst());
 	}
 
 	public void startAddMatchListActivity() {
-		Intent intent = new Intent(getActivity(),
-				MatchesListActivity.class);
+		Intent intent = new Intent(getActivity(), MatchesListActivity.class);
 		startActivity(intent);
 	}
 
@@ -355,8 +406,7 @@ public class NewHomeFragment extends BaseFragment implements CheckboxListener,
 
 	public void changeMatchString() {
 		if (m_nextMatch != null) {
-			String matchString = m_nextMatch
-					.getMatchString(getActivity());
+			String matchString = m_nextMatch.getMatchString(getActivity());
 
 			if (m_nextMatch.getTimestamp() != -1) {
 				matchString += "\n"
@@ -436,8 +486,7 @@ public class NewHomeFragment extends BaseFragment implements CheckboxListener,
 	}
 
 	public void startAddEventListActivity() {
-		Intent intent = new Intent(getActivity(),
-				EventsListActivity.class);
+		Intent intent = new Intent(getActivity(), EventsListActivity.class);
 		startActivity(intent);
 	}
 
@@ -485,25 +534,23 @@ public class NewHomeFragment extends BaseFragment implements CheckboxListener,
 			for (BaseBean bean : m_playersWithPhoneOrEmail) {
 				player = (PlayerBean) bean;
 				if (!player.isFakeSelectAll()) {
-					if ( selectAllPlayer.isRecipient() ) {
+					if (selectAllPlayer.isRecipient()) {
 						player.setIsRecipient(true);
-					}
-					else {
+					} else {
 						player.setIsRecipient(false);
 					}
 				}
 			}
-			
+
 			m_recipientListAdapter.notifyDataSetChanged();
-			
+
 		}
 	}
 
 	@Override
 	public void onClick(DialogInterface dialog, int which) {
 		if (which == AlertDialog.BUTTON_POSITIVE) {
-			Intent intent = new Intent(getActivity(),
-					SendMessageActivity.class);
+			Intent intent = new Intent(getActivity(), SendMessageActivity.class);
 
 			PlayerBean player = null;
 			ArrayList<PlayerBean> selectedRecipients = new ArrayList<PlayerBean>();

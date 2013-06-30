@@ -80,12 +80,12 @@
             android:textSize="14dp" />
 
         <Button
-            android:id="@+id/buttonHelp"
+            android:id="@+id/buttonBackup"
             android:layout_width="0dip"
             android:layout_height="wrap_content"
             android:layout_weight="1.0"
-            android:drawableTop="@drawable/help"
-            android:text="@string/label_help"
+            android:drawableTop="@drawable/backup"
+            android:text="@string/label_backup"
             android:textColor="#555555"
             android:textSize="14dp" />
     </LinearLayout>

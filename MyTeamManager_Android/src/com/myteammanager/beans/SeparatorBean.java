@@ -2,7 +2,10 @@ package com.myteammanager.beans;
 
 import java.util.Comparator;
 
+import com.parse.ParseObject;
+
 import android.content.ContentValues;
+import android.content.Context;
 import android.database.Cursor;
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -68,4 +71,9 @@ public class SeparatorBean extends BaseBean implements Parcelable {
 			return new SeparatorBean[size];
 		}
 	};
+
+	@Override
+	public ParseObject getParseObject(Context context) {
+		return null;
+	}
 }

@@ -2,6 +2,8 @@ package com.myteammanager.beans;
 
 import java.util.Comparator;
 
+import android.content.Context;
+
 import com.parse.ParseObject;
 
 public class SubstitutionBean extends BaseBean {
@@ -84,14 +86,14 @@ public class SubstitutionBean extends BaseBean {
 		return null;
 	}
 	
-	public ParseObject getSubstitutionsParseObject() {
+	public ParseObject getParseObject(Context context) {
 		ParseObject substitutionsObj = new ParseObject("Substitutions");
 		if (m_parseId !=null) {
 			substitutionsObj.setObjectId(m_parseId);
 		}
-		substitutionsObj.put(KEY_PLAYERIN, getPlayerIn().getPlayerParseObject());
-		substitutionsObj.put(KEY_PLAYEROUT, getPlayerOut().getPlayerParseObject());
-		substitutionsObj.put(KEY_MATCH, getMatch().getMatchParseObject());
+		substitutionsObj.put(KEY_PLAYERIN, getPlayerIn().getParseObject(context));
+		substitutionsObj.put(KEY_PLAYEROUT, getPlayerOut().getParseObject(context));
+		substitutionsObj.put(KEY_MATCH, getMatch().getParseObject(context));
 		return substitutionsObj;
 	}
 

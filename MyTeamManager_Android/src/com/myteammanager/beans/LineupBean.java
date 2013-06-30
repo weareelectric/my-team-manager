@@ -4,6 +4,7 @@ import java.util.Comparator;
 
 import com.parse.ParseObject;
 
+import android.content.Context;
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -132,15 +133,15 @@ public class LineupBean extends BaseBean implements Parcelable {
 		return TABLE;
 	}
 	
-	public ParseObject getLineupParseObject() {
+	public ParseObject getParseObject(Context context) {
 		ParseObject lineupObj = new ParseObject("Lineup");
 		if (m_parseId !=null) {
 			lineupObj.setObjectId(m_parseId);
 		}
-		lineupObj.put(KEY_MATCH, getMatch().getMatchParseObject());
+		lineupObj.put(KEY_MATCH, getMatch().getParseObject(context));
 		lineupObj.put(KEY_ID_VIEW, getIdOfCorrespondentView());
 		lineupObj.put(KEY_ON_THE_BENCH, getOnTheBench());
-		lineupObj.put(KEY_PLAYER, getPlayer().getPlayerParseObject());
+		lineupObj.put(KEY_PLAYER, getPlayer().getParseObject(context));
 		return lineupObj;
 	}
 

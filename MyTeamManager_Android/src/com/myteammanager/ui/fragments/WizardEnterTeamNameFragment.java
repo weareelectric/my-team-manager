@@ -67,7 +67,7 @@ public class WizardEnterTeamNameFragment extends BaseFragment implements OnClick
 		}
 		SettingsManager.getInstance(getActivity()).setTeamName(m_teamName.getText().toString());
 		
-		ParseObject myTeam = new TeamBean(-1, SettingsManager.getInstance(getActivity()).getTeamName() ).getMyTeamParseObject();
+		ParseObject myTeam = new TeamBean(-1, SettingsManager.getInstance(getActivity()).getTeamName() ).getParseObject(null);
 		ParseUser.getCurrentUser().put(KeyConstants.FIELD_MYTEAM_USER, myTeam);
 		showProgressDialog(getString(R.string.dialog_waiting_sending_data));
 		ParseUser.getCurrentUser().saveInBackground(new SaveCallback() {

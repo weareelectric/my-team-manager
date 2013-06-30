@@ -67,7 +67,8 @@ public class AddPlayerInfoFromRosterFragment extends AddPlayerInfoFragment {
 	protected void setResultForActivity() {
 		Intent intent = new Intent();
 		intent.putExtra(KeyConstants.KEY_BEANDATA, m_player);
-		getActivity().setResult(KeyConstants.RESULT_BEAN_EDITED, intent);
+		
+		getActivity().setResult(KeyConstants.RESULT_BEAN_ADDED, intent);
 
 	}
 

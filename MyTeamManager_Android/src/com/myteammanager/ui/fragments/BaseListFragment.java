@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.Comparator;
 
 import org.holoeverywhere.LayoutInflater;
+import org.holoeverywhere.app.AlertDialog;
 import org.holoeverywhere.app.ListFragment;
 import org.holoeverywhere.app.ProgressDialog;
 import org.holoeverywhere.widget.Button;
@@ -39,6 +40,8 @@ import com.myteammanager.ui.ButtonsAlertDialogListener;
 import com.myteammanager.ui.quickaction.QuickAction;
 import com.myteammanager.util.KeyConstants;
 import com.myteammanager.util.Log;
+import com.parse.ParseException;
+import com.parse.ParseObject;
 
 public abstract class BaseListFragment extends ListFragment implements OnScrollListener,
 		ButtonsAlertDialogListener {
@@ -127,6 +130,14 @@ public abstract class BaseListFragment extends ListFragment implements OnScrollL
 		newFragment.show(getFragmentManager(), "");
 	}
 
+	protected void showMessageDialog(String message) {
+		AlertDialog.Builder builder = new AlertDialog.Builder(
+				getActivity()).setMessage(message);
+		builder.setPositiveButton(getString(R.string.label_ok),
+				null);
+		builder.show();
+	}
+	
 	protected void registerBroadcasrReceiverForBeanEvents() {
 		m_beanChangeReceiver = new BeanChangeBroadcastReceiver(this);
 		IntentFilter filter = new IntentFilter();
@@ -465,7 +476,9 @@ public abstract class BaseListFragment extends ListFragment implements OnScrollL
 		}
 		
 		if ( m_itemsList.size() == 0 ) {
-			m_searchEditText.setVisibility(View.GONE);
+			if ( m_searchEditText != null ) {
+				m_searchEditText.setVisibility(View.GONE);
+			}
 		}
 		else {
 			

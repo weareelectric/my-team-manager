@@ -14,8 +14,11 @@ import android.view.ViewGroup;
 import org.holoeverywhere.app.Fragment;
 import com.myteammanager.R;
 import com.myteammanager.beans.BaseBean;
+import com.myteammanager.beans.EventBean;
 import com.myteammanager.storage.DBManager;
 import com.myteammanager.ui.ButtonsAlertDialogListener;
+import com.parse.ParseException;
+import com.parse.ParseObject;
 
 public abstract class BaseFragment extends Fragment implements ButtonsAlertDialogListener {
 
@@ -82,6 +85,7 @@ public abstract class BaseFragment extends Fragment implements ButtonsAlertDialo
 				null);
 		builder.show();
 	}
+	
 
 	protected void insertBeans(final ArrayList<? extends BaseBean> beans, final boolean isUpdate) {
 		new AsyncTask<Void, Void, String[]>() {

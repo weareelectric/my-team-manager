@@ -2,7 +2,10 @@ package com.myteammanager.beans;
 
 import java.util.Comparator;
 
+import com.parse.ParseObject;
+
 import android.content.ContentValues;
+import android.content.Context;
 import android.database.Cursor;
 
 public class MenuBean extends BaseBean {
@@ -39,7 +42,11 @@ public class MenuBean extends BaseBean {
 
 	@Override
 	public Comparator getComparator() {
-		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ParseObject getParseObject(Context context) {
 		return null;
 	}
 

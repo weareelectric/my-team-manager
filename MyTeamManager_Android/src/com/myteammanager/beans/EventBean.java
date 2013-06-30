@@ -3,10 +3,15 @@ package com.myteammanager.beans;
 import java.util.Comparator;
 import java.util.Date;
 
+import org.json.JSONObject;
+
 import com.myteammanager.beans.comparators.EventComparator;
+import com.myteammanager.storage.SettingsManager;
 import com.myteammanager.util.DateTimeUtil;
+import com.myteammanager.util.StringUtil;
 
 import android.content.ContentValues;
+import android.content.Context;
 import android.database.Cursor;
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -30,6 +35,7 @@ public class EventBean extends BaseBean implements Parcelable {
 	public static final String KEY_REPEAT = "repeat";
 	public static final String KEY_REPEAT_END_TIME = "repeat_end_time";
 	public static final String KEY_PARENT_EVENT = "parent_event";
+	public static final String KEY_TEAM_FOR_EVENT = "team";
 
 	private int m_key_id;
 	private long m_timestamp;
@@ -220,19 +226,31 @@ public class EventBean extends BaseBean implements Parcelable {
 	}
 	
 	
-	public ParseObject getEventParseObject() {
+	public ParseObject getParseObject(Context context) {
 		ParseObject eventObject = new ParseObject("Event");
 		if (m_parseId !=null) {
 			eventObject.setObjectId(m_parseId);
 		}
 		eventObject.put(KEY_ARRIVAL_TIME, getArrivalTime());
 		eventObject.put(KEY_CANCELED, getCanceled());
-		eventObject.put(KEY_LOCATION, getLocation());
-		eventObject.put(KEY_NOTE, getNote());
-		eventObject.put(KEY_PARENT_EVENT, getParentEvent().getEventParseObject());
+		eventObject.put(KEY_LOCATION, StringUtil.getValue(getLocation()));
+		eventObject.put(KEY_NOTE, StringUtil.getValue(getNote()));
+		if ( getParentEvent() != null ) {
+			eventObject.put(KEY_PARENT_EVENT, getParentEvent().getParseObject(context));
+		}
+		else {
+			eventObject.put(KEY_PARENT_EVENT, JSONObject.NULL);
+		}
+		
+		String userTeamName = SettingsManager.getInstance(context).getTeamName();
+		String userTeamParseId = SettingsManager.getInstance(context).getTeamParseId();
+		
+		eventObject.put(KEY_TEAM_FOR_EVENT,  TeamBean.getParseObjectFor(userTeamParseId, userTeamName));
+		
 		eventObject.put(KEY_REPEAT, getRepeat());
 		eventObject.put(KEY_REPEAT_END_TIME, getRepeatEndDateLong());
 		return eventObject;
 	}
+	
 
 }

@@ -20,14 +20,18 @@ import com.myteammanager.adapter.RosterListAdapter;
 import com.myteammanager.beans.BaseBean;
 import com.myteammanager.beans.PlayerBean;
 import com.myteammanager.beans.SeparatorBean;
+import com.myteammanager.beans.TeamBean;
+import com.myteammanager.data.ParseObjectManager;
 import com.myteammanager.specializedStorage.MyTeamManagerDBManager;
 import com.myteammanager.storage.DBManager;
+import com.myteammanager.storage.SettingsManager;
 import com.myteammanager.ui.phone.AddPlayerInfoFromRosterActivity;
 import com.myteammanager.ui.phone.EditPlayerInfoActivity;
 import com.myteammanager.ui.quickaction.ActionItem;
 import com.myteammanager.ui.quickaction.QuickAction;
 import com.myteammanager.util.KeyConstants;
 import com.myteammanager.util.PlayerAndroidUtil;
+import com.parse.ParseException;
 
 public class RosterFragment extends BaseListFragmentWithSectionHeaders {
 
@@ -84,6 +88,20 @@ public class RosterFragment extends BaseListFragmentWithSectionHeaders {
 		return MyTeamManagerDBManager.getInstance().getListOfBeansWhere(new PlayerBean(), "isDeleted=0", true);
 		// return MyTeamManagerDBManager.getInstance().getListOfBeans(new PlayerBean(), true);
 	}
+	
+//	@Override
+//	protected ArrayList<? extends BaseBean> getData() {
+//		String userTeamName = SettingsManager.getInstance(getActivity()).getTeamName();
+//		String userTeamParseId = SettingsManager.getInstance(getActivity()).getTeamParseId();
+//		
+//		ArrayList<PlayerBean> parseRosterList = null;
+//		try {
+//			parseRosterList = ParseObjectManager.getInstance().getParseRosterList(TeamBean.getParseObjectFor(userTeamParseId, userTeamName));
+//		} catch (ParseException e) {
+//			e.printStackTrace();
+//		}
+//		return parseRosterList;
+//	}
 
 
 	@Override

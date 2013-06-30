@@ -19,6 +19,8 @@ import com.parse.ParseObject;
 
 public class PlayerBean extends BaseBean implements Parcelable {
 
+	public static final String PARSE_PLAYER_OBJECT = "Player";
+
 	public static final String TABLE = "players";
 	
 	public static final String KEY_NAME = "name";
@@ -370,8 +372,8 @@ public class PlayerBean extends BaseBean implements Parcelable {
 			return false;
 	}
 	
-	public ParseObject getPlayerParseObject() {
-		ParseObject playerObj = new ParseObject("Player");
+	public ParseObject getParseObject(Context context) {
+		ParseObject playerObj = new ParseObject(PARSE_PLAYER_OBJECT);
 		if (m_parseId !=null) {
 			playerObj.setObjectId(m_parseId);
 		}
@@ -386,6 +388,22 @@ public class PlayerBean extends BaseBean implements Parcelable {
 		playerObj.put(KEY_GAME_PLAYED, getGamePlayed());
 		playerObj.put(KEY_IS_DELETED, getIsDeleted());
 		return playerObj;
+	}
+	
+	public static PlayerBean getBeanFrom(ParseObject parseObj) {
+		PlayerBean player = new PlayerBean();
+		player.setParseId(parseObj.getObjectId());
+		player.setName(parseObj.getString(KEY_NAME));
+		player.setLastName(parseObj.getString(KEY_LASTNAME));
+		player.setRole(parseObj.getInt(KEY_ROLE_ID));
+		player.setBirthDate(DateTimeUtil.getDateFromLong(parseObj.getLong(KEY_BIRTHDATE_ID)));
+		player.setEmail(parseObj.getString(KEY_EMAIL));
+		player.setPhone(parseObj.getString(KEY_PHONE));
+		player.setShirtNumber(parseObj.getInt(KEY_SHIRT_NUMBER));
+		player.setGoalScored(parseObj.getInt(KEY_GOAL_SCORED));
+		player.setGamePlayed(parseObj.getInt(KEY_GAME_PLAYED));
+		player.setIsDeleted(parseObj.getInt(KEY_IS_DELETED));
+		return player;
 	}
 
 }

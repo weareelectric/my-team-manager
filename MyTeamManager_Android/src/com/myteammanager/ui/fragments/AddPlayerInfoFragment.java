@@ -60,7 +60,6 @@ public class AddPlayerInfoFragment extends BaseTwoButtonActionsFormFragment  {
 
 	private String[] m_multiplePhones;
 
-	private ParseObject m_playerParseObject;
 
 
 
@@ -179,6 +178,9 @@ public class AddPlayerInfoFragment extends BaseTwoButtonActionsFormFragment  {
 		if (StringUtil.isNotEmpty(m_playerLastName.getText().toString())) {
 			savePlayer(true);
 		}
+		else {
+			setResultAndExit();
+		}
 
 
 		
@@ -254,50 +256,24 @@ public class AddPlayerInfoFragment extends BaseTwoButtonActionsFormFragment  {
 	}
 
 	protected void storePlayerInfo(final boolean update, final boolean exitAfter) {
-		showProgressDialog(getString(R.string.dialog_waiting_sending_data));
-		m_playerParseObject = m_player.getPlayerParseObject();
-		m_playerParseObject.put(PlayerBean.KEY_TEAM, ParseUser.getCurrentUser()
-				.get(KeyConstants.FIELD_MYTEAM_USER));
-		m_playerParseObject.saveInBackground(new SaveCallback() {
 
-			@Override
-			public void done(ParseException e) {
-				if (e == null) {
-					Log.d(LOG_TAG,
-							"ParseId: " + m_playerParseObject.getObjectId());
-					Log.d(LOG_TAG, "playerId: " + m_player.getId());
-					m_player.setParseId(m_playerParseObject.getObjectId());
-					if (update) {
-						DBManager.getInstance().updateBean(m_player);
-					} else {
-						DBManager.getInstance().storeBean(m_player);
-					}
-					cancelProgressDialog();
-					Log.d(LOG_TAG,
-							"Stored player: "
-									+ PlayerAndroidUtil.toString(getActivity(),
-											m_player));
-					
+		if (update) {
+			DBManager.getInstance().updateBean(m_player);
+		} else {
+			DBManager.getInstance().storeBean(m_player);
+		}
+		Log.d(LOG_TAG,
+				"Stored player: "
+						+ PlayerAndroidUtil.toString(getActivity(), m_player));
 
-					if ( exitAfter ) {
-						getActivity().setResult(
-								MyTeamManagerActivity.RESULT_ENTER_PLAYERS_LIST_DONE);
-						getActivity().finish();
-					}
-					else {
-						nextActionAfterPlayerStoring();
-					}
-					
-					
-				} else {
-					cancelProgressDialog();
-					showMessageDialog(e.getMessage());
-				}
-
-			}
-		});
+		if (exitAfter) {
+			setResultAndExit();
+		} else {
+			nextActionAfterPlayerStoring();
+		}
 
 	}
+
 
 
 	@Override
@@ -385,6 +361,12 @@ public class AddPlayerInfoFragment extends BaseTwoButtonActionsFormFragment  {
 	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
 		super.onCreateOptionsMenu(menu, inflater);
 		m_menuItem1.setEnabled(true);
+	}
+
+	protected void setResultAndExit() {
+		getActivity().setResult(
+				MyTeamManagerActivity.RESULT_ENTER_PLAYERS_LIST_DONE);
+		getActivity().finish();
 	}
 	
 	

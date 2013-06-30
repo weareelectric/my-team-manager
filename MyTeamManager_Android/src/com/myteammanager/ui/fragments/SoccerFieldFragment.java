@@ -39,8 +39,11 @@ import com.myteammanager.ui.quickaction.ActionItem;
 import com.myteammanager.ui.quickaction.QuickAction;
 import com.myteammanager.util.KeyConstants;
 import com.myteammanager.util.PlayerUtil;
+import com.parse.ParseException;
+import com.parse.ParseObject;
+import com.parse.SaveCallback;
 
-public class SoccerFieldFragment extends Fragment implements OnClickListener, OnLongClickListener {
+public class SoccerFieldFragment extends BaseFragment implements OnClickListener, OnLongClickListener {
 
 	private static final String LOG_TAG = SoccerFieldFragment.class.getName();
 
@@ -67,6 +70,8 @@ public class SoccerFieldFragment extends Fragment implements OnClickListener, On
 	private View m_playerViewBeingDelete;
 
 	private EditTeamLineUpActivity m_chooseLineUpActivity;
+
+	private LineupBean m_lineupBean;
 
 	public SoccerFieldFragment() {
 		super();
@@ -194,11 +199,22 @@ public class SoccerFieldFragment extends Fragment implements OnClickListener, On
 		return m_ratioHeight;
 	}
 
-	private void addPlayer(PlayerBean player) {
+	private void addPlayer(final PlayerBean player) {
 
-		LineupBean lineupBean = addPlayerOnTheScreen(player);
+		showProgressDialog(getString(R.string.dialog_waiting_sending_data));
+		m_lineupBean = addPlayerOnTheScreen(player);
 
-		DBManager.getInstance().storeBean(lineupBean);
+		DBManager.getInstance().storeBean(m_lineupBean);
+		// Remove the player from the list because already chosen
+		m_playersConvocatedOrInTheRoster.remove(player);
+		Collections.sort(m_playersConvocatedOrInTheRoster,
+				player.getComparator());
+
+		m_chooseLineUpActivity
+				.updateNotSelectedTextView(m_playersConvocatedOrInTheRoster);
+
+		cancelProgressDialog();
+
 	}
 
 	public LineupBean addPlayerOnTheScreen(PlayerBean player) {
@@ -348,12 +364,6 @@ public class SoccerFieldFragment extends Fragment implements OnClickListener, On
 
 			PlayerBean player = (PlayerBean) data.getExtras().get(KeyConstants.KEY_PLAYER);
 			addPlayer(player);
-
-			// Remove the player from the list because already chosen
-			m_playersConvocatedOrInTheRoster.remove(player);
-			Collections.sort(m_playersConvocatedOrInTheRoster, player.getComparator());
-
-			m_chooseLineUpActivity.updateNotSelectedTextView(m_playersConvocatedOrInTheRoster);
 			break;
 		}
 	}
@@ -436,6 +446,24 @@ public class SoccerFieldFragment extends Fragment implements OnClickListener, On
 		}
 
 		return false;
+	}
+
+	@Override
+	public void button2Pressed(int alertId) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void button3Pressed(int alertId) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void button1Pressed(int alertId) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

@@ -26,4 +26,5 @@ public class StringUtil {
 	    Pattern pattern = Patterns.EMAIL_ADDRESS;
 	    return pattern.matcher(email).matches();
 	}
+	
 }

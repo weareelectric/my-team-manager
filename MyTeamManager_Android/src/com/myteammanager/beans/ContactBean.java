@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import java.util.Comparator;
 
 import com.myteammanager.util.DateTimeUtil;
+import com.parse.ParseObject;
 
+import android.content.Context;
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -160,6 +162,11 @@ public class ContactBean extends BaseBean implements Parcelable {
 	@Override
 	public int describeContents() {
 		return 0;
+	}
+
+	@Override
+	public ParseObject getParseObject(Context context) {
+		return null;
 	}
 	
 	

@@ -268,4 +268,9 @@
 	
 	
 	<string name="message_ask_registration_for_existent">This new version requires you to create your account. This will allow you to safely store all your team\'s information on the server. For example, you won\'t lost your data in case of phone change. All the stored data will be used strictly inside your "My Team Manager" application, no other use will be done without your permissions.</string>
+	<string name="label_backup">Backup</string>
+	<string name="msg_account_mandatory_for_backup">You need to have an account to store and restore all your team data on the server. Would you like to continue?</string>
+	<string name="msg_question_backup_or_restore">Would you like to backup all or recover the already stored information from the server?</string>
+	<string name="label_popup_button_backup">Backup</string>
+	<string name="label_popup_button_restore">Restore</string>
 </resources>

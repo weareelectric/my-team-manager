@@ -4,6 +4,7 @@ import java.util.Comparator;
 
 import com.parse.ParseObject;
 
+import android.content.Context;
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -118,13 +119,13 @@ public class ScorerBean extends BaseBean implements Parcelable {
 		}
 	};
 	
-	public ParseObject getScorerParseObject() {
+	public ParseObject getParseObject(Context context) {
 		ParseObject scorerObj = new ParseObject("Scorer");
 		if (m_parseId !=null) {
 			scorerObj.setObjectId(m_parseId);
 		}
-		scorerObj.put(KEY_MATCH, getMatch().getMatchParseObject());
-		scorerObj.put(KEY_PLAYER, getPlayer().getPlayerParseObject());
+		scorerObj.put(KEY_MATCH, getMatch().getParseObject(context));
+		scorerObj.put(KEY_PLAYER, getPlayer().getParseObject(context));
 		return scorerObj;
 	}
 

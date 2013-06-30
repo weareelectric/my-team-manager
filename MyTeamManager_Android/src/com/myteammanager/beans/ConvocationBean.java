@@ -107,13 +107,13 @@ public class ConvocationBean extends BaseBean implements Parcelable {
 		}
 	};
 	
-	public ParseObject getConvocationParseObject() {
+	public ParseObject getParseObject(Context context) {
 		ParseObject convocationObject = new ParseObject("Convocation");
 		if (m_parseId !=null) {
 			convocationObject.setObjectId(m_parseId);
 		}
-		convocationObject.put(KEY_MATCH, getMatch().getMatchParseObject());
-		convocationObject.put(KEY_PLAYER, getPlayer().getPlayerParseObject());
+		convocationObject.put(KEY_MATCH, getMatch().getParseObject(context));
+		convocationObject.put(KEY_PLAYER, getPlayer().getParseObject(context));
 		return convocationObject;
 	}
 }

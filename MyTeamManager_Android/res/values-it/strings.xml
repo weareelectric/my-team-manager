@@ -267,4 +267,9 @@
 	<string name="msg_login_facebook_error">L\'accesso Facebook é fallito. Se hai già autorizzato "My Team Manager", vai su Facebook erimuovi l\'applicazione accedendo alla sezione parametri. Altrimenti crea un account "My Team Manager" cliccando sul bottone in basso</string>
 	
 	<string name="message_ask_registration_for_existent">Questa nuova versione richiede la creazione di un profilo. Questo permetterà di memorizzare in maniera protetta i tuoi dati sul server. Per esempio, potrai recuperare i dati se cambi telefono. Tutti i dati salvati saranno usati esclusivamente per permettere l\'esecuzione della tua applicazione "My Team Manager". Non sarà fatto nessun altro utilizzo senza il tuo consenso esplicito.</string>
+	<string name="label_backup">Backup</string>
+	<string name="msg_account_mandatory_for_backup">Devi avere un account per salvare tutti i dati sul server. Vuoi continuare?</string>
+	<string name="msg_question_backup_or_restore">Vuoi salvare tutti i tuoi dati sul server o recuperare quelli già salvati?</string>
+	<string name="label_popup_button_backup">Salva</string>
+	<string name="label_popup_button_restore">Recupera</string>
 </resources>

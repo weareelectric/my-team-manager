@@ -12,6 +12,7 @@ import org.holoeverywhere.widget.EditText;
 import org.holoeverywhere.widget.LinearLayout;
 import org.holoeverywhere.widget.Spinner;
 import org.holoeverywhere.widget.TextView;
+import org.json.JSONObject;
 
 import android.content.Context;
 import android.content.Intent;
@@ -44,6 +45,9 @@ import com.myteammanager.util.DeleteMatchManager;
 import com.myteammanager.util.EventDeleteConfirmationManager;
 import com.myteammanager.util.KeyConstants;
 import com.myteammanager.util.StringUtil;
+import com.parse.ParseException;
+import com.parse.ParseObject;
+import com.parse.SaveCallback;
 import com.squareup.otto.Subscribe;
 
 public class AddEventInfoFragment extends BaseTwoButtonActionsFormFragment {
@@ -94,6 +98,10 @@ public class AddEventInfoFragment extends BaseTwoButtonActionsFormFragment {
 	private Menu m_menu;
 	private EventBean m_parentEvent;
 	private Context m_context;
+
+	private EventBean m_eventObjToSave;
+	private MatchBean m_matchObjToSave;
+	private boolean m_notifyForResult = false;
 
 	public AddEventInfoFragment() {
 		super(R.layout.fragment_edit_event);
@@ -261,7 +269,6 @@ public class AddEventInfoFragment extends BaseTwoButtonActionsFormFragment {
 		setEventOrMatchView();
 
 		MyTeamManagerActivity.getBus().register(this);
-		MyTeamManagerActivity.getBus().register(this);
 
 		return m_root;
 	}
@@ -319,10 +326,9 @@ public class AddEventInfoFragment extends BaseTwoButtonActionsFormFragment {
 
 	protected void performActionsAndExit() {
 		
-		// If the button save is enabled user entered some valid info. Save player 
 		saveEvent();
 
-		notifyForResult();
+		m_notifyForResult = true;
 
 	}
 
@@ -364,60 +370,6 @@ public class AddEventInfoFragment extends BaseTwoButtonActionsFormFragment {
 			}
 			populatePracticeObject(m_event);
 			storeMainEventInfo(m_event);
-			
-
-			// create and store repeated events
-			int dayRepeatInterval = -1;
-			if (m_eventRepeatSpinner.getSelectedItemPosition() == SPINNER_REPEAT_DAILY_POSITION) {
-				dayRepeatInterval = 1;
-			} else if (m_eventRepeatSpinner.getSelectedItemPosition() == SPINNER_REPEAT_WEEKLY_POSITION) {
-				dayRepeatInterval = 7;
-			}
-			if (!m_isUpdate && dayRepeatInterval != -1) {
-				ArrayList<Date> datesForRepeatedEvents = DateTimeUtil.getDatesStartingFromToWithInterval(
-						m_event.getTimestamp(), m_event.getRepeatEndDate().getTime(), dayRepeatInterval);
-				for (Date date : datesForRepeatedEvents) {
-					Log.d(LOG_TAG, "Date: " + date.toString());
-					Log.d(LOG_TAG, "Parent event: : " + m_parentEvent);
-					EventBean childevent = new EventBean();
-					childevent.setParentEvent(m_parentEvent);
-					populatePracticeObject(childevent);
-
-					// Now change the value because this is an event repeated
-					childevent.setRepeat(SPINNER_REPEAT_NONE_POSITION);
-					childevent.setRepeatEndDate(null);
-					childevent.setTimestamp(date.getTime());
-
-					if (m_repeatedEvents == null) {
-						m_repeatedEvents = new ArrayList<EventBean>();
-					}
-
-					m_repeatedEvents.add(childevent);
-
-				}
-
-			}
-
-			if (m_repeatedEvents != null) {
-				// the activity will be closed after the list of events is stored and the notify result is called in doActionAfetrInsertBeans
-				storeEventsList(m_repeatedEvents);
-			} else {
-				Intent intent = new Intent();
-				intent.putExtra(KeyConstants.KEY_BEANDATA, m_event);
-
-				int resultCode = KeyConstants.RESULT_BEAN_ADDED;
-
-				if (m_isUpdate) {
-					resultCode = KeyConstants.RESULT_BEAN_EDITED;
-				}
-
-				getActivity().setResult(resultCode, intent);
-				
-				notifyForResult();
-
-				MyTeamManagerActivity.getBus().post(new EventOrMatchChanged());
-				getActivity().finish();
-			}
 
 		} else {
 			if (m_match == null) {
@@ -426,8 +378,49 @@ public class AddEventInfoFragment extends BaseTwoButtonActionsFormFragment {
 
 			populateMatchObject();
 			storeMainEventInfo(m_match);
+		}
 
-			MyTeamManagerActivity.getBus().post(new EventOrMatchChanged());
+	}
+
+	protected void createAndStoreRepeatedEventsIfNeeded() {
+		// create and store repeated events
+		int dayRepeatInterval = -1;
+		if (m_eventRepeatSpinner.getSelectedItemPosition() == SPINNER_REPEAT_DAILY_POSITION) {
+			dayRepeatInterval = 1;
+		} else if (m_eventRepeatSpinner.getSelectedItemPosition() == SPINNER_REPEAT_WEEKLY_POSITION) {
+			dayRepeatInterval = 7;
+		}
+		if (!m_isUpdate && dayRepeatInterval != -1) {
+			ArrayList<Date> datesForRepeatedEvents = DateTimeUtil.getDatesStartingFromToWithInterval(
+					m_event.getTimestamp(), m_event.getRepeatEndDate().getTime(), dayRepeatInterval);
+			for (Date date : datesForRepeatedEvents) {
+				Log.d(LOG_TAG, "Date: " + date.toString());
+				Log.d(LOG_TAG, "Parent event: : " + m_parentEvent);
+				EventBean childevent = new EventBean();
+				childevent.setParentEvent(m_parentEvent);
+				populatePracticeObject(childevent);
+
+				// Now change the value because this is an event repeated
+				childevent.setRepeat(SPINNER_REPEAT_NONE_POSITION);
+				childevent.setRepeatEndDate(null);
+				childevent.setTimestamp(date.getTime());
+
+				if (m_repeatedEvents == null) {
+					m_repeatedEvents = new ArrayList<EventBean>();
+				}
+
+				m_repeatedEvents.add(childevent);
+
+			}
+
+		}
+
+		if (m_repeatedEvents != null) {
+			// the activity will be closed after the list of events is stored and the notify result is called in doActionAfetrInsertBeans
+			storeEventsList(m_repeatedEvents);
+		} else {
+			Intent intent = new Intent();
+			intent.putExtra(KeyConstants.KEY_BEANDATA, m_event);
 
 			int resultCode = KeyConstants.RESULT_BEAN_ADDED;
 
@@ -435,16 +428,13 @@ public class AddEventInfoFragment extends BaseTwoButtonActionsFormFragment {
 				resultCode = KeyConstants.RESULT_BEAN_EDITED;
 			}
 
-			Intent intent = new Intent();
-			intent.putExtra(KeyConstants.KEY_BEANDATA, m_match);
+			getActivity().setResult(resultCode, intent);
 			
 			notifyForResult();
 
-			getActivity().setResult(resultCode, intent);
-
+			MyTeamManagerActivity.getBus().post(new EventOrMatchChanged());
 			getActivity().finish();
 		}
-
 	}
 
 	protected void resetObjectAndInterface() {
@@ -579,11 +569,43 @@ public class AddEventInfoFragment extends BaseTwoButtonActionsFormFragment {
 		if (m_isUpdate) {
 			DBManager.getInstance().updateBean(bean);
 		} else {
-			long id = DBManager.getInstance().storeBean(bean);
-			if (m_parentEvent == null)
-				m_parentEvent = new EventBean();
-			m_parentEvent.setId((int) id);
+			if ( m_isEvent ) {
+				storeEventOnCloudAndLocally(bean);
+			}
+			else {
+				storeMatchOnCloudAndLocally(bean);
+			}
 		}
+	}
+
+	protected void storeMatchOnCloudAndLocally(BaseBean bean) {
+		m_matchObjToSave = (MatchBean) bean;
+
+		DBManager.getInstance().storeBean(m_match);
+
+		MyTeamManagerActivity.getBus().post(new EventOrMatchChanged());
+
+		notifyForResult();
+
+		getActivity().finish();
+
+	}
+
+	protected void storeEventOnCloudAndLocally(BaseBean bean) {
+		m_eventObjToSave = (EventBean) bean;
+
+		long id = DBManager.getInstance().storeBean(m_eventObjToSave);
+		if (m_parentEvent == null)
+			m_parentEvent = new EventBean();
+		m_parentEvent.setId((int) id);
+		cancelProgressDialog();
+
+		createAndStoreRepeatedEventsIfNeeded();
+
+		if (m_notifyForResult) {
+			notifyForResult();
+		}
+
 	}
 
 	protected void storeEventsList(ArrayList<? extends BaseBean> beans) {

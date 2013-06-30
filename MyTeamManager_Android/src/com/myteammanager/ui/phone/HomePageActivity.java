@@ -211,6 +211,12 @@ public class HomePageActivity extends BaseSinglePaneActivity implements Facebook
 			Intent intent = new Intent(this, PreferenceActvity.class);
 			startActivityForResult(intent, KeyConstants.CODE_SETTINGS_ACTIVIY);
 			break;
+			
+		case R.id.menu_help:
+			intent = new Intent(this,
+					HelpActivity.class);
+			startActivity(intent);
+			break;
 		}
 		return true;
 	}

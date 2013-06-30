@@ -3,9 +3,12 @@ package com.myteammanager.beans;
 import java.util.Comparator;
 import java.util.Date;
 
+import org.json.JSONObject;
+
 import com.myteammanager.beans.comparators.MatchComparator;
 import com.myteammanager.storage.SettingsManager;
 import com.myteammanager.util.DateTimeUtil;
+import com.myteammanager.util.StringUtil;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -23,19 +26,20 @@ public class MatchBean extends BaseBean implements Parcelable {
 	public static final int TYPE_HOME = 0;
 	public static final int TYPE_AWAY = 1;
 	
-	public String KEY_TEAM1 = "team1";
-	public String KEY_TEAM2 = "team2";
-	public String KEY_TIMESTAMP = "timestamp";
-	public String KEY_LOCATION = "location";
-	public String KEY_NOTE = "note";
-	public String KEY_HOMEAWAYTYPE = "homeawaytype";
-	public String KEY_CANCELED = "canceled";
-	public String KEY_NUMBER_PLAYER_CONVOCATED = "numconvocated";
-	public String KEY_LINEUP_CONFIGURED = "lineup_configured";
-	public String KEY_RESULT_ENTERED = "result_entered";
-	public String KEY_GOALHOME = "goalhome";
-	public String KEY_GOALAWAY = "goalaway";
-	public String KEY_APPOINTEMENTPLACEANDTIME = "appointementplaceandtime";
+	public static final String KEY_TEAM1 = "team1";
+	public static final String KEY_TEAM2 = "team2";
+	public static final String KEY_TIMESTAMP = "timestamp";
+	public static final String KEY_LOCATION = "location";
+	public static final String KEY_NOTE = "note";
+	public static final String KEY_HOMEAWAYTYPE = "homeawaytype";
+	public static final String KEY_CANCELED = "canceled";
+	public static final String KEY_NUMBER_PLAYER_CONVOCATED = "numconvocated";
+	public static final String KEY_LINEUP_CONFIGURED = "lineup_configured";
+	public static final String KEY_RESULT_ENTERED = "result_entered";
+	public static final String KEY_GOALHOME = "goalhome";
+	public static final String KEY_GOALAWAY = "goalaway";
+	public static final String KEY_APPOINTEMENTPLACEANDTIME = "appointementplaceandtime";
+	public static final String KEY_USER_TEAM = "user_team";
 
 	private int m_key_id;
 	private TeamBean m_team1;
@@ -303,30 +307,36 @@ public class MatchBean extends BaseBean implements Parcelable {
 		
 	}
 	
-	public ParseObject getMatchParseObject() {
+	public ParseObject getParseObject(Context context) {
 		ParseObject matchObj = new ParseObject("Match");
 		if (m_parseId !=null) {
 			matchObj.setObjectId(m_parseId);
 		}
-		matchObj.put(KEY_APPOINTEMENTPLACEANDTIME, getAppointmentPlaceAndTime());
+		matchObj.put(KEY_APPOINTEMENTPLACEANDTIME, StringUtil.getValue(getAppointmentPlaceAndTime()));
 		matchObj.put(KEY_CANCELED, getCanceled());
 		matchObj.put(KEY_GOALAWAY, getGoalAway());
 		matchObj.put(KEY_GOALHOME, getGoalHome());
 		matchObj.put(KEY_HOMEAWAYTYPE, getHomeAwayType());
 		matchObj.put(KEY_LINEUP_CONFIGURED, getLineupConfigured());
-		matchObj.put(KEY_LOCATION, getLocation());
-		matchObj.put(KEY_NOTE, getNote());
+		matchObj.put(KEY_LOCATION, StringUtil.getValue(getLocation()));
+		matchObj.put(KEY_NOTE, StringUtil.getValue(getNote()));
 		matchObj.put(KEY_NUMBER_PLAYER_CONVOCATED, getNumberOfPlayerConvocated());
 		matchObj.put(KEY_RESULT_ENTERED, getResultEntered());
+		
+		String userTeamName = SettingsManager.getInstance(context).getTeamName();
+		String userTeamParseId = SettingsManager.getInstance(context).getTeamParseId();
+		
 		if ( getTeam1() != null )
-			matchObj.put(KEY_TEAM1, getTeam1());
+			matchObj.put(KEY_TEAM1, getTeam1().getParseObject(null));
 		else 
-			matchObj.put(KEY_TEAM1, null);
+			matchObj.put(KEY_TEAM1, TeamBean.getParseObjectFor(userTeamParseId, userTeamName));
 		if ( getTeam2() != null )
-			matchObj.put(KEY_TEAM2, getTeam2());
+			matchObj.put(KEY_TEAM2, getTeam2().getParseObject(null));
 		else 
-			matchObj.put(KEY_TEAM2, null);
+			matchObj.put(KEY_TEAM2, TeamBean.getParseObjectFor(userTeamParseId, userTeamName));
 		matchObj.put(KEY_TIMESTAMP, getTimestamp());
+		
+		matchObj.put(KEY_USER_TEAM, TeamBean.getParseObjectFor(userTeamParseId, userTeamName));
 		
 		return matchObj;
 	}
